@@ -1,0 +1,293 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ТурбоСервер — хостинг-провайдер</title>
+    <link rel="stylesheet" href="{% static 'hosting/css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'hosting/css/home.css' %}">
+</head>
+<body>
+
+<header class="header">
+    <div class="container header-inner">
+        <div class="logo">ТУРБОСЕРВЕР</div>
+
+        <nav class="nav">
+            <a class="active" href="/">Главная</a>
+            <a href="/pricing/">Тарифы</a>
+            <a href="/services/">Услуги</a>
+            <a href="/domains/">Домены</a>
+            <a href="/about/">О нас</a>
+            <a href="/support/">Поддержка</a>
+        </nav>
+
+        <div class="header-actions">
+            <a class="small-btn" href="/login/">Вход</a>
+            <a class="small-btn" href="/register/">Регистрация</a>
+        </div>
+    </div>
+</header>
+
+<main>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-card">
+                <div class="hero-overlay">
+                    <h1>Облачная платформа с широким выбором IT-сервисов</h1>
+                    <a href="/pricing/" class="hero-button">Перейти к тарифам</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="advantages">
+        <div class="container">
+            <h2>Наши преимущества</h2>
+
+            <div class="advantages-grid">
+                <article class="advantage">
+                    <div class="advantage-title">
+                        <span class="icon">
+                            <img src="{% static 'hosting/icons/clock.svg' %}" alt="Высокий аптайм">
+                        </span>
+                        <h3>Высокий аптайм</h3>
+                    </div>
+                    <p>Стабильная работа серверов 24/7 с минимальными простоями. Ваш сайт остаётся доступным для пользователей в любое время.</p>
+                </article>
+
+                <article class="advantage">
+                    <div class="advantage-title">
+                        <span class="icon">
+                            <img src="{% static 'hosting/icons/help-circle.svg' %}" alt="Быстрая поддержка">
+                        </span>
+                        <h3>Быстрая поддержка</h3>
+                    </div>
+                    <p>Специалисты поддержки готовы помочь с настройкой услуг, переносом сайта и решением технических вопросов в кратчайшие сроки.</p>
+                </article>
+
+                <article class="advantage">
+                    <div class="advantage-title">
+                        <span class="icon">
+                            <img src="{% static 'hosting/icons/settings.svg' %}" alt="Простое управление">
+                        </span>
+                        <h3>Простое управление</h3>
+                    </div>
+                    <p>Удобная панель управления позволяет быстро настраивать тариф, домены, файлы и базы данных без лишних действий.</p>
+                </article>
+
+                <article class="advantage">
+                    <div class="advantage-title">
+                        <span class="icon">
+                            <img src="{% static 'hosting/icons/shield.svg' %}" alt="Защита данных">
+                        </span>
+                        <h3>Защита данных</h3>
+                    </div>
+                    <p>Используются современные меры безопасности, резервное копирование и защита серверной инфраструктуры для сохранности данных.</p>
+                </article>
+
+                <article class="advantage">
+                    <div class="advantage-title">
+                        <span class="icon">
+                            <img src="{% static 'hosting/icons/sliders.svg' %}" alt="Гибкие тарифы">
+                        </span>
+                        <h3>Гибкие тарифы</h3>
+                    </div>
+                    <p>Можно выбрать подходящую конфигурацию под личный сайт, интернет-магазин или корпоративный проект без переплаты за лишние ресурсы.</p>
+                </article>
+
+                <article class="advantage">
+                    <div class="advantage-title">
+                        <span class="icon">
+                            <img src="{% static 'hosting/icons/zap.svg' %}" alt="Быстрый запуск">
+                        </span>
+                        <h3>Быстрый запуск</h3>
+                    </div>
+                    <p>Подключение услуги и начало работы занимают минимум времени, что позволяет быстро запустить проект без долгой настройки.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="search-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Найти подходящий тариф</h2>
+                <p>Поиск выполняется по данным из базы: названию, описанию и параметрам тарифа.</p>
+            </div>
+
+            <form class="search-form" method="get">
+                <input type="text" name="q" value="{{ query }}" placeholder="Например: Бизнес, SSD, безлимит">
+                <button type="submit">Найти</button>
+            </form>
+
+            {% if search_results is not None %}
+                <div class="search-results">
+                    <h3>Результаты поиска</h3>
+
+                    {% if search_results %}
+                        <div class="tariff-grid">
+                            {% for tariff in search_results %}
+                                <article class="tariff-card">
+                                    <h3>
+                                        <a href="/pricing/#tariff-{{ tariff.id }}">{{ tariff.title }}</a>
+                                    </h3>
+                                    <p>{{ tariff.description|truncatechars:100 }}</p>
+                                    <ul>
+                                        <li>CPU: {{ tariff.cpu_cores }} ядра</li>
+                                        <li>RAM: {{ tariff.ram_gb }} ГБ</li>
+                                        <li>Диск: {{ tariff.storage_gb }} ГБ</li>
+                                    </ul>
+                                    <strong>{{ tariff.price_monthly }} ₽/мес</strong>
+                                </article>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p>По вашему запросу ничего не найдено.</p>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <section class="tariffs-section">
+        <div class="container">
+            <div class="section-title row-title">
+                <div>
+                    <h2>Рекомендуемые тарифы</h2>
+                    <p>Данные карточек формируются из таблицы Tariff.</p>
+                </div>
+                <a href="/pricing/">Все тарифы</a>
+            </div>
+
+            <div class="tariff-grid">
+                {% for tariff in recommended_tariffs %}
+                    <article class="tariff-card">
+                        {% if tariff.is_recommended %}
+                            <span class="badge">Рекомендуем</span>
+                        {% endif %}
+
+                        <h3>
+                            <a href="/pricing/#tariff-{{ tariff.id }}">
+                                {{ tariff.title }}
+                            </a>
+                        </h3>
+
+                        <p>{{ tariff.description|truncatechars:100 }}</p>
+
+                        <ul>
+                            <li>CPU: {{ tariff.cpu_cores }} ядра</li>
+                            <li>RAM: {{ tariff.ram_gb }} ГБ</li>
+                            <li>Диск: {{ tariff.storage_gb }} ГБ</li>
+                            <li>Трафик: {{ tariff.traffic }}</li>
+                        </ul>
+
+                        <div class="price">{{ tariff.price_monthly }} ₽/мес</div>
+                        <a class="primary-btn" href="/pricing/#tariff-{{ tariff.id }}">Выбрать</a>
+                    </article>
+                {% empty %}
+                    <p>Тарифы пока не добавлены.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Платформа в цифрах</h2>
+                <p>Этот блок использует агрегатные запросы COUNT, AVG и SUM.</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <strong>{{ stats.users_count }}</strong>
+                    <span>пользователей</span>
+                </div>
+
+                <div class="stat-card">
+                    <strong>{{ stats.servers_count }}</strong>
+                    <span>серверов создано</span>
+                </div>
+
+                <div class="stat-card">
+                    <strong>{{ stats.active_tariffs_count }}</strong>
+                    <span>активных тарифов</span>
+                </div>
+
+                <div class="stat-card">
+                    <strong>{{ stats.avg_price|floatformat:0 }}</strong>
+                    <span>средняя цена, ₽</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="servers-section">
+        <div class="container">
+            <div class="section-title row-title">
+                <div>
+                    <h2>Последние созданные серверы</h2>
+                    <p>Демонстрация MVP: серверы имеют тариф, владельца и статус.</p>
+                </div>
+                <a href="/dashboard/servers/">Личный кабинет</a>
+            </div>
+
+            <div class="server-list">
+                {% for server in latest_servers %}
+                    <div class="server-row">
+                        <div>
+                            <strong>
+                                <a href="/server/{{ server.id }}/">
+                                    {{ server.ip_address }}
+                                </a>
+                            </strong>
+                            <p>{{ server.tariff.title }} · {{ server.user.email }}</p>
+                        </div>
+
+                        <div class="server-meta">
+                            <span class="status status-{{ server.status.name }}">{{ server.status.name }}</span>
+                            <p>до {{ server.expires_at|date:"d.m.Y" }}</p>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p>Серверы пока не созданы.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section">
+        <div class="container">
+            <h2>Свяжитесь с нами</h2>
+            <p>Если у вас возникли вопросы по нашему сервису и вы бы хотели получить дополнительную информацию по нашим услугам</p>
+
+            <form class="contact-form">
+                <div class="form-row">
+                    <input type="text" placeholder="Имя">
+                    <input type="email" placeholder="Почта">
+                    <input type="text" placeholder="Телефон">
+                </div>
+
+                <textarea placeholder="Ваше сообщение"></textarea>
+
+                <div class="form-button">
+                    <button type="button">Отправить</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <strong>ТУРБОСЕРВЕР</strong>
+    </div>
+</footer>
+
+</body>
+</html>

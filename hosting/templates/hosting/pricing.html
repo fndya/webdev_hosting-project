@@ -1,0 +1,99 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тарифы — ТурбоСервер</title>
+    <link rel="stylesheet" href="{% static 'hosting/css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'hosting/css/pricing.css' %}">
+</head>
+<body>
+
+<header class="header">
+    <div class="container header-inner">
+        <a href="/" class="logo">ТУРБОСЕРВЕР</a>
+
+        <nav class="nav">
+            <a href="/">Главная</a>
+            <a class="active" href="/pricing/">Тарифы</a>
+            <a href="#">Услуги</a>
+            <a href="#">Домены</a>
+            <a href="#">О нас</a>
+            <a href="#">Поддержка</a>
+        </nav>
+
+        <div class="header-actions">
+            <a class="small-btn" href="/login/">Вход</a>
+            <a class="small-btn" href="/register/">Регистрация</a>
+        </div>
+    </div>
+</header>
+
+<main class="pricing-page">
+    <div class="container">
+        <h1 class="page-title">Тарифы</h1>
+
+        <div class="pricing-grid">
+            {% for tariff in tariffs %}
+                <article class="pricing-card" id="tariff-{{ tariff.id }}">
+                    {% if tariff.is_recommended %}
+                        <span class="pricing-badge">Рекомендуем</span>
+                    {% endif %}
+
+                    <h2>{{ tariff.title }}</h2>
+
+                    <div class="tariff-row">
+                        <span class="tariff-icon">▣</span>
+                        <strong>Регион</strong>
+                        <span>Россия</span>
+                    </div>
+
+                    <div class="tariff-row">
+                        <span class="tariff-icon">▣</span>
+                        <strong>ЦП</strong>
+                        <span>{{ tariff.cpu_cores }} ядра</span>
+                    </div>
+
+                    <div class="tariff-row">
+                        <span class="tariff-icon">▣</span>
+                        <strong>ОЗУ</strong>
+                        <span>{{ tariff.ram_gb }} ГБ</span>
+                    </div>
+
+                    <div class="tariff-row">
+                        <span class="tariff-icon">▣</span>
+                        <strong>Диск</strong>
+                        <span>{{ tariff.storage_gb }} ГБ</span>
+                    </div>
+
+                    <div class="tariff-row">
+                        <span class="tariff-icon">▣</span>
+                        <strong>Трафик</strong>
+                        <span>{{ tariff.traffic }}</span>
+                    </div>
+
+                    <div class="tariff-row">
+                        <span class="tariff-icon">▣</span>
+                        <strong>Цена</strong>
+                        <span>{{ tariff.price_monthly }} ₽/мес</span>
+                    </div>
+
+                    <a class="card-buy-btn" href="/cart/?tariff={{ tariff.id }}">Купить</a>
+                </article>
+            {% empty %}
+                <p>Тарифы пока не добавлены.</p>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <strong>ТУРБОСЕРВЕР</strong>
+    </div>
+</footer>
+
+</body>
+</html>
