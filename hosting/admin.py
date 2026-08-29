@@ -220,6 +220,7 @@ class ContactRequestAdmin(admin.ModelAdmin):
         "phone",
         "status",
         "handled_by",
+        "short_message",
         "created_at",
     )
     list_display_links = ("id", "email")
