@@ -45,41 +45,56 @@
                     <h2>{{ tariff.title }}</h2>
 
                     <div class="tariff-row">
-                        <span class="tariff-icon">▣</span>
+                        <span class="tariff-icon">
+                            <img src="{% static 'hosting/icons/region.svg' %}">
+                        </span>
                         <strong>Регион</strong>
                         <span>Россия</span>
                     </div>
 
                     <div class="tariff-row">
-                        <span class="tariff-icon">▣</span>
+                        <span class="tariff-icon">
+                            <img src="{% static 'hosting/icons/cpu.svg' %}">
+                        </span>
                         <strong>ЦП</strong>
                         <span>{{ tariff.cpu_cores }} ядра</span>
                     </div>
 
                     <div class="tariff-row">
-                        <span class="tariff-icon">▣</span>
+                        <span class="tariff-icon">
+                            <img src="{% static 'hosting/icons/ram.svg' %}">
+                        </span>
                         <strong>ОЗУ</strong>
                         <span>{{ tariff.ram_gb }} ГБ</span>
                     </div>
 
                     <div class="tariff-row">
-                        <span class="tariff-icon">▣</span>
+                        <span class="tariff-icon">
+                            <img src="{% static 'hosting/icons/storage.svg' %}">
+                        </span>
                         <strong>Диск</strong>
                         <span>{{ tariff.storage_gb }} ГБ</span>
                     </div>
 
                     <div class="tariff-row">
-                        <span class="tariff-icon">▣</span>
+                        <span class="tariff-icon">
+                            <img src="{% static 'hosting/icons/traffic.svg' %}">
+                        </span>
                         <strong>Трафик</strong>
                         <span>{{ tariff.traffic }}</span>
                     </div>
 
                     <div class="tariff-row">
-                        <span class="tariff-icon">▣</span>
+                        <span class="tariff-icon">
+                            <img src="{% static 'hosting/icons/pricetag.svg' %}">
+                        </span>
                         <strong>Цена</strong>
                         <span>{{ tariff.price_monthly }} ₽/мес</span>
                     </div>
 
+                    <a class="card-details-btn" href="{{ tariff.get_absolute_url }}">
+                        Подробнее
+                    </a>
                     <a class="card-buy-btn" href="/cart/?tariff={{ tariff.id }}">Купить</a>
                 </article>
             {% empty %}

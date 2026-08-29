@@ -1,5 +1,5 @@
 from django.db.models import Avg, Sum, Q
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from .models import Tariff, Server, User, Order, ContactRequest
 
@@ -60,12 +60,22 @@ def home(request):
     return render(request, "hosting/index.html", context)
 
 def pricing(request):
-    tariffs = (
-        Tariff.objects
-        .filter(is_active=True)
-        .order_by("price_monthly")
-    )
+    tariffs = Tariff.active.all()
 
     return render(request, "hosting/pricing.html", {
         "tariffs": tariffs,
     })
+
+def tariff_detail(request, tariff_id):
+    tariff = get_object_or_404(
+        Tariff.active,
+        id=tariff_id
+    )
+
+    return render(
+        request,
+        "hosting/tariff_detail.html",
+        {
+            "tariff": tariff,
+        }
+    )

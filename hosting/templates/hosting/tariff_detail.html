@@ -1,0 +1,133 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>{{ tariff.title }} — ТурбоСервер</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'hosting/css/base.css' %}"
+    >
+    <link
+        rel="stylesheet"
+        href="{% static 'hosting/css/pricing.css' %}"
+    >
+</head>
+
+<body>
+
+<header class="header">
+    <div class="container header-inner">
+
+        <a href="/" class="logo">
+            ТУРБОСЕРВЕР
+        </a>
+
+        <nav class="nav">
+            <a href="/">Главная</a>
+            <a class="active" href="/pricing/">Тарифы</a>
+            <a href="#">Услуги</a>
+            <a href="#">Домены</a>
+            <a href="#">О нас</a>
+            <a href="#">Поддержка</a>
+        </nav>
+
+        <div class="header-actions">
+            <a class="small-btn" href="/login/">Вход</a>
+            <a class="small-btn" href="/register/">Регистрация</a>
+        </div>
+
+    </div>
+</header>
+
+
+<main class="pricing-page">
+
+    <div class="container">
+
+        <a
+            href="{% url 'hosting:pricing' %}"
+            class="card-details-btn"
+        >
+            ← Назад к тарифам
+        </a>
+
+        <article class="pricing-card">
+
+            {% if tariff.is_recommended %}
+                <span class="pricing-badge">
+                    Рекомендуем
+                </span>
+            {% endif %}
+
+            <h1>{{ tariff.title }}</h1>
+
+            {% if tariff.description %}
+                <p>
+                    {{ tariff.description }}
+                </p>
+            {% endif %}
+
+            <div class="tariff-row">
+                <strong>ЦП</strong>
+                <span>
+                    {{ tariff.cpu_cores }} ядра
+                </span>
+            </div>
+
+            <div class="tariff-row">
+                <strong>ОЗУ</strong>
+                <span>
+                    {{ tariff.ram_gb }} ГБ
+                </span>
+            </div>
+
+            <div class="tariff-row">
+                <strong>Диск</strong>
+                <span>
+                    {{ tariff.storage_gb }} ГБ
+                </span>
+            </div>
+
+            <div class="tariff-row">
+                <strong>Трафик</strong>
+                <span>
+                    {{ tariff.traffic }}
+                </span>
+            </div>
+
+            <div class="tariff-row">
+                <strong>Цена</strong>
+                <span>
+                    {{ tariff.price_monthly }} ₽/мес
+                </span>
+            </div>
+
+            <a
+                class="card-buy-btn"
+                href="/cart/?tariff={{ tariff.id }}"
+            >
+                Купить тариф
+            </a>
+
+        </article>
+
+    </div>
+
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <strong>ТУРБОСЕРВЕР</strong>
+    </div>
+</footer>
+
+</body>
+</html>

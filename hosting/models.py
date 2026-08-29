@@ -1,8 +1,5 @@
 from django.db import models
-
-# Create your models here.
-from django.db import models
-
+from django.urls import reverse
 
 class Role(models.Model):
     name = models.CharField(
@@ -125,6 +122,9 @@ class Image(models.Model):
     def __str__(self):
         return self.alt_text or self.url
 
+class ActiveTariffManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(is_active=True)
 
 class Tariff(models.Model):
     title = models.CharField(
@@ -198,12 +198,22 @@ class Tariff(models.Model):
         verbose_name="Дата изменения"
     )
 
+    objects = models.Manager()
+    active = ActiveTariffManager()
+
     class Meta:
         verbose_name = "Тариф"
         verbose_name_plural = "Тарифы"
+        ordering = ["price_monthly"]
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse(
+            "hosting:tariff_detail",
+            kwargs={"tariff_id": self.id}
+        )
 
 
 class Server(models.Model):
