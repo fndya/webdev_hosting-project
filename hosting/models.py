@@ -210,10 +210,7 @@ class Tariff(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse(
-            "hosting:tariff_detail",
-            kwargs={"tariff_id": self.id}
-        )
+        return reverse("tariff_detail", kwargs={"tariff_id": self.id})
 
 
 class Server(models.Model):

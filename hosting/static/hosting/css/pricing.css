@@ -89,10 +89,30 @@
     white-space: nowrap;
 }
 
-.card-buy-btn {
+.card-details-btn {
     width: 170px;
     height: 35px;
     margin: 22px auto 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #E1E5EE;
+    color: #232F48;
+    border: 1px solid #4A5163;
+    border-radius: 6px;
+    box-shadow: 0 4px 6px rgba(35, 47, 72, 0.18);
+    font-size: 16px;
+    font-weight: 900;
+}
+
+.card-details-btn:hover {
+    background: #ffffff;
+}
+
+.card-buy-btn {
+    width: 170px;
+    height: 35px;
+    margin: 10px auto 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -114,13 +134,68 @@
     }
 }
 
-@media (max-width: 650px) {
-    .pricing-grid {
-        grid-template-columns: 1fr;
+@media (max-width: 800px) {
+    .page-title {
+        font-size: 34px;
+    }
+
+    .pricing-card {
+        padding: 20px;
     }
 
     .tariff-row strong,
     .tariff-row span:last-child {
         font-size: 20px;
+    }
+}
+
+@media (max-width: 650px) {
+    .pricing-page {
+        padding: 18px 0;
+    }
+
+    .page-title {
+        font-size: 32px;
+        margin-bottom: 16px;
+    }
+
+    .pricing-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .pricing-card {
+        min-height: auto;
+        padding: 20px 16px;
+    }
+
+    .pricing-card h2 {
+        font-size: 15px;
+        margin-bottom: 20px;
+    }
+
+    .tariff-row {
+        grid-template-columns: 24px 1fr;
+        gap: 8px;
+        margin-bottom: 14px;
+    }
+
+    .tariff-row span:last-child {
+        grid-column: 2;
+        font-size: 18px;
+        white-space: normal;
+    }
+
+    .tariff-row strong {
+        font-size: 20px;
+    }
+
+    .tariff-icon {
+        grid-row: span 2;
+    }
+
+    .card-details-btn,
+    .card-buy-btn {
+        width: 100%;
     }
 }

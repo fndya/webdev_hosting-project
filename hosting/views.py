@@ -68,14 +68,13 @@ def pricing(request):
 
 def tariff_detail(request, tariff_id):
     tariff = get_object_or_404(
-        Tariff.active,
-        id=tariff_id
+        Tariff.objects.prefetch_related("features", "images"),
+        id=tariff_id,
+        is_active=True
     )
 
     return render(
         request,
         "hosting/tariff_detail.html",
-        {
-            "tariff": tariff,
-        }
+        {"tariff": tariff}
     )
