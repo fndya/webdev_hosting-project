@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.utils import timezone
 
 class Role(models.Model):
     name = models.CharField(
@@ -263,6 +264,9 @@ class Server(models.Model):
 
     def __str__(self):
         return f"{self.ip_address} — {self.user.email}"
+
+    def is_expired(self):
+        return self.expires_at < timezone.now()
 
 
 class Order(models.Model):

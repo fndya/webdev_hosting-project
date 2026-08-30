@@ -1,4 +1,5 @@
 {% load static %}
+{% load hosting_tags %}
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -34,6 +35,9 @@
 <main class="pricing-page">
     <div class="container">
         <h1 class="page-title">Тарифы</h1>
+        <p class="current-page">
+            Текущая страница: {% current_path %}
+        </p>
 
         <div class="pricing-grid">
             {% for tariff in tariffs %}
@@ -89,7 +93,7 @@
                             <img src="{% static 'hosting/icons/pricetag.svg' %}">
                         </span>
                         <strong>Цена</strong>
-                        <span>{{ tariff.price_monthly }} ₽/мес</span>
+                        <span>{{ tariff.price_monthly|floatformat:0 }} ₽/мес</span>
                     </div>
 
                     <a class="card-details-btn" href="{{ tariff.get_absolute_url }}">
@@ -101,12 +105,28 @@
                 <p>Тарифы пока не добавлены.</p>
             {% endfor %}
         </div>
+        {% if tariffs.has_other_pages %}
+            <div class="pagination">
+                {% if tariffs.has_previous %}
+                    <a href="?page={{ tariffs.previous_page_number }}">← Назад</a>
+                {% endif %}
+
+                <span>
+                    Страница {{ tariffs.number }} из {{ tariffs.paginator.num_pages }}
+                </span>
+
+                {% if tariffs.has_next %}
+                    <a href="?page={{ tariffs.next_page_number }}">Вперёд →</a>
+                {% endif %}
+            </div>
+        {% endif %}
     </div>
 </main>
 
 <footer class="footer">
     <div class="container">
         <strong>ТУРБОСЕРВЕР</strong>
+        <span>© {% current_year %}</span>
     </div>
 </footer>
 

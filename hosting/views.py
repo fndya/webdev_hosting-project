@@ -1,5 +1,8 @@
 from django.db.models import Avg, Sum, Q
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.hashers import make_password, check_password
+from .forms import RegisterForm, LoginForm
 
 from .models import Tariff, Server, User, Order, ContactRequest
 
@@ -60,7 +63,18 @@ def home(request):
     return render(request, "hosting/index.html", context)
 
 def pricing(request):
-    tariffs = Tariff.active.all()
+    tariffs_list = Tariff.active.all()
+
+    paginator = Paginator(tariffs_list, 6)
+
+    page_number = request.GET.get("page")
+
+    try:
+        tariffs = paginator.page(page_number)
+    except PageNotAnInteger:
+        tariffs = paginator.page(1)
+    except EmptyPage:
+        tariffs = paginator.page(paginator.num_pages)
 
     return render(request, "hosting/pricing.html", {
         "tariffs": tariffs,
@@ -78,3 +92,68 @@ def tariff_detail(request, tariff_id):
         "hosting/tariff_detail.html",
         {"tariff": tariff}
     )
+
+def register(request):
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
+
+        if form.is_valid():
+            user = form.save()
+
+            request.session["user_id"] = user.id
+            request.session["user_name"] = user.name
+
+            return redirect("home")
+    else:
+        form = RegisterForm()
+
+    return render(
+        request,
+        "hosting/register.html",
+        {
+            "form": form,
+        }
+    )
+
+def login_view(request):
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+
+        if form.is_valid():
+            email = form.cleaned_data["email"]
+            password = form.cleaned_data["password"]
+
+            try:
+                user = User.objects.get(email=email)
+
+                if check_password(password, user.password_hash):
+                    request.session["user_id"] = user.id
+                    request.session["user_name"] = user.name
+
+                    return redirect("home")
+
+                form.add_error(
+                    "password",
+                    "Неверный пароль."
+                )
+
+            except User.DoesNotExist:
+                form.add_error(
+                    "email",
+                    "Пользователь не найден."
+                )
+    else:
+        form = LoginForm()
+
+    return render(
+        request,
+        "hosting/login.html",
+        {
+            "form": form,
+        }
+    )
+
+def logout_view(request):
+    request.session.flush()
+
+    return redirect("home")

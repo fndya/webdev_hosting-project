@@ -64,7 +64,7 @@
 
                     {% if tariff.description %}
                         <p class="tariff-description">
-                            {{ tariff.description }}
+                            {{ tariff.description|default:"Описание тарифа отсутствует" }}
                         </p>
                     {% endif %}
                 </div>
