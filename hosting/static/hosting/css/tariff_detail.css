@@ -1,0 +1,23 @@
+.tariff-images {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.tariff-images img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+@media (max-width: 650px) {
+    .tariff-images {
+        grid-template-columns: 1fr;
+    }
+
+    .tariff-images img {
+        height: 220px;
+    }
+}

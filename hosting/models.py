@@ -91,7 +91,15 @@ class TariffFeature(models.Model):
 
 
 class Image(models.Model):
+    image_file = models.ImageField(
+        upload_to="images/",
+        blank=True,
+        null=True,
+        verbose_name="Файл изображения"
+    )
+    
     url = models.URLField(
+        blank=True,
         verbose_name="URL изображения"
     )
     alt_text = models.CharField(

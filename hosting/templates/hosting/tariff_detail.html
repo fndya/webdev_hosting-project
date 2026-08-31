@@ -213,10 +213,17 @@
 
                     {% for image in tariff.images.all %}
 
-                        <img
-                            src="{{ image.url }}"
-                            alt="{{ image.alt_text }}"
-                        >
+                        {% if image.image_file %}
+                            <img
+                                src="{{ image.image_file.url }}"
+                                alt="{{ image.alt_text }}"
+                            >
+                        {% elif image.url %}
+                            <img
+                                src="{{ image.url }}"
+                                alt="{{ image.alt_text }}"
+                            >
+                        {% endif %}
 
                     {% endfor %}
 
