@@ -135,6 +135,28 @@ class ActiveTariffManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(is_active=True)
 
+class TariffFeatureAssignment(models.Model):
+    tariff = models.ForeignKey(
+        "Tariff",
+        on_delete=models.CASCADE,
+        related_name="feature_assignments",
+        verbose_name="Тариф"
+    )
+    feature = models.ForeignKey(
+        TariffFeature,
+        on_delete=models.CASCADE,
+        related_name="tariff_assignments",
+        verbose_name="Характеристика"
+    )
+
+    class Meta:
+        verbose_name = "Характеристика тарифа"
+        verbose_name_plural = "Характеристики тарифов"
+        unique_together = ("tariff", "feature")
+
+    def __str__(self):
+        return f"{self.tariff} — {self.feature}"
+
 class Tariff(models.Model):
     title = models.CharField(
         max_length=100,
@@ -172,6 +194,7 @@ class Tariff(models.Model):
     )
     features = models.ManyToManyField(
         TariffFeature,
+        through="TariffFeatureAssignment",
         blank=True,
         related_name="tariffs",
         verbose_name="Характеристики"
@@ -217,6 +240,10 @@ class Tariff(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        self.title = self.title.strip()
+        super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse("tariff_detail", kwargs={"tariff_id": self.id})

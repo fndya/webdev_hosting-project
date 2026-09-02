@@ -1,23 +1,411 @@
+/* =========================
+   TARIFF DETAIL PAGE
+   ========================= */
+
+.tariff-detail-page {
+    padding: 34px 0 80px;
+}
+
+
+/* =========================
+   BACK LINK
+   ========================= */
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+
+    margin-bottom: 22px;
+
+    color: #042CC6;
+
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================
+   MAIN CARD
+   ========================= */
+
+.tariff-detail-card {
+    background: #ffffff;
+
+    border: 1px solid #4A5163;
+    border-radius: 8px;
+
+    padding: 34px 38px;
+
+    box-shadow: 0 8px 20px rgba(35, 47, 72, 0.12);
+}
+
+
+/* =========================
+   HEADER
+   ========================= */
+
+.tariff-detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    gap: 40px;
+
+    padding-bottom: 30px;
+
+    border-bottom: 1px solid #E1E5EE;
+}
+
+.tariff-detail-header h1 {
+    margin: 14px 0 12px;
+
+    color: #232F48;
+
+    font-size: 36px;
+    line-height: 1.1;
+    font-weight: 900;
+}
+
+.tariff-description {
+    max-width: 620px;
+
+    margin: 0;
+
+    color: #4A5163;
+
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+
+/* =========================
+   PRICE
+   ========================= */
+
+.tariff-detail-price {
+    min-width: 180px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: flex-end;
+
+    padding-top: 6px;
+}
+
+.tariff-detail-price strong {
+    color: #042CC6;
+
+    font-size: 34px;
+    line-height: 1;
+
+    font-weight: 900;
+}
+
+.tariff-detail-price span {
+    margin-top: 7px;
+
+    color: #4A5163;
+
+    font-size: 14px;
+}
+
+
+/* =========================
+   SPECIFICATIONS
+   ========================= */
+
+.tariff-detail-specs {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 14px 40px;
+
+    padding: 30px 0;
+}
+
+.tariff-detail-row {
+    display: grid;
+
+    grid-template-columns: 30px 1fr auto;
+
+    align-items: center;
+
+    gap: 12px;
+
+    min-height: 48px;
+
+    padding: 8px 0;
+
+    border-bottom: 1px solid #E1E5EE;
+}
+
+.tariff-detail-row strong {
+    color: #232F48;
+
+    font-size: 16px;
+    font-weight: 900;
+}
+
+.tariff-detail-row > span:last-child {
+    color: #4A5163;
+
+    font-size: 16px;
+
+    white-space: nowrap;
+}
+
+
+/* =========================
+   FEATURES
+   ========================= */
+
+.tariff-features-section {
+    padding: 30px 0;
+
+    border-top: 1px solid #E1E5EE;
+}
+
+.tariff-features-section h2 {
+    margin: 0 0 22px;
+
+    color: #232F48;
+
+    font-size: 26px;
+    font-weight: 900;
+}
+
+.tariff-features {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 18px;
+}
+
+.tariff-feature {
+    background: #E1E5EE;
+
+    border-radius: 6px;
+
+    padding: 20px;
+}
+
+.tariff-feature h3 {
+    margin: 0 0 8px;
+
+    color: #232F48;
+
+    font-size: 17px;
+    font-weight: 900;
+}
+
+.tariff-feature p {
+    margin: 0;
+
+    color: #4A5163;
+
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+
+/* =========================
+   IMAGES
+   ========================= */
+
 .tariff-images {
     display: grid;
+
     grid-template-columns: repeat(2, 1fr);
+
     gap: 20px;
+
     margin-top: 30px;
 }
 
 .tariff-images img {
+    display: block;
+
     width: 100%;
     height: 280px;
+
     object-fit: cover;
+
     border-radius: 8px;
+
+    border: 1px solid #4A5163;
 }
 
+
+/* =========================
+   ACTIONS
+   ========================= */
+
+.tariff-detail-actions {
+    display: flex;
+    justify-content: flex-end;
+
+    padding-top: 30px;
+
+    margin-top: 30px;
+
+    border-top: 1px solid #E1E5EE;
+}
+
+.tariff-detail-actions .card-buy-btn {
+    width: 220px;
+    height: 48px;
+
+    margin: 0;
+
+    background: #042CC6;
+
+    font-size: 16px;
+}
+
+.tariff-detail-actions .card-buy-btn:hover {
+    background: #232F48;
+}
+
+
+/* =========================
+   TABLET
+   ========================= */
+
+@media (max-width: 800px) {
+
+    .tariff-detail-card {
+        padding: 28px 24px;
+    }
+
+    .tariff-detail-header {
+        flex-direction: column;
+
+        gap: 20px;
+    }
+
+    .tariff-detail-header h1 {
+        font-size: 30px;
+    }
+
+    .tariff-detail-price {
+        align-items: flex-start;
+    }
+
+    .tariff-detail-specs {
+        grid-template-columns: 1fr;
+
+        gap: 0;
+    }
+
+    .tariff-features {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
 @media (max-width: 650px) {
+
+    .tariff-detail-page {
+        padding: 18px 0 50px;
+    }
+
+    .back-link {
+        margin-bottom: 16px;
+
+        font-size: 14px;
+    }
+
+    .tariff-detail-card {
+        padding: 22px 16px;
+
+        border-radius: 7px;
+    }
+
+    .tariff-detail-header {
+        padding-bottom: 22px;
+    }
+
+    .tariff-detail-header h1 {
+        margin-top: 12px;
+
+        font-size: 26px;
+    }
+
+    .tariff-description {
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+    .tariff-detail-price strong {
+        font-size: 30px;
+    }
+
+    .tariff-detail-specs {
+        padding: 20px 0;
+    }
+
+    .tariff-detail-row {
+        grid-template-columns: 28px 1fr;
+
+        gap: 9px;
+
+        padding: 10px 0;
+    }
+
+    .tariff-detail-row > span:last-child {
+        grid-column: 2;
+
+        font-size: 14px;
+
+        white-space: normal;
+    }
+
+    .tariff-detail-row strong {
+        font-size: 15px;
+    }
+
+    .tariff-features-section {
+        padding: 22px 0;
+    }
+
+    .tariff-features-section h2 {
+        font-size: 21px;
+    }
+
+    .tariff-feature {
+        padding: 16px;
+    }
+
     .tariff-images {
         grid-template-columns: 1fr;
+
+        gap: 14px;
+
+        margin-top: 20px;
     }
 
     .tariff-images img {
         height: 220px;
+    }
+
+    .tariff-detail-actions {
+        padding-top: 22px;
+        margin-top: 20px;
+    }
+
+    .tariff-detail-actions .card-buy-btn {
+        width: 100%;
+        height: 48px;
     }
 }

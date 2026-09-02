@@ -1,7 +1,6 @@
 from django import forms
 from django.contrib.auth.hashers import make_password
-from .models import User, Role
-
+from .models import User, Role, Tariff
 
 class RegisterForm(forms.ModelForm):
     password = forms.CharField(
@@ -54,9 +53,9 @@ class RegisterForm(forms.ModelForm):
             self.cleaned_data["password"]
         )
 
-        user.role = Role.objects.get_or_create(
-            name="Пользователь"
-        )[0]
+        user.role = Role.objects.get(
+            name="user"
+        )
 
         if commit:
             user.save()
@@ -73,3 +72,70 @@ class LoginForm(forms.Form):
         label="Пароль",
         widget=forms.PasswordInput()
     )
+
+class TariffForm(forms.ModelForm):
+    class Meta:
+        model = Tariff
+        fields = (
+            "title",
+            "description",
+            "cpu_cores",
+            "ram_gb",
+            "storage_gb",
+            "traffic",
+            "price_monthly",
+            "is_recommended",
+            "is_active",
+            "features",
+            "images",
+        )
+
+        widgets = {
+            "title": forms.TextInput(
+                attrs={
+                    "placeholder": "Название тарифа",
+                }
+            ),
+            "description": forms.Textarea(
+                attrs={
+                    "rows": 5,
+                    "placeholder": "Описание тарифа",
+                }
+            ),
+            "cpu_cores": forms.NumberInput(
+                attrs={
+                    "min": 1,
+                }
+            ),
+            "ram_gb": forms.NumberInput(
+                attrs={
+                    "min": 1,
+                }
+            ),
+            "storage_gb": forms.NumberInput(
+                attrs={
+                    "min": 1,
+                }
+            ),
+            "traffic": forms.TextInput(
+                attrs={
+                    "placeholder": "Например, 500 ГБ",
+                }
+            ),
+            "price_monthly": forms.NumberInput(
+                attrs={
+                    "step": "0.01",
+                    "min": 0,
+                }
+            ),
+            "features": forms.SelectMultiple(
+                attrs={
+                    "size": 6,
+                }
+            ),
+            "images": forms.SelectMultiple(
+                attrs={
+                    "size": 6,
+                }
+            ),
+        }

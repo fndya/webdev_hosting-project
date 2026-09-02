@@ -2,9 +2,16 @@ from django.db.models import Avg, Sum, Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.hashers import make_password, check_password
-from .forms import RegisterForm, LoginForm
+from .forms import RegisterForm, LoginForm, TariffForm
 
-from .models import Tariff, Server, User, Order, ContactRequest
+from .models import (
+    Tariff,
+    Server,
+    User,
+    Order,
+    ContactRequest,
+    TariffFeatureAssignment,
+)
 
 
 def home(request):
@@ -93,6 +100,100 @@ def tariff_detail(request, tariff_id):
         {"tariff": tariff}
     )
 
+def tariff_create(request):
+    if not admin_required(request):
+        return redirect("pricing")
+
+    user = get_current_user(request)
+
+    if request.method == "POST":
+        form = TariffForm(request.POST)
+
+        if form.is_valid():
+            tariff = form.save(commit=False)
+
+            tariff.created_by = user
+            tariff.updated_by = user
+
+            tariff.save()
+
+            for feature in form.cleaned_data["features"]:
+                TariffFeatureAssignment.objects.create(
+                    tariff=tariff,
+                    feature=feature
+                )
+
+            return redirect(tariff.get_absolute_url())
+    else:
+        form = TariffForm()
+
+    return render(
+        request,
+        "hosting/tariff_form.html",
+        {
+            "form": form,
+            "title": "Создание тарифа",
+        }
+    )
+
+def tariff_edit(request, tariff_id):
+    if not admin_required(request):
+        return redirect("pricing")
+
+    user = get_current_user(request)
+
+    tariff = get_object_or_404(Tariff, id=tariff_id)
+
+    if request.method == "POST":
+        form = TariffForm(request.POST, instance=tariff)
+
+        if form.is_valid():
+            tariff = form.save(commit=False)
+
+            tariff.updated_by = user
+
+            tariff.save()
+
+            tariff.feature_assignments.all().delete()
+
+            for feature in form.cleaned_data["features"]:
+                TariffFeatureAssignment.objects.create(
+                    tariff=tariff,
+                    feature=feature
+                )
+
+            return redirect(tariff.get_absolute_url())
+    else:
+        form = TariffForm(instance=tariff)
+
+    return render(
+        request,
+        "hosting/tariff_form.html",
+        {
+            "form": form,
+            "title": "Редактирование тарифа",
+            "tariff": tariff,
+        }
+    )
+
+def tariff_delete(request, tariff_id):
+    if not admin_required(request):
+        return redirect("pricing")
+
+    tariff = get_object_or_404(Tariff, id=tariff_id)
+
+    if request.method == "POST":
+        tariff.delete()
+        return redirect("pricing")
+
+    return render(
+        request,
+        "hosting/tariff_confirm_delete.html",
+        {
+            "tariff": tariff,
+        },
+    )
+
 def register(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
@@ -157,3 +258,24 @@ def logout_view(request):
     request.session.flush()
 
     return redirect("home")
+
+def get_current_user(request):
+    user_id = request.session.get("user_id")
+
+    if not user_id:
+        return None
+
+    try:
+        return User.objects.select_related("role").get(id=user_id)
+    except User.DoesNotExist:
+        return None
+
+
+def admin_required(request):
+    user = get_current_user(request)
+
+    return bool(
+        user and
+        user.role and
+        user.role.name == "admin"
+    )

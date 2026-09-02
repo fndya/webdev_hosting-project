@@ -1,0 +1,108 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ title }} — ТурбоСервер</title>
+
+    <link rel="stylesheet" href="{% static 'hosting/css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'hosting/css/pricing.css' %}">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="container header-inner">
+
+        <a href="/" class="logo">
+            ТУРБОСЕРВЕР
+        </a>
+
+        <nav class="nav">
+            <a href="/">Главная</a>
+            <a class="active" href="/pricing/">Тарифы</a>
+        </nav>
+
+        <div class="header-actions">
+            <a class="small-btn" href="/logout/">Выйти</a>
+        </div>
+
+    </div>
+</header>
+
+
+<main class="pricing-page">
+
+    <div class="container">
+
+        <a href="{% url 'pricing' %}" class="back-link">
+            ← Вернуться к тарифам
+        </a>
+
+        <h1 class="page-title">
+            {{ title }}
+        </h1>
+
+        <div class="tariff-form-card">
+
+            <form method="post">
+
+                {% csrf_token %}
+
+                {{ form.non_field_errors }}
+
+                {% for field in form %}
+                    <div class="tariff-form-field">
+
+                        {{ field.label_tag }}
+
+                        {{ field }}
+
+                        {% if field.help_text %}
+                            <small>{{ field.help_text }}</small>
+                        {% endif %}
+
+                        {% for error in field.errors %}
+                            <div class="form-error">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                {% endfor %}
+
+                <div class="tariff-form-actions">
+
+                    <button type="submit" class="primary-btn">
+                        Сохранить
+                    </button>
+
+                    <a
+                        href="{% url 'pricing' %}"
+                        class="card-details-btn"
+                    >
+                        Отмена
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<footer class="footer">
+    <div class="container">
+        <strong>ТУРБОСЕРВЕР</strong>
+    </div>
+</footer>
+
+</body>
+</html>

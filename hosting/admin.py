@@ -122,7 +122,7 @@ class TariffAdmin(admin.ModelAdmin):
     list_display_links = ("id", "title")
     list_filter = ("is_recommended", "is_active", "created_at")
     search_fields = ("title", "description", "traffic")
-    filter_horizontal = ("features", "images")
+    filter_horizontal = ("images",)
     raw_id_fields = ("created_by", "updated_by")
     readonly_fields = ("created_at", "updated_at")
     date_hierarchy = "created_at"
