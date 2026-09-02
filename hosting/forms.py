@@ -74,6 +74,10 @@ class LoginForm(forms.Form):
     )
 
 class TariffForm(forms.ModelForm):
+    new_image = forms.ImageField(
+        label="Добавить новое изображение",
+        required=False,
+    )
     class Meta:
         model = Tariff
         fields = (

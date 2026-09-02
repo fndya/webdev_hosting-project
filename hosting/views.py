@@ -11,6 +11,7 @@ from .models import (
     Order,
     ContactRequest,
     TariffFeatureAssignment,
+    Image,
 )
 
 
@@ -107,7 +108,7 @@ def tariff_create(request):
     user = get_current_user(request)
 
     if request.method == "POST":
-        form = TariffForm(request.POST)
+        form = TariffForm(request.POST, request.FILES)
 
         if form.is_valid():
             tariff = form.save(commit=False)
@@ -116,6 +117,17 @@ def tariff_create(request):
             tariff.updated_by = user
 
             tariff.save()
+            tariff.images.set(form.cleaned_data["images"])
+            new_image = form.cleaned_data.get("new_image")
+
+            if new_image:
+                image = Image.objects.create(
+                    image_file=new_image,
+                    image_type="tariff",
+                    uploaded_by=user,
+                )
+
+                tariff.images.add(image)
 
             for feature in form.cleaned_data["features"]:
                 TariffFeatureAssignment.objects.create(
@@ -145,7 +157,7 @@ def tariff_edit(request, tariff_id):
     tariff = get_object_or_404(Tariff, id=tariff_id)
 
     if request.method == "POST":
-        form = TariffForm(request.POST, instance=tariff)
+        form = TariffForm(request.POST, request.FILES, instance=tariff)
 
         if form.is_valid():
             tariff = form.save(commit=False)
@@ -153,6 +165,16 @@ def tariff_edit(request, tariff_id):
             tariff.updated_by = user
 
             tariff.save()
+            tariff.images.set(form.cleaned_data["images"])
+            new_image = form.cleaned_data.get("new_image")
+            if new_image:
+                image = Image.objects.create(
+                    image_file=new_image,
+                    image_type="tariff",
+                    uploaded_by=user,
+                )
+
+                tariff.images.add(image)
 
             tariff.feature_assignments.all().delete()
 
