@@ -126,7 +126,8 @@ def tariff_create(request):
                     image_type="tariff",
                     uploaded_by=user,
                 )
-
+                image.alt_text = f"Изображение тарифа {image.id}"
+                image.save(update_fields=["alt_text"])
                 tariff.images.add(image)
 
             for feature in form.cleaned_data["features"]:
@@ -173,7 +174,8 @@ def tariff_edit(request, tariff_id):
                     image_type="tariff",
                     uploaded_by=user,
                 )
-
+                image.alt_text = f"Изображение тарифа {image.id}"
+                image.save(update_fields=["alt_text"])
                 tariff.images.add(image)
 
             tariff.feature_assignments.all().delete()

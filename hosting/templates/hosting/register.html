@@ -1,4 +1,5 @@
 {% load static %}
+{% load hosting_tags %}
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -9,6 +10,8 @@
     <title>Регистрация — ТурбоСервер</title>
 
     <link rel="stylesheet" href="{% static 'hosting/css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'hosting/css/auth.css' %}">
+    <link rel="icon" href="{% static 'hosting/favicon.ico' %}" type="image/x-icon">
 </head>
 
 <body>
@@ -50,6 +53,11 @@
 
     </div>
 </main>
-
+<footer class="footer">
+    <div class="container">
+        <strong>ТУРБОСЕРВЕР</strong>
+        <span>© {% current_year %}</span>
+    </div>
+</footer>
 </body>
 </html>

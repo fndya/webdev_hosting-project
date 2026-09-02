@@ -1,4 +1,5 @@
 {% load static %}
+{% load hosting_tags %}
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -9,7 +10,9 @@
     <title>{{ title }} — ТурбоСервер</title>
 
     <link rel="stylesheet" href="{% static 'hosting/css/base.css' %}">
-    <link rel="stylesheet" href="{% static 'hosting/css/pricing.css' %}">
+    <link rel="stylesheet" href="{% static 'hosting/css/tariff_detail.css' %}">
+    <link rel="stylesheet" href="{% static 'hosting/css/tariff_form.css' %}">
+    <link rel="icon" href="{% static 'hosting/favicon.ico' %}" type="image/x-icon">
 </head>
 
 <body>
@@ -34,7 +37,7 @@
 </header>
 
 
-<main class="pricing-page">
+<main class="tariff-form-page">
 
     <div class="container">
 
@@ -42,56 +45,280 @@
             ← Вернуться к тарифам
         </a>
 
-        <h1 class="page-title">
-            {{ title }}
-        </h1>
 
-        <div class="tariff-form-card">
+        <section class="tariff-detail-card tariff-form-card">
 
-            <form method="post" enctype="multipart/form-data">
+            <div class="tariff-form-header">
+                <div>
+                    <span class="form-label">
+                        Управление тарифом
+                    </span>
+
+                    <h1>{{ title }}</h1>
+
+                    <p>
+                        Заполните параметры тарифа и сохраните изменения.
+                    </p>
+                </div>
+            </div>
+
+
+            <form
+                method="post"
+                enctype="multipart/form-data"
+                class="tariff-form"
+            >
 
                 {% csrf_token %}
 
                 {{ form.non_field_errors }}
 
-                {% for field in form %}
-                    <div class="tariff-form-field">
 
-                        {{ field.label_tag }}
+                <section class="form-section">
 
-                        {{ field }}
+                    <h2>Основная информация</h2>
 
-                        {% if field.help_text %}
-                            <small>{{ field.help_text }}</small>
-                        {% endif %}
+                    <div class="form-fields">
 
-                        {% for error in field.errors %}
-                            <div class="form-error">
-                                {{ error }}
-                            </div>
+                        {% for field in form %}
+
+                            {% if field.name == "title" or field.name == "description" %}
+
+                                <div class="tariff-form-field">
+
+                                    {{ field.label_tag }}
+
+                                    {{ field }}
+
+                                    {% if field.help_text %}
+                                        <small>{{ field.help_text }}</small>
+                                    {% endif %}
+
+                                    {% for error in field.errors %}
+                                        <div class="form-error">
+                                            {{ error }}
+                                        </div>
+                                    {% endfor %}
+
+                                </div>
+
+                            {% endif %}
+
                         {% endfor %}
 
                     </div>
-                {% endfor %}
+
+                </section>
+
+
+                <section class="form-section">
+
+                    <h2>Ресурсы сервера</h2>
+
+                    <div class="form-fields form-fields-three">
+
+                        {% for field in form %}
+
+                            {% if field.name == "cpu_cores" or field.name == "ram_gb" or field.name == "storage_gb" %}
+
+                                <div class="tariff-form-field">
+
+                                    {{ field.label_tag }}
+
+                                    {{ field }}
+
+                                    {% for error in field.errors %}
+                                        <div class="form-error">
+                                            {{ error }}
+                                        </div>
+                                    {% endfor %}
+
+                                </div>
+
+                            {% endif %}
+
+                        {% endfor %}
+
+                    </div>
+
+                    <div class="form-fields">
+
+                        {% for field in form %}
+
+                            {% if field.name == "traffic" or field.name == "price_monthly" %}
+
+                                <div class="tariff-form-field">
+
+                                    {{ field.label_tag }}
+
+                                    {{ field }}
+
+                                    {% for error in field.errors %}
+                                        <div class="form-error">
+                                            {{ error }}
+                                        </div>
+                                    {% endfor %}
+
+                                </div>
+
+                            {% endif %}
+
+                        {% endfor %}
+
+                    </div>
+
+                </section>
+
+
+                <section class="form-section">
+
+                    <h2>Параметры тарифа</h2>
+
+                    <div class="form-options">
+
+                        {% for field in form %}
+
+                            {% if field.name == "is_recommended" or field.name == "is_active" %}
+
+                                <label class="form-checkbox">
+
+                                    {{ field }}
+
+                                    <span>
+                                        {{ field.label }}
+                                    </span>
+
+                                </label>
+
+                            {% endif %}
+
+                        {% endfor %}
+
+                    </div>
+
+                </section>
+
+
+                <section class="form-section">
+
+                    <h2>Дополнительные возможности</h2>
+
+                    {% for field in form %}
+
+                        {% if field.name == "features" %}
+
+                            <div class="tariff-form-field">
+
+                                {{ field.label_tag }}
+
+                                {{ field }}
+
+                                <small>
+                                    Для выбора нескольких вариантов используйте Ctrl + клик.
+                                </small>
+
+                                {% for error in field.errors %}
+                                    <div class="form-error">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+
+                            </div>
+
+                        {% endif %}
+
+                    {% endfor %}
+
+                </section>
+
+
+                <section class="form-section">
+
+                    <h2>Изображения</h2>
+
+                    {% for field in form %}
+
+                        {% if field.name == "images" %}
+
+                            <div class="tariff-form-field">
+
+                                {{ field.label_tag }}
+
+                                {{ field }}
+
+                                <small>
+                                    Можно выбрать несколько существующих изображений.
+                                </small>
+
+                                {% for error in field.errors %}
+                                    <div class="form-error">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+
+                            </div>
+
+                        {% endif %}
+
+                    {% endfor %}
+
+
+                    {% for field in form %}
+
+                        {% if field.name == "new_image" %}
+
+                            <div class="upload-box">
+
+                                <div class="upload-box-content">
+
+                                    <strong>
+                                        Добавить новое изображение
+                                    </strong>
+
+                                    <span>
+                                        PNG, JPG или другой поддерживаемый формат
+                                    </span>
+
+                                </div>
+
+                                {{ field }}
+
+                                {% for error in field.errors %}
+                                    <div class="form-error">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+
+                            </div>
+
+                        {% endif %}
+
+                    {% endfor %}
+
+                </section>
+
 
                 <div class="tariff-form-actions">
 
-                    <button type="submit" class="primary-btn">
-                        Сохранить
-                    </button>
-
                     <a
                         href="{% url 'pricing' %}"
-                        class="card-details-btn"
+                        class="form-cancel-btn"
                     >
                         Отмена
                     </a>
+
+                    <button
+                        type="submit"
+                        class="form-save-btn"
+                    >
+                        Сохранить тариф
+                    </button>
 
                 </div>
 
             </form>
 
-        </div>
+        </section>
 
     </div>
 
@@ -101,6 +328,7 @@
 <footer class="footer">
     <div class="container">
         <strong>ТУРБОСЕРВЕР</strong>
+        <span>© {% current_year %}</span>
     </div>
 </footer>
 

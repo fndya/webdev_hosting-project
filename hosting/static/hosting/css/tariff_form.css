@@ -1,0 +1,401 @@
+/* =========================
+   TARIFF FORM PAGE
+   ========================= */
+
+.tariff-form-page {
+    padding: 34px 0 80px;
+}
+
+
+/* =========================
+   FORM HEADER
+   ========================= */
+
+.tariff-form-header {
+    padding-bottom: 28px;
+
+    border-bottom: 1px solid #E1E5EE;
+}
+
+.tariff-form-header h1 {
+    margin: 14px 0 12px;
+
+    color: #232F48;
+
+    font-size: 36px;
+    line-height: 1.1;
+    font-weight: 900;
+}
+
+.tariff-form-header p {
+    margin: 0;
+
+    color: #4A5163;
+
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.form-label {
+    display: inline-block;
+
+    color: #042CC6;
+
+    font-size: 13px;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+
+/* =========================
+   FORM SECTIONS
+   ========================= */
+
+.form-section {
+    padding: 30px 0;
+
+    border-bottom: 1px solid #E1E5EE;
+}
+
+.form-section h2 {
+    margin: 0 0 22px;
+
+    color: #232F48;
+
+    font-size: 24px;
+    font-weight: 900;
+}
+
+
+/* =========================
+   FIELDS
+   ========================= */
+
+.form-fields {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 20px;
+}
+
+.form-fields-three {
+    grid-template-columns: repeat(3, 1fr);
+
+    margin-bottom: 20px;
+}
+
+.tariff-form-field {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.tariff-form-field label {
+    color: #232F48;
+
+    font-size: 14px;
+    font-weight: 900;
+}
+
+.tariff-form-field input,
+.tariff-form-field textarea,
+.tariff-form-field select {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 12px 14px;
+
+    background: #ffffff;
+
+    color: #232F48;
+
+    border: 1px solid #4A5163;
+    border-radius: 6px;
+
+    font-family: inherit;
+    font-size: 15px;
+}
+
+.tariff-form-field textarea {
+    min-height: 130px;
+
+    resize: vertical;
+}
+
+.tariff-form-field input:focus,
+.tariff-form-field textarea:focus,
+.tariff-form-field select:focus {
+    outline: none;
+
+    border-color: #042CC6;
+
+    box-shadow: 0 0 0 3px rgba(4, 44, 198, 0.10);
+}
+
+.tariff-form-field small {
+    color: #4A5163;
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   MULTI SELECT
+   ========================= */
+
+.tariff-form-field select[multiple] {
+    min-height: 150px;
+
+    padding: 6px;
+}
+
+.tariff-form-field select[multiple] option {
+    padding: 9px 10px;
+
+    border-radius: 4px;
+}
+
+.tariff-form-field select[multiple] option:checked {
+    background: #042CC6;
+
+    color: #ffffff;
+}
+
+
+/* =========================
+   CHECKBOXES
+   ========================= */
+
+.form-options {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 14px;
+}
+
+.form-checkbox {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    min-width: 200px;
+
+    padding: 14px 16px;
+
+    background: #E1E5EE;
+
+    border-radius: 6px;
+
+    color: #232F48;
+
+    font-size: 14px;
+    font-weight: 800;
+
+    cursor: pointer;
+}
+
+.form-checkbox input {
+    width: 18px;
+    height: 18px;
+
+    margin: 0;
+
+    accent-color: #042CC6;
+}
+
+
+/* =========================
+   IMAGE UPLOAD
+   ========================= */
+
+.upload-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 24px;
+
+    margin-top: 20px;
+    padding: 20px;
+
+    background: #E1E5EE;
+
+    border: 1px dashed #4A5163;
+    border-radius: 6px;
+}
+
+.upload-box-content {
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+.upload-box-content strong {
+    color: #232F48;
+
+    font-size: 16px;
+    font-weight: 900;
+}
+
+.upload-box-content span {
+    color: #4A5163;
+
+    font-size: 13px;
+}
+
+.upload-box input[type="file"] {
+    max-width: 320px;
+}
+
+
+/* =========================
+   ERRORS
+   ========================= */
+
+.form-error {
+    color: #b42318;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+
+/* =========================
+   ACTIONS
+   ========================= */
+
+.tariff-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    gap: 12px;
+
+    padding-top: 30px;
+}
+
+.form-cancel-btn,
+.form-save-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 150px;
+    height: 48px;
+
+    box-sizing: border-box;
+
+    border-radius: 6px;
+
+    font-size: 15px;
+    font-weight: 900;
+}
+
+.form-cancel-btn {
+    background: #E1E5EE;
+
+    color: #232F48;
+
+    border: 1px solid #4A5163;
+}
+
+.form-cancel-btn:hover {
+    background: #232F48;
+    color: #ffffff;
+}
+
+.form-save-btn {
+    background: #042CC6;
+
+    color: #ffffff;
+
+    border: 1px solid #042CC6;
+
+    cursor: pointer;
+}
+
+.form-save-btn:hover {
+    background: #232F48;
+
+    border-color: #232F48;
+}
+
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 800px) {
+
+    .form-fields,
+    .form-fields-three {
+        grid-template-columns: 1fr;
+    }
+
+    .tariff-form-header h1 {
+        font-size: 30px;
+    }
+
+    .upload-box {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .upload-box input[type="file"] {
+        width: 100%;
+        max-width: none;
+    }
+}
+
+
+@media (max-width: 650px) {
+
+    .tariff-form-page {
+        padding: 18px 0 50px;
+    }
+
+    .tariff-detail-card {
+        padding: 22px 16px;
+    }
+
+    .tariff-form-header h1 {
+        font-size: 26px;
+    }
+
+    .tariff-form-header p {
+        font-size: 14px;
+    }
+
+    .form-section {
+        padding: 22px 0;
+    }
+
+    .form-section h2 {
+        font-size: 21px;
+    }
+
+    .form-options {
+        flex-direction: column;
+    }
+
+    .form-checkbox {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .tariff-form-actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .form-cancel-btn,
+    .form-save-btn {
+        width: 100%;
+    }
+}

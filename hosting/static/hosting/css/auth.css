@@ -1,0 +1,226 @@
+/* =========================
+   AUTH PAGES
+   ========================= */
+
+.auth-page {
+    padding: 70px 0 100px;
+
+    min-height: calc(100vh - 180px);
+
+    box-sizing: border-box;
+}
+
+
+/* =========================
+   AUTH CARD
+   ========================= */
+
+.auth-card {
+    width: 100%;
+    max-width: 480px;
+
+    margin: 0 auto;
+
+    padding: 34px 38px;
+
+    box-sizing: border-box;
+
+    background: #ffffff;
+
+    border: 1px solid #4A5163;
+    border-radius: 8px;
+
+    box-shadow: 0 8px 20px rgba(35, 47, 72, 0.12);
+}
+
+
+/* =========================
+   TITLE
+   ========================= */
+
+.auth-card h1 {
+    margin: 0 0 28px;
+
+    color: #232F48;
+
+    font-size: 36px;
+    line-height: 1.1;
+    font-weight: 900;
+}
+
+
+/* =========================
+   FORM
+   ========================= */
+
+.auth-card form {
+    display: flex;
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+
+/* =========================
+   FORM FIELDS
+   ========================= */
+
+.auth-card form p {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+
+    margin: 0;
+}
+
+.auth-card form label {
+    color: #232F48;
+
+    font-size: 14px;
+    font-weight: 900;
+}
+
+.auth-card form input {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 12px 14px;
+
+    background: #ffffff;
+
+    color: #232F48;
+
+    border: 1px solid #4A5163;
+    border-radius: 6px;
+
+    font-family: inherit;
+    font-size: 15px;
+
+    transition:
+        border-color 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.auth-card form input:focus {
+    outline: none;
+
+    border-color: #042CC6;
+
+    box-shadow: 0 0 0 3px rgba(4, 44, 198, 0.10);
+}
+
+
+/* =========================
+   ERRORS
+   ========================= */
+
+.auth-card form ul.errorlist {
+    margin: 0;
+
+    padding: 0;
+
+    list-style: none;
+
+    color: #b42318;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.auth-card form .helptext {
+    color: #4A5163;
+
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+
+/* =========================
+   BUTTON
+   ========================= */
+
+.auth-card form button {
+    width: 100%;
+    height: 48px;
+
+    margin-top: 6px;
+
+    background: #042CC6;
+
+    color: #ffffff;
+
+    border: 1px solid #042CC6;
+    border-radius: 6px;
+
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 900;
+
+    cursor: pointer;
+
+    transition:
+        background 0.15s ease,
+        border-color 0.15s ease;
+}
+
+.auth-card form button:hover {
+    background: #232F48;
+
+    border-color: #232F48;
+}
+
+
+/* =========================
+   BOTTOM LINK
+   ========================= */
+
+.auth-card > p {
+    margin: 24px 0 0;
+
+    padding-top: 22px;
+
+    border-top: 1px solid #E1E5EE;
+
+    color: #4A5163;
+
+    font-size: 14px;
+    line-height: 1.5;
+
+    text-align: center;
+}
+
+.auth-card > p a {
+    color: #042CC6;
+
+    font-weight: 900;
+}
+
+.auth-card > p a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 650px) {
+
+    .auth-page {
+        padding: 30px 0 60px;
+    }
+
+    .auth-card {
+        padding: 26px 20px;
+
+        border-radius: 7px;
+    }
+
+    .auth-card h1 {
+        margin-bottom: 24px;
+
+        font-size: 28px;
+    }
+}
