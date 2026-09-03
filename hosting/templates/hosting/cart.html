@@ -97,9 +97,9 @@
 
         <div class="header-actions">
             {% if request.session.user_id %}
-                <span class="user-name">
+                <a class="user-name" href="{% url 'account' %}">
                     {{ request.session.user_name }}
-                </span>
+                </a>
 
                 <a class="small-btn" href="{% url 'logout' %}">
                     Выйти

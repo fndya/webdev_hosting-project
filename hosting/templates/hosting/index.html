@@ -1,17 +1,16 @@
+{% extends "hosting/base.html" %}
 {% load static %}
 {% load hosting_tags %}
 
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ТурбоСервер — хостинг-провайдер</title>
-    <link rel="stylesheet" href="{% static 'hosting/css/base.css' %}">
-    <link rel="stylesheet" href="{% static 'hosting/css/home.css' %}">
-    <link rel="icon" href="{% static 'hosting/favicon.ico' %}" type="image/x-icon">
-</head>
-<body>
+{% block title %}
+    Главная
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'hosting/css/index.css' %}">
+{% endblock %}
+
+{% block content %}
 
 <header class="header">
     <div class="container header-inner">
@@ -34,9 +33,9 @@
                 Корзина ({{ cart|length }})
             </a>
             {% if request.session.user_id %}
-                <span class="user-name">
+                <a class="user-name" href="{% url 'account' %}">
                     {{ request.session.user_name }}
-                </span>
+                </a>
 
                 <a class="small-btn" href="{% url 'logout' %}">
                     Выйти
@@ -213,17 +212,43 @@
             <h2>Свяжитесь с нами</h2>
             <p>Если у вас возникли вопросы по нашему сервису и вы бы хотели получить дополнительную информацию по нашим услугам</p>
 
-            <form class="contact-form">
+            <form
+                class="contact-form"
+                method="post"
+                action="{% url 'home' %}"
+            >
+                {% csrf_token %}
+
+                {% if contact_form.non_field_errors %}
+                    <div class="form-errors">
+                        {{ contact_form.non_field_errors }}
+                    </div>
+                {% endif %}
+
                 <div class="form-row">
-                    <input type="text" placeholder="Имя">
-                    <input type="email" placeholder="Почта">
-                    <input type="text" placeholder="Телефон">
+                    <div class="form-field">
+                        {{ contact_form.name }}
+                        {{ contact_form.name.errors }}
+                    </div>
+
+                    <div class="form-field">
+                        {{ contact_form.email }}
+                        {{ contact_form.email.errors }}
+                    </div>
+
+                    <div class="form-field">
+                        {{ contact_form.phone }}
+                        {{ contact_form.phone.errors }}
+                    </div>
                 </div>
 
-                <textarea placeholder="Ваше сообщение"></textarea>
+                <div class="form-field">
+                    {{ contact_form.message }}
+                    {{ contact_form.message.errors }}
+                </div>
 
                 <div class="form-button">
-                    <button type="button">Отправить</button>
+                    <button type="submit">Отправить</button>
                 </div>
             </form>
         </div>
@@ -237,6 +262,4 @@
         <span>© {% current_year %}</span>
     </div>
 </footer>
-
-</body>
-</html>
+{% endblock %}

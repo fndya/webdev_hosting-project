@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.hashers import make_password
-from .models import User, Role, Tariff
+from .models import User, Role, Tariff, ContactRequest
 
 class RegisterForm(forms.ModelForm):
     password = forms.CharField(
@@ -140,6 +140,39 @@ class TariffForm(forms.ModelForm):
             "images": forms.SelectMultiple(
                 attrs={
                     "size": 6,
+                }
+            ),
+        }
+
+class ContactRequestForm(forms.ModelForm):
+    class Meta:
+        model = ContactRequest
+        fields = (
+            "name",
+            "email",
+            "phone",
+            "message",
+        )
+        widgets = {
+            "name": forms.TextInput(
+                attrs={
+                    "placeholder": "Имя",
+                }
+            ),
+            "email": forms.EmailInput(
+                attrs={
+                    "placeholder": "Почта",
+                }
+            ),
+            "phone": forms.TextInput(
+                attrs={
+                    "placeholder": "Телефон",
+                }
+            ),
+            "message": forms.Textarea(
+                attrs={
+                    "placeholder": "Ваше сообщение",
+                    "rows": 5,
                 }
             ),
         }

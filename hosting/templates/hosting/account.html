@@ -1,0 +1,29 @@
+{% extends "hosting/base.html" %}
+
+{% block content %}
+<section class="account-page">
+    <div class="container">
+        <div class="account-header">
+            <h1>Личный кабинет</h1>
+            <p>Добро пожаловать, {{ user.name }}!</p>
+        </div>
+
+        <div class="account-grid">
+            <a href="{% url 'my_orders' %}" class="account-card">
+                <h2>Мои заказы</h2>
+                <p>{{ orders|length }}</p>
+            </a>
+
+            <a href="{% url 'my_servers' %}" class="account-card">
+                <h2>Мои серверы</h2>
+                <p>{{ servers|length }}</p>
+            </a>
+
+            <a href="{% url 'my_requests' %}" class="account-card">
+                <h2>Обращения</h2>
+                <p>{{ contact_requests|length }}</p>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

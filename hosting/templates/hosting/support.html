@@ -1,0 +1,147 @@
+{% load static %}
+{% load hosting_tags %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Поддержка — ТурбоСервер</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'hosting/css/base.css' %}"
+    >
+    <link
+        rel="stylesheet"
+        href="{% static 'hosting/css/home.css' %}"
+    >
+    <link
+        rel="icon"
+        href="{% static 'hosting/favicon.ico' %}"
+        type="image/x-icon"
+    >
+</head>
+<body>
+
+<header class="header">
+    <div class="container header-inner">
+        <div class="logo">ТУРБОСЕРВЕР</div>
+
+        <nav class="nav">
+            <a href="{% url 'home' %}">Главная</a>
+            <a href="{% url 'pricing' %}">Тарифы</a>
+            <a href="/services/">Услуги</a>
+            <a href="/domains/">Домены</a>
+            <a href="/about/">О нас</a>
+            <a class="active" href="{% url 'support' %}">
+                Поддержка
+            </a>
+        </nav>
+
+        <div class="header-actions">
+            <a
+                class="small-btn cart-header-btn"
+                href="{% url 'cart_detail' %}"
+            >
+                Корзина ({{ cart|length }})
+            </a>
+
+            {% if request.session.user_id %}
+                <a
+                    class="user-name"
+                    href="{% url 'account' %}"
+                >
+                    {{ request.session.user_name }}
+                </a>
+
+                <a
+                    class="small-btn"
+                    href="{% url 'logout' %}"
+                >
+                    Выйти
+                </a>
+            {% else %}
+                <a
+                    class="small-btn"
+                    href="{% url 'login' %}"
+                >
+                    Вход
+                </a>
+
+                <a
+                    class="small-btn"
+                    href="{% url 'register' %}"
+                >
+                    Регистрация
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</header>
+
+<main>
+    <section class="contact-section support-section">
+        <div class="container">
+            <h1>Поддержка</h1>
+
+            <p>
+                Опишите вопрос, и мы свяжемся с вами
+                для решения проблемы.
+            </p>
+
+            <form
+                class="contact-form"
+                method="post"
+                action="{% url 'support' %}"
+            >
+                {% csrf_token %}
+
+                {% if contact_form.non_field_errors %}
+                    <div class="form-errors">
+                        {{ contact_form.non_field_errors }}
+                    </div>
+                {% endif %}
+
+                <div class="form-row">
+                    <div class="form-field">
+                        {{ contact_form.name }}
+                        {{ contact_form.name.errors }}
+                    </div>
+
+                    <div class="form-field">
+                        {{ contact_form.email }}
+                        {{ contact_form.email.errors }}
+                    </div>
+
+                    <div class="form-field">
+                        {{ contact_form.phone }}
+                        {{ contact_form.phone.errors }}
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    {{ contact_form.message }}
+                    {{ contact_form.message.errors }}
+                </div>
+
+                <div class="form-button">
+                    <button type="submit">
+                        Отправить заявку
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <strong>ТУРБОСЕРВЕР</strong>
+        <span>© {% current_year %}</span>
+    </div>
+</footer>
+
+</body>
+</html>

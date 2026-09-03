@@ -6,7 +6,12 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.hashers import make_password, check_password
 from .cart import Cart
 
-from .forms import RegisterForm, LoginForm, TariffForm
+from .forms import (
+    RegisterForm,
+    LoginForm,
+    TariffForm,
+    ContactRequestForm,
+)
 
 from .models import (
     Tariff,
@@ -18,57 +23,58 @@ from .models import (
     Image,
 )
 
+def handle_contact_request(request, redirect_name):
+    user = get_current_user(request)
+
+    if request.method == "POST":
+        form = ContactRequestForm(request.POST)
+
+        if form.is_valid():
+            contact_request = form.save(commit=False)
+            contact_request.user = user
+            contact_request.save()
+
+            return redirect(redirect_name)
+    else:
+        initial = {}
+
+        if user:
+            initial = {
+                "name": user.name,
+                "email": user.email,
+            }
+
+        form = ContactRequestForm(initial=initial)
+
+    return form
 
 def home(request):
-    query = request.GET.get("q", "").strip()
+    contact_form = handle_contact_request(request, "home")
+
     cart = Cart(request)
+
     recommended_tariffs = Tariff.active.filter(
         is_recommended=True
     )[:3]
-
-    latest_servers = (
-        Server.objects
-        .select_related("user", "tariff", "status")
-        .order_by("-created_at")[:5]
-    )
-
-    latest_requests = (
-        ContactRequest.objects
-        .exclude(status="closed")
-        .order_by("-created_at")[:3]
-    )
-
-    search_results = None
-
-    if query:
-        search_results = (
-            Tariff.objects
-            .filter(
-                Q(title__icontains=query)
-                | Q(description__icontains=query)
-                | Q(traffic__icontains=query)
-            )
-            .filter(is_active=True)
-            .distinct()
-        )
 
     stats = {
         "users_count": User.objects.count(),
         "servers_count": Server.objects.count(),
         "active_tariffs_count": Tariff.objects.filter(is_active=True).count(),
         "orders_count": Order.objects.count(),
-        "avg_price": Tariff.objects.aggregate(avg_price=Avg("price_monthly"))["avg_price"],
-        "total_balance": User.objects.aggregate(total_balance=Sum("balance"))["total_balance"],
+        "avg_price": Tariff.objects.aggregate(
+            avg_price=Avg("price_monthly")
+        )["avg_price"],
+        "total_balance": User.objects.aggregate(
+            total_balance=Sum("balance")
+        )["total_balance"],
     }
 
     context = {
-        "query": query,
         "recommended_tariffs": recommended_tariffs,
-        "latest_servers": latest_servers,
-        "latest_requests": latest_requests,
-        "search_results": search_results,
         "stats": stats,
         "cart": cart,
+        "contact_form": contact_form,
     }
 
     return render(request, "hosting/index.html", context)
@@ -321,7 +327,7 @@ def cart_checkout(request):
 
     request.session["order_created"] = True
 
-    return redirect("cart_detail")
+    return redirect("my_orders")
 
 def register(request):
     if request.method == "POST":
@@ -407,4 +413,125 @@ def admin_required(request):
         user and
         user.role and
         user.role.name == "admin"
+    )
+
+def account(request):
+    user = get_current_user(request)
+
+    if not user:
+        return redirect("login")
+
+    orders = (
+        Order.objects
+        .filter(user=user)
+        .select_related("tariff", "server")
+        .order_by("-created_at")
+    )
+
+    servers = (
+        Server.objects
+        .filter(user=user)
+        .select_related("tariff", "status")
+        .order_by("-created_at")
+    )
+
+    contact_requests = (
+        ContactRequest.objects
+        .filter(user=user)
+        .order_by("-created_at")
+    )
+
+    return render(
+        request,
+        "hosting/account.html",
+        {
+            "user": user,
+            "orders": orders,
+            "servers": servers,
+            "contact_requests": contact_requests,
+            "cart": Cart(request),
+        },
+    )
+
+
+def my_orders(request):
+    user = get_current_user(request)
+
+    if not user:
+        return redirect("login")
+
+    orders = (
+        Order.objects
+        .filter(user=user)
+        .select_related("tariff", "server")
+        .order_by("-created_at")
+    )
+
+    return render(
+        request,
+        "hosting/orders.html",
+        {
+            "user": user,
+            "orders": orders,
+            "cart": Cart(request),
+        },
+    )
+
+
+def my_servers(request):
+    user = get_current_user(request)
+
+    if not user:
+        return redirect("login")
+
+    servers = (
+        Server.objects
+        .filter(user=user)
+        .select_related("tariff", "status")
+        .order_by("-created_at")
+    )
+
+    return render(
+        request,
+        "hosting/servers.html",
+        {
+            "user": user,
+            "servers": servers,
+            "cart": Cart(request),
+        },
+    )
+
+
+def my_requests(request):
+    user = get_current_user(request)
+
+    if not user:
+        return redirect("login")
+
+    contact_requests = (
+        ContactRequest.objects
+        .filter(user=user)
+        .order_by("-created_at")
+    )
+
+    return render(
+        request,
+        "hosting/requests.html",
+        {
+            "user": user,
+            "contact_requests": contact_requests,
+            "cart": Cart(request),
+        },
+    )
+
+def support(request):
+    contact_form = handle_contact_request(request, "support")
+
+    return render(
+        request,
+        "hosting/support.html",
+        {
+            "contact_form": contact_form,
+            "cart": Cart(request),
+        },
     )

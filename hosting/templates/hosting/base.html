@@ -1,0 +1,75 @@
+{% load static %}
+{% load hosting_tags %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}
+            Hosting Provider
+        {% endblock %}
+    </title>
+
+    <link rel="stylesheet" href="{% static 'hosting/css/base.css' %}">
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<header class="site-header">
+    <div class="container header-inner">
+
+        <a href="{% url 'home' %}" class="logo">
+            Hosting Provider
+        </a>
+
+        <nav class="main-nav">
+            <a href="{% url 'home' %}">Главная</a>
+            <a href="{% url 'pricing' %}">Тарифы</a>
+            <a href="{% url 'support' %}">Поддержка</a>
+
+            {% if request.session.user_id %}
+                <a href="{% url 'account' %}">Личный кабинет</a>
+                <a href="{% url 'logout' %}">Выйти</a>
+            {% else %}
+                <a href="{% url 'login' %}">Войти</a>
+                <a href="{% url 'register' %}">Регистрация</a>
+            {% endif %}
+        </nav>
+
+        <div class="header-actions">
+            <a href="{% url 'cart_detail' %}" class="cart-link">
+                Корзина
+                {% cart_count request.session.session_key as cart_count %}
+                {% if cart_count %}
+                    <span class="cart-count">{{ cart_count }}</span>
+                {% endif %}
+            </a>
+
+            {% if request.session.user_id %}
+                <a href="{% url 'account' %}" class="user-name">
+                    {{ request.session.user_name }}
+                </a>
+            {% endif %}
+        </div>
+
+    </div>
+</header>
+
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+<footer class="site-footer">
+    <div class="container">
+        <p>© {% now "Y" %} Hosting Provider</p>
+    </div>
+</footer>
+
+{% block extra_js %}{% endblock %}
+
+</body>
+</html>
