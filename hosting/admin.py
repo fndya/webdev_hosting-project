@@ -1,4 +1,5 @@
-from django.contrib import admin
+from django.contrib import admin, messages
+from .pdf import generate_order_pdf
 
 # Register your models here.
 from django.contrib import admin
@@ -163,6 +164,19 @@ class ServerAdmin(admin.ModelAdmin):
         from django.utils import timezone
         return obj.expires_at < timezone.now()
 
+@admin.action(description="Сформировать PDF для выбранных заказов")
+def generate_order_pdfs(modeladmin, request, queryset):
+    generated = 0
+
+    for order in queryset:
+        generate_order_pdf(order)
+        generated += 1
+
+    modeladmin.message_user(
+        request,
+        f"PDF сформирован для заказов: {generated}.",
+        messages.SUCCESS,
+    )
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
@@ -170,8 +184,10 @@ class OrderAdmin(admin.ModelAdmin):
         "id",
         "user",
         "tariff",
+        "quantity",
         "server",
         "total_price",
+        "pdf_file",
         "status",
         "created_at",
     )
@@ -187,6 +203,7 @@ class OrderAdmin(admin.ModelAdmin):
     readonly_fields = ("created_at", "updated_at")
     date_hierarchy = "created_at"
     inlines = (BalanceTransactionInline,)
+    actions = (generate_order_pdfs,)
 
 
 @admin.register(BalanceTransaction)

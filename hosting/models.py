@@ -338,7 +338,7 @@ class Order(models.Model):
         upload_to="orders/pdf/",
         blank=True,
         null=True,
-        verbose_name="PDF документа"
+        verbose_name="PDF документ"
     )
     status = models.CharField(
         max_length=50,
