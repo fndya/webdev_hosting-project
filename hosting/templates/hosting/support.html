@@ -1,85 +1,16 @@
+{% extends "hosting/base.html" %}
 {% load static %}
 {% load hosting_tags %}
 
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block title %}
+    Главная
+{% endblock %}
 
-    <title>Поддержка — ТурбоСервер</title>
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'hosting/css/support.css' %}">
+{% endblock %}
 
-    <link
-        rel="stylesheet"
-        href="{% static 'hosting/css/base.css' %}"
-    >
-    <link
-        rel="stylesheet"
-        href="{% static 'hosting/css/home.css' %}"
-    >
-    <link
-        rel="icon"
-        href="{% static 'hosting/favicon.ico' %}"
-        type="image/x-icon"
-    >
-</head>
-<body>
-
-<header class="header">
-    <div class="container header-inner">
-        <div class="logo">ТУРБОСЕРВЕР</div>
-
-        <nav class="nav">
-            <a href="{% url 'home' %}">Главная</a>
-            <a href="{% url 'pricing' %}">Тарифы</a>
-            <a href="/services/">Услуги</a>
-            <a href="/domains/">Домены</a>
-            <a href="/about/">О нас</a>
-            <a class="active" href="{% url 'support' %}">
-                Поддержка
-            </a>
-        </nav>
-
-        <div class="header-actions">
-            <a
-                class="small-btn cart-header-btn"
-                href="{% url 'cart_detail' %}"
-            >
-                Корзина ({{ cart|length }})
-            </a>
-
-            {% if request.session.user_id %}
-                <a
-                    class="user-name"
-                    href="{% url 'account' %}"
-                >
-                    {{ request.session.user_name }}
-                </a>
-
-                <a
-                    class="small-btn"
-                    href="{% url 'logout' %}"
-                >
-                    Выйти
-                </a>
-            {% else %}
-                <a
-                    class="small-btn"
-                    href="{% url 'login' %}"
-                >
-                    Вход
-                </a>
-
-                <a
-                    class="small-btn"
-                    href="{% url 'register' %}"
-                >
-                    Регистрация
-                </a>
-            {% endif %}
-        </div>
-    </div>
-</header>
+{% block content %}
 
 <main>
     <section class="contact-section support-section">
@@ -135,13 +66,4 @@
         </div>
     </section>
 </main>
-
-<footer class="footer">
-    <div class="container">
-        <strong>ТУРБОСЕРВЕР</strong>
-        <span>© {% current_year %}</span>
-    </div>
-</footer>
-
-</body>
-</html>
+{% endblock %}

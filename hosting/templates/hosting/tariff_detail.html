@@ -1,65 +1,16 @@
+{% extends "hosting/base.html" %}
 {% load static %}
 {% load hosting_tags %}
 
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block title %}
+    Главная
+{% endblock %}
 
-    <title>{{ tariff.title }} — ТурбоСервер</title>
-
-    <link rel="stylesheet" href="{% static 'hosting/css/base.css' %}">
+{% block extra_css %}
     <link rel="stylesheet" href="{% static 'hosting/css/tariff_detail.css' %}">
-    <link rel="icon" href="{% static 'hosting/favicon.ico' %}" type="image/x-icon">
-</head>
+{% endblock %}
 
-<body>
-
-<header class="header">
-    <div class="container header-inner">
-
-        <a href="/" class="logo">ТУРБОСЕРВЕР</a>
-
-        <nav class="nav">
-            <a href="/">Главная</a>
-            <a class="active" href="/pricing/">Тарифы</a>
-            <a href="#">Услуги</a>
-            <a href="#">Домены</a>
-            <a href="#">О нас</a>
-            <a href="#">Поддержка</a>
-        </nav>
-
-        <div class="header-actions">
-            <a
-                class="small-btn cart-header-btn"
-                href="{% url 'cart_detail' %}"
-            >
-                Корзина ({{ cart|length }})
-            </a>
-            {% if request.session.user_id %}
-                <a class="user-name" href="{% url 'account' %}">
-                    {{ request.session.user_name }}
-                </a>
-
-                <a class="small-btn" href="{% url 'logout' %}">
-                    Выйти
-                </a>
-            {% else %}
-                <a class="small-btn" href="{% url 'login' %}">
-                    Вход
-                </a>
-
-                <a class="small-btn" href="{% url 'register' %}">
-                    Регистрация
-                </a>
-            {% endif %}
-        </div>
-
-    </div>
-</header>
-
-
+{% block content %}
 <main class="tariff-detail-page">
 
     <div class="container">
@@ -271,14 +222,4 @@
     </div>
 
 </main>
-
-
-<footer class="footer">
-    <div class="container">
-        <strong>ТУРБОСЕРВЕР</strong>
-        <span>© {% current_year %}</span>
-    </div>
-</footer>
-
-</body>
-</html>
+{% endblock %}

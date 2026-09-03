@@ -7,54 +7,10 @@
 {% endblock %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'hosting/css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'hosting/css/home.css' %}">
 {% endblock %}
 
 {% block content %}
-
-<header class="header">
-    <div class="container header-inner">
-        <div class="logo">ТУРБОСЕРВЕР</div>
-
-        <nav class="nav">
-            <a class="active" href="/">Главная</a>
-            <a href="/pricing/">Тарифы</a>
-            <a href="/services/">Услуги</a>
-            <a href="/domains/">Домены</a>
-            <a href="/about/">О нас</a>
-            <a href="/support/">Поддержка</a>
-        </nav>
-
-        <div class="header-actions">
-            <a
-                class="small-btn cart-header-btn"
-                href="{% url 'cart_detail' %}"
-            >
-                Корзина ({{ cart|length }})
-            </a>
-            {% if request.session.user_id %}
-                <a class="user-name" href="{% url 'account' %}">
-                    {{ request.session.user_name }}
-                </a>
-
-                <a class="small-btn" href="{% url 'logout' %}">
-                    Выйти
-                </a>
-            {% else %}
-                <a class="small-btn" href="{% url 'login' %}">
-                    Вход
-                </a>
-
-                <a class="small-btn" href="{% url 'register' %}">
-                    Регистрация
-                </a>
-            {% endif %}
-        </div>
-    </div>
-</header>
-
-<main>
-
     <section class="hero">
         <div class="container">
             <div class="hero-card">
@@ -253,13 +209,4 @@
             </form>
         </div>
     </section>
-
-</main>
-
-<footer class="footer">
-    <div class="container">
-        <strong>ТУРБОСЕРВЕР</strong>
-        <span>© {% current_year %}</span>
-    </div>
-</footer>
 {% endblock %}

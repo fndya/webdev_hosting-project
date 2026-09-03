@@ -1,41 +1,16 @@
+{% extends "hosting/base.html" %}
 {% load static %}
 {% load hosting_tags %}
 
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block title %}
+    Главная
+{% endblock %}
 
-    <title>Удаление тарифа — ТурбоСервер</title>
-
-    <link rel="stylesheet" href="{% static 'hosting/css/base.css' %}">
-    <link rel="stylesheet" href="{% static 'hosting/css/tariff_detail.css' %}">
+{% block extra_css %}
     <link rel="stylesheet" href="{% static 'hosting/css/tariff_form.css' %}">
+{% endblock %}
 
-    <link rel="icon" href="{% static 'hosting/favicon.ico' %}" type="image/x-icon">
-</head>
-
-<body>
-
-<header class="header">
-    <div class="container header-inner">
-
-        <a href="/" class="logo">
-            ТУРБОСЕРВЕР
-        </a>
-
-        <nav class="nav">
-            <a href="/">Главная</a>
-            <a class="active" href="/pricing/">Тарифы</a>
-        </nav>
-
-        <div class="header-actions">
-            <a class="small-btn" href="/logout/">Выйти</a>
-        </div>
-
-    </div>
-</header>
+{% block content %}
 
 
 <main class="tariff-form-page">

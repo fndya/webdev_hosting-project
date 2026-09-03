@@ -9,50 +9,54 @@
 
     <title>
         {% block title %}
-            Hosting Provider
+            ТУРБОСЕРВЕР
         {% endblock %}
     </title>
 
     <link rel="stylesheet" href="{% static 'hosting/css/base.css' %}">
-
+    <link rel="icon" href="{% static 'hosting/favicon.ico' %}" type="image/x-icon">
     {% block extra_css %}{% endblock %}
 </head>
 <body>
 
-<header class="site-header">
+<header class="header">
     <div class="container header-inner">
 
         <a href="{% url 'home' %}" class="logo">
-            Hosting Provider
+            ТУРБОСЕРВЕР
         </a>
 
-        <nav class="main-nav">
+        <nav class="nav">
             <a href="{% url 'home' %}">Главная</a>
             <a href="{% url 'pricing' %}">Тарифы</a>
             <a href="{% url 'support' %}">Поддержка</a>
+            <a href="#">О нас</a>
 
             {% if request.session.user_id %}
                 <a href="{% url 'account' %}">Личный кабинет</a>
-                <a href="{% url 'logout' %}">Выйти</a>
             {% else %}
-                <a href="{% url 'login' %}">Войти</a>
-                <a href="{% url 'register' %}">Регистрация</a>
+
             {% endif %}
         </nav>
 
         <div class="header-actions">
-            <a href="{% url 'cart_detail' %}" class="cart-link">
-                Корзина
-                {% cart_count request.session.session_key as cart_count %}
-                {% if cart_count %}
-                    <span class="cart-count">{{ cart_count }}</span>
-                {% endif %}
+            <a
+                class="small-btn cart-header-btn"
+                href="{% url 'cart_detail' %}"
+            >
+                Корзина ({{ cart|length }})
             </a>
 
             {% if request.session.user_id %}
-                <a href="{% url 'account' %}" class="user-name">
+                <a class="user-name" href="{% url 'account' %}">
                     {{ request.session.user_name }}
                 </a>
+                <a class="small-btn" href="{% url 'logout' %}">
+                    Выйти
+                </a>
+                {% else %}
+                <a class="small-btn" href="{% url 'login' %}">Вход</a>
+                <a class="small-btn" href="{% url 'register' %}">Регистрация</a>
             {% endif %}
         </div>
 
@@ -63,9 +67,10 @@
     {% block content %}{% endblock %}
 </main>
 
-<footer class="site-footer">
+<footer class="footer">
     <div class="container">
-        <p>© {% now "Y" %} Hosting Provider</p>
+        <strong>ТУРБОСЕРВЕР</strong>
+        <span>© {% current_year %}</span>
     </div>
 </footer>
 

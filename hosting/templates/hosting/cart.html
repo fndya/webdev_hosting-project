@@ -1,24 +1,16 @@
+{% extends "hosting/base.html" %}
 {% load static %}
 {% load hosting_tags %}
 
-<!DOCTYPE html>
-<html lang="ru">
+{% block title %}
+    Главная
+{% endblock %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Корзина — ТурбоСервер</title>
-
-    <link rel="stylesheet" href="{% static 'hosting/css/base.css' %}">
+{% block extra_css %}
     <link rel="stylesheet" href="{% static 'hosting/css/cart.css' %}">
+{% endblock %}
 
-    <link
-        rel="icon"
-        href="{% static 'hosting/favicon.ico' %}"
-        type="image/x-icon"
-    >
-</head>
+{% block content %}
 {% if order_created %}
 <div class="order-modal" id="orderModal">
     <div class="order-modal-overlay"></div>
@@ -76,47 +68,6 @@
         .addEventListener("click", closeOrderModal);
 </script>
 {% endif %}
-<body>
-
-<header class="header">
-
-    <div class="container header-inner">
-
-        <a href="/" class="logo">
-            ТУРБОСЕРВЕР
-        </a>
-
-        <nav class="nav">
-            <a href="/">Главная</a>
-            <a href="/pricing/">Тарифы</a>
-            <a href="#">Услуги</a>
-            <a href="#">Домены</a>
-            <a href="#">О нас</a>
-            <a href="#">Поддержка</a>
-        </nav>
-
-        <div class="header-actions">
-            {% if request.session.user_id %}
-                <a class="user-name" href="{% url 'account' %}">
-                    {{ request.session.user_name }}
-                </a>
-
-                <a class="small-btn" href="{% url 'logout' %}">
-                    Выйти
-                </a>
-            {% else %}
-                <a class="small-btn" href="{% url 'login' %}">
-                    Вход
-                </a>
-
-                <a class="small-btn" href="{% url 'register' %}">
-                    Регистрация
-                </a>
-            {% endif %}
-        </div>
-
-</header>
-
 
 <main class="cart-page">
 
@@ -413,23 +364,4 @@
     </div>
 
 </main>
-
-
-<footer class="footer">
-
-    <div class="container">
-
-        <strong>
-            ТУРБОСЕРВЕР
-        </strong>
-
-        <span>
-            © {% current_year %}
-        </span>
-
-    </div>
-
-</footer>
-
-</body>
-</html>
+{% endblock %}
