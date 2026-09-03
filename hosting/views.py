@@ -1,6 +1,7 @@
 from django.db import transaction
 from django.db.models import Avg, Sum, Q
 from django.shortcuts import render, get_object_or_404, redirect
+from django.core.cache import cache
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.hashers import make_password, check_password
 from .cart import Cart
@@ -76,7 +77,18 @@ def home(request):
 
 def pricing(request):
     cart = Cart(request)
-    tariffs_list = Tariff.active.all()
+
+    tariffs_list = cache.get("active_tariffs")
+
+    if tariffs_list is None:
+        tariffs_list = list(
+            Tariff.active.all()
+        )
+        cache.set(
+            "active_tariffs",
+            tariffs_list,
+            300
+        )
 
     paginator = Paginator(tariffs_list, 6)
 
@@ -144,6 +156,8 @@ def tariff_create(request):
                     feature=feature
                 )
 
+            cache.delete("active_tariffs")
+
             return redirect(tariff.get_absolute_url())
     else:
         form = TariffForm()
@@ -194,6 +208,8 @@ def tariff_edit(request, tariff_id):
                     feature=feature
                 )
 
+            cache.delete("active_tariffs")
+
             return redirect(tariff.get_absolute_url())
     else:
         form = TariffForm(instance=tariff)
@@ -216,6 +232,7 @@ def tariff_delete(request, tariff_id):
 
     if request.method == "POST":
         tariff.delete()
+        cache.delete("active_tariffs")
         return redirect("pricing")
 
     return render(

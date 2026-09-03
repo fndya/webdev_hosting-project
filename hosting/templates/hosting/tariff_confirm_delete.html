@@ -1,0 +1,120 @@
+{% load static %}
+{% load hosting_tags %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Удаление тарифа — ТурбоСервер</title>
+
+    <link rel="stylesheet" href="{% static 'hosting/css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'hosting/css/tariff_detail.css' %}">
+    <link rel="stylesheet" href="{% static 'hosting/css/tariff_form.css' %}">
+
+    <link rel="icon" href="{% static 'hosting/favicon.ico' %}" type="image/x-icon">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="container header-inner">
+
+        <a href="/" class="logo">
+            ТУРБОСЕРВЕР
+        </a>
+
+        <nav class="nav">
+            <a href="/">Главная</a>
+            <a class="active" href="/pricing/">Тарифы</a>
+        </nav>
+
+        <div class="header-actions">
+            <a class="small-btn" href="/logout/">Выйти</a>
+        </div>
+
+    </div>
+</header>
+
+
+<main class="tariff-form-page">
+
+    <div class="container">
+
+        <a href="{% url 'pricing' %}" class="back-link">
+            ← Вернуться к тарифам
+        </a>
+
+        <section class="tariff-detail-card tariff-form-card">
+
+            <div class="tariff-form-header">
+                <div>
+                    <span class="form-label">
+                        Управление тарифом
+                    </span>
+
+                    <h1>Удаление тарифа</h1>
+
+                    <p>
+                        Вы действительно хотите удалить этот тариф?
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="form-section">
+
+                <h2>{{ tariff.title }}</h2>
+
+                <p>
+                    Цена: {{ tariff.price_monthly }} ₽ в месяц
+                </p>
+
+                <p>
+                    После удаления восстановить тариф будет невозможно.
+                </p>
+
+            </div>
+
+
+            <form method="post">
+
+                {% csrf_token %}
+
+                <div class="tariff-form-actions">
+
+                    <a
+                        href="{% url 'tariff_detail' tariff.id %}"
+                        class="form-cancel-btn"
+                    >
+                        Отмена
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="form-save-btn"
+                    >
+                        Удалить тариф
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<footer class="footer">
+    <div class="container">
+        <strong>ТУРБОСЕРВЕР</strong>
+        <span>© {% current_year %}</span>
+    </div>
+</footer>
+
+</body>
+</html>
