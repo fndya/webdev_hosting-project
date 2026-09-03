@@ -317,6 +317,10 @@ class Order(models.Model):
         related_name="orders",
         verbose_name="Тариф"
     )
+    quantity = models.PositiveIntegerField(
+       default=1,
+        verbose_name="Количество"
+    )
     server = models.ForeignKey(
         Server,
         on_delete=models.SET_NULL,
@@ -329,6 +333,12 @@ class Order(models.Model):
         max_digits=10,
         decimal_places=2,
         verbose_name="Итоговая цена"
+    )
+    pdf_file = models.FileField(
+        upload_to="orders/pdf/",
+        blank=True,
+        null=True,
+        verbose_name="PDF документа"
     )
     status = models.CharField(
         max_length=50,

@@ -1,3 +1,4 @@
+from django.db import transaction
 from django.db.models import Avg, Sum, Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -228,6 +229,7 @@ def tariff_delete(request, tariff_id):
 def cart_detail(request):
     cart = Cart(request)
     user = get_current_user(request)
+    order_created = request.session.pop("order_created", False)
 
     return render(
         request,
@@ -235,9 +237,9 @@ def cart_detail(request):
         {
             "cart": cart,
             "user": user,
+            "order_created": order_created,
         },
     )
-
 
 def cart_add(request, tariff_id):
     cart = Cart(request)
@@ -275,6 +277,34 @@ def cart_remove(request, tariff_id):
     )
 
     cart.remove(tariff)
+
+    return redirect("cart_detail")
+
+def cart_checkout(request):
+    if not request.session.get("user_id"):
+        return redirect("login")
+
+    cart = Cart(request)
+    items = list(cart)
+
+    if not items:
+        return redirect("cart_detail")
+
+    user = get_current_user(request)
+
+    with transaction.atomic():
+        for item in items:
+            Order.objects.create(
+                user=user,
+                tariff=item["tariff"],
+                quantity=item["quantity"],
+                total_price=item["total_price"],
+                status="new",
+            )
+
+        cart.clear()
+
+    request.session["order_created"] = True
 
     return redirect("cart_detail")
 

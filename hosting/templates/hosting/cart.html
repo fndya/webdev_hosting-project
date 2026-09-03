@@ -19,7 +19,63 @@
         type="image/x-icon"
     >
 </head>
+{% if order_created %}
+<div class="order-modal" id="orderModal">
+    <div class="order-modal-overlay"></div>
 
+    <div class="order-modal-window" role="dialog" aria-modal="true">
+        <button
+            class="order-modal-close"
+            type="button"
+            aria-label="Закрыть"
+        >
+            ×
+        </button>
+
+        <div class="order-modal-icon">
+            ✓
+        </div>
+
+        <h2>
+            Заказ оформлен!
+        </h2>
+
+        <p>
+            Спасибо за заказ. Ваш заказ успешно сохранён.
+        </p>
+
+        <button
+            class="order-modal-confirm"
+            type="button"
+        >
+            Понятно
+        </button>
+    </div>
+</div>
+{% endif %}
+{% if order_created %}
+<script>
+    const orderModal = document.getElementById("orderModal");
+
+    const closeOrderModal = () => {
+        if (orderModal) {
+            orderModal.remove();
+        }
+    };
+
+    document
+        .querySelector(".order-modal-close")
+        .addEventListener("click", closeOrderModal);
+
+    document
+        .querySelector(".order-modal-confirm")
+        .addEventListener("click", closeOrderModal);
+
+    document
+        .querySelector(".order-modal-overlay")
+        .addEventListener("click", closeOrderModal);
+</script>
+{% endif %}
 <body>
 
 <header class="header">
@@ -322,10 +378,7 @@
                     </div>
 
 
-                    <a
-                        class="cart-pay-btn"
-                        href="#"
-                    >
+                    <a href="{% url 'cart_checkout' %}" class="cart-pay-btn">
                         Оплатить
                     </a>
 
