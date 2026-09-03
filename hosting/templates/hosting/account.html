@@ -1,4 +1,14 @@
 {% extends "hosting/base.html" %}
+{% load static %}
+{% load hosting_tags %}
+
+{% block title %}
+    Личный кабинет
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'hosting/css/account.css' %}">
+{% endblock %}
 
 {% block content %}
 <section class="account-page">
