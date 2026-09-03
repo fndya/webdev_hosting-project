@@ -4,6 +4,7 @@ from django.conf import settings
 
 from .models import Tariff
 
+
 class Cart:
     def __init__(self, request):
         self.session = request.session
@@ -30,7 +31,7 @@ class Cart:
         if tariff_id not in self.cart:
             self.cart[tariff_id] = {
                 "quantity": 0,
-                "price": str(tariff.price_monthly)
+                "price": str(tariff.price_monthly),
             }
 
         if override_quantity:
@@ -38,10 +39,23 @@ class Cart:
         else:
             self.cart[tariff_id]["quantity"] += quantity
 
+        if self.cart[tariff_id]["quantity"] <= 0:
+            del self.cart[tariff_id]
+
         self.save()
 
-    def save(self):
-        self.session.modified = True
+    def decrease(self, tariff):
+        tariff_id = str(tariff.id)
+
+        if tariff_id not in self.cart:
+            return
+
+        self.cart[tariff_id]["quantity"] -= 1
+
+        if self.cart[tariff_id]["quantity"] <= 0:
+            del self.cart[tariff_id]
+
+        self.save()
 
     def remove(self, tariff):
         tariff_id = str(tariff.id)
@@ -50,6 +64,9 @@ class Cart:
             del self.cart[tariff_id]
 
         self.save()
+
+    def save(self):
+        self.session.modified = True
 
     def __iter__(self):
         tariff_ids = self.cart.keys()
@@ -61,9 +78,17 @@ class Cart:
         cart = self.cart.copy()
 
         for tariff in tariffs:
-            cart[str(tariff.id)]["tariff"] = tariff
+            tariff_id = str(tariff.id)
 
-        for item in cart.values():
+            if tariff_id in cart:
+                cart[tariff_id]["tariff"] = tariff
+
+        for tariff_id in list(cart.keys()):
+            item = cart[tariff_id]
+
+            if "tariff" not in item:
+                continue
+
             item["price"] = Decimal(item["price"])
 
             item["total_price"] = (
@@ -87,8 +112,9 @@ class Cart:
         )
 
     def clear(self):
-        del self.session[
-            settings.CART_SESSION_ID
-        ]
+        self.session.pop(
+            settings.CART_SESSION_ID,
+            None
+        )
 
         self.save()

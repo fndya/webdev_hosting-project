@@ -2,6 +2,8 @@ from django.db.models import Avg, Sum, Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.hashers import make_password, check_password
+from .cart import Cart
+
 from .forms import RegisterForm, LoginForm, TariffForm
 
 from .models import (
@@ -217,6 +219,59 @@ def tariff_delete(request, tariff_id):
             "tariff": tariff,
         },
     )
+
+def cart_detail(request):
+    cart = Cart(request)
+    user = get_current_user(request)
+
+    return render(
+        request,
+        "hosting/cart.html",
+        {
+            "cart": cart,
+            "user": user,
+        },
+    )
+
+
+def cart_add(request, tariff_id):
+    cart = Cart(request)
+
+    tariff = get_object_or_404(
+        Tariff,
+        id=tariff_id,
+        is_active=True,
+    )
+
+    cart.add(tariff)
+
+    return redirect("cart_detail")
+
+
+def cart_decrease(request, tariff_id):
+    cart = Cart(request)
+
+    tariff = get_object_or_404(
+        Tariff,
+        id=tariff_id,
+    )
+
+    cart.decrease(tariff)
+
+    return redirect("cart_detail")
+
+
+def cart_remove(request, tariff_id):
+    cart = Cart(request)
+
+    tariff = get_object_or_404(
+        Tariff,
+        id=tariff_id,
+    )
+
+    cart.remove(tariff)
+
+    return redirect("cart_detail")
 
 def register(request):
     if request.method == "POST":

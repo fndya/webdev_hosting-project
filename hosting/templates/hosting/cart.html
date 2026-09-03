@@ -1,0 +1,382 @@
+{% load static %}
+{% load hosting_tags %}
+
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Корзина — ТурбоСервер</title>
+
+    <link rel="stylesheet" href="{% static 'hosting/css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'hosting/css/cart.css' %}">
+
+    <link
+        rel="icon"
+        href="{% static 'hosting/favicon.ico' %}"
+        type="image/x-icon"
+    >
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="container header-inner">
+
+        <a href="/" class="logo">
+            ТУРБОСЕРВЕР
+        </a>
+
+        <nav class="nav">
+            <a href="/">Главная</a>
+            <a href="/pricing/">Тарифы</a>
+            <a href="#">Услуги</a>
+            <a href="#">Домены</a>
+            <a href="#">О нас</a>
+            <a href="#">Поддержка</a>
+        </nav>
+
+        <div class="header-actions">
+            {% if request.session.user_id %}
+                <span class="user-name">
+                    {{ request.session.user_name }}
+                </span>
+
+                <a class="small-btn" href="{% url 'logout' %}">
+                    Выйти
+                </a>
+            {% else %}
+                <a class="small-btn" href="{% url 'login' %}">
+                    Вход
+                </a>
+
+                <a class="small-btn" href="{% url 'register' %}">
+                    Регистрация
+                </a>
+            {% endif %}
+        </div>
+
+</header>
+
+
+<main class="cart-page">
+
+    <div class="container">
+
+        <h1 class="cart-title">
+            Корзина
+        </h1>
+
+
+        {% if cart %}
+
+            <div class="cart-layout">
+
+                <!-- Левая часть -->
+                <div class="cart-products-column">
+                    <section class="cart-products">
+
+                        <div class="cart-table-header">
+
+                            <span>
+                                Тариф
+                            </span>
+
+                            <span>
+                                Количество
+                            </span>
+
+                            <span>
+                                Цена
+                            </span>
+
+                        </div>
+
+
+                        {% for item in cart %}
+
+                            <article class="cart-product">
+
+                                <!-- Тариф -->
+                                <div class="cart-product-main">
+
+                                    <details class="cart-specifications">
+
+                                        <summary
+                                            aria-label="Показать характеристики тарифа"
+                                            title="Показать характеристики"
+                                        >
+                                            <span class="cart-product-title">
+                                                {{ item.tariff.title }}
+                                            </span>
+
+                                            <span class="cart-specifications-arrow">
+                                                ⌄
+                                            </span>
+                                        </summary>
+
+
+                                        <div class="cart-specifications-list">
+
+                                            <div class="cart-spec-row">
+
+                                                <span class="tariff-icon">
+                                                    <img
+                                                        src="{% static 'hosting/icons/region.svg' %}"
+                                                        alt=""
+                                                    >
+                                                </span>
+
+                                                <strong>
+                                                    Регион
+                                                </strong>
+
+                                                <span>
+                                                    Россия
+                                                </span>
+
+                                            </div>
+
+
+                                            <div class="cart-spec-row">
+
+                                                <span class="tariff-icon">
+                                                    <img
+                                                        src="{% static 'hosting/icons/cpu.svg' %}"
+                                                        alt=""
+                                                    >
+                                                </span>
+
+                                                <strong>
+                                                    Процессор
+                                                </strong>
+
+                                                <span>
+                                                    {{ item.tariff.cpu_cores }} ядра
+                                                </span>
+
+                                            </div>
+
+
+                                            <div class="cart-spec-row">
+
+                                                <span class="tariff-icon">
+                                                    <img
+                                                        src="{% static 'hosting/icons/ram.svg' %}"
+                                                        alt=""
+                                                    >
+                                                </span>
+
+                                                <strong>
+                                                    ОЗУ
+                                                </strong>
+
+                                                <span>
+                                                    {{ item.tariff.ram_gb }} ГБ
+                                                </span>
+
+                                            </div>
+
+
+                                            <div class="cart-spec-row">
+
+                                                <span class="tariff-icon">
+                                                    <img
+                                                        src="{% static 'hosting/icons/storage.svg' %}"
+                                                        alt=""
+                                                    >
+                                                </span>
+
+                                                <strong>
+                                                    Диск
+                                                </strong>
+
+                                                <span>
+                                                    {{ item.tariff.storage_gb }} ГБ
+                                                </span>
+
+                                            </div>
+
+
+                                            <div class="cart-spec-row">
+
+                                                <span class="tariff-icon">
+                                                    <img
+                                                        src="{% static 'hosting/icons/traffic.svg' %}"
+                                                        alt=""
+                                                    >
+                                                </span>
+
+                                                <strong>
+                                                    Трафик
+                                                </strong>
+
+                                                <span>
+                                                    {{ item.tariff.traffic }}
+                                                </span>
+
+                                            </div>
+
+
+                                            <div class="cart-spec-row">
+
+                                                <span class="tariff-icon">
+                                                    <img
+                                                        src="{% static 'hosting/icons/pricetag.svg' %}"
+                                                        alt=""
+                                                    >
+                                                </span>
+
+                                                <strong>
+                                                    Цена
+                                                </strong>
+
+                                                <span>
+                                                    {{ item.tariff.price_monthly|floatformat:0 }} ₽/мес
+                                                </span>
+
+                                            </div>
+
+                                        </div>
+
+                                    </details>
+
+                                </div>
+
+
+
+
+                                <!-- Количество -->
+
+                                <div class="cart-product-quantity">
+
+                                    <a
+                                        class="quantity-btn"
+                                        href="{% url 'cart_decrease' item.tariff.id %}"
+                                        aria-label="Уменьшить количество"
+                                    >
+                                        −
+                                    </a>
+
+
+                                    <span class="quantity-value">
+                                        {{ item.quantity }}
+                                    </span>
+
+
+                                    <a
+                                        class="quantity-btn"
+                                        href="{% url 'cart_add' item.tariff.id %}"
+                                        aria-label="Увеличить количество"
+                                    >
+                                        +
+                                    </a>
+
+                                </div>
+
+
+                                <!-- Цена -->
+
+                                <div class="cart-product-price">
+
+                                    <strong>
+                                        {{ item.total_price|floatformat:0 }} ₽
+                                    </strong>
+
+
+                                    <a
+                                        class="cart-remove"
+                                        href="{% url 'cart_remove' item.tariff.id %}"
+                                    >
+                                        Удалить
+                                    </a>
+
+                                </div>
+
+                            </article>
+
+                        {% endfor %}
+
+                    </section>
+                    <a class="cart-back-btn" href="{% url 'pricing' %}">
+                        ← Вернуться к тарифам
+                    </a>
+
+                </div>
+
+
+                <!-- Правая часть -->
+
+                <aside class="cart-summary">
+
+                    <h2>
+                        Сумма заказа
+                    </h2>
+
+
+                    <div class="cart-total">
+                        {{ cart.get_total_price|floatformat:0 }} ₽
+                    </div>
+
+
+                    <a
+                        class="cart-pay-btn"
+                        href="#"
+                    >
+                        Оплатить
+                    </a>
+
+                </aside>
+
+            </div>
+
+
+        {% else %}
+
+            <section class="cart-empty">
+
+                <h2>
+                    Корзина пуста
+                </h2>
+
+                <p>
+                    Добавьте тарифы, чтобы продолжить.
+                </p>
+
+                <a
+                    class="cart-empty-btn"
+                    href="{% url 'pricing' %}"
+                >
+                    Перейти к тарифам
+                </a>
+
+            </section>
+
+        {% endif %}
+
+    </div>
+
+</main>
+
+
+<footer class="footer">
+
+    <div class="container">
+
+        <strong>
+            ТУРБОСЕРВЕР
+        </strong>
+
+        <span>
+            © {% current_year %}
+        </span>
+
+    </div>
+
+</footer>
+
+</body>
+</html>

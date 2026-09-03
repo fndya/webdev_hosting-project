@@ -27,8 +27,36 @@
         </nav>
 
         <div class="header-actions">
-            <a class="small-btn" href="/login/">Вход</a>
-            <a class="small-btn" href="/register/">Регистрация</a>
+
+            <a
+                class="small-btn cart-header-btn"
+                href="{% url 'cart_detail' %}"
+            >
+                Корзина ({{ cart|length }})
+            </a>
+
+            {% if user %}
+
+                <span class="user-name">
+                    {{ user.name }}
+                </span>
+
+                <a class="small-btn" href="{% url 'logout' %}">
+                    Выйти
+                </a>
+
+            {% else %}
+
+                <a class="small-btn" href="{% url 'login' %}">
+                    Вход
+                </a>
+
+                <a class="small-btn" href="{% url 'register' %}">
+                    Регистрация
+                </a>
+
+            {% endif %}
+
         </div>
     </div>
 </header>
@@ -100,7 +128,9 @@
                     <a class="card-details-btn" href="{{ tariff.get_absolute_url }}">
                         Подробнее
                     </a>
-                    <a class="card-buy-btn" href="/cart/?tariff={{ tariff.id }}">Купить</a>
+                    <a class="card-buy-btn" href="{% url 'cart_add' tariff.id %}">
+                        Купить
+                    </a>
                 </article>
             {% empty %}
                 <p>Тарифы пока не добавлены.</p>

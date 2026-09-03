@@ -31,8 +31,29 @@
         </nav>
 
         <div class="header-actions">
-            <a class="small-btn" href="/login/">Вход</a>
-            <a class="small-btn" href="/register/">Регистрация</a>
+            <a
+                class="small-btn cart-header-btn"
+                href="{% url 'cart_detail' %}"
+            >
+                Корзина ({{ cart|length }})
+            </a>
+            {% if request.session.user_id %}
+                <span class="user-name">
+                    {{ request.session.user_name }}
+                </span>
+
+                <a class="small-btn" href="{% url 'logout' %}">
+                    Выйти
+                </a>
+            {% else %}
+                <a class="small-btn" href="{% url 'login' %}">
+                    Вход
+                </a>
+
+                <a class="small-btn" href="{% url 'register' %}">
+                    Регистрация
+                </a>
+            {% endif %}
         </div>
 
     </div>
