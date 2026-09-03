@@ -19,7 +19,7 @@ from .models import (
 
 def home(request):
     query = request.GET.get("q", "").strip()
-
+    cart = Cart(request)
     recommended_tariffs = (
         Tariff.objects
         .filter(is_active=True)
@@ -68,11 +68,13 @@ def home(request):
         "latest_requests": latest_requests,
         "search_results": search_results,
         "stats": stats,
+        "cart": cart,
     }
 
     return render(request, "hosting/index.html", context)
 
 def pricing(request):
+    cart = Cart(request)
     tariffs_list = Tariff.active.all()
 
     paginator = Paginator(tariffs_list, 6)
@@ -88,9 +90,11 @@ def pricing(request):
 
     return render(request, "hosting/pricing.html", {
         "tariffs": tariffs,
+        "cart": cart,
     })
 
 def tariff_detail(request, tariff_id):
+    cart = Cart(request)
     tariff = get_object_or_404(
         Tariff.objects.prefetch_related("features", "images"),
         id=tariff_id,
@@ -98,9 +102,10 @@ def tariff_detail(request, tariff_id):
     )
 
     return render(
-        request,
-        "hosting/tariff_detail.html",
-        {"tariff": tariff}
+        request, "hosting/tariff_detail.html",{
+            "tariff": tariff,
+            "cart": cart,
+            }
     )
 
 def tariff_create(request):
