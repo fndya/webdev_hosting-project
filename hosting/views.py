@@ -22,11 +22,9 @@ from .models import (
 def home(request):
     query = request.GET.get("q", "").strip()
     cart = Cart(request)
-    recommended_tariffs = (
-        Tariff.objects
-        .filter(is_active=True)
-        .order_by("-is_recommended", "price_monthly")[:3]
-    )
+    recommended_tariffs = Tariff.active.filter(
+        is_recommended=True
+    )[:3]
 
     latest_servers = (
         Server.objects

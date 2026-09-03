@@ -135,53 +135,12 @@
         </div>
     </section>
 
-    <section class="search-section">
-        <div class="container">
-            <div class="section-title">
-                <h2>Найти подходящий тариф</h2>
-                <p>Поиск выполняется по данным из базы: названию, описанию и параметрам тарифа.</p>
-            </div>
-
-            <form class="search-form" method="get">
-                <input type="text" name="q" value="{{ query }}" placeholder="Например: Бизнес, SSD, безлимит">
-                <button type="submit">Найти</button>
-            </form>
-
-            {% if search_results is not None %}
-                <div class="search-results">
-                    <h3>Результаты поиска</h3>
-
-                    {% if search_results %}
-                        <div class="tariff-grid">
-                            {% for tariff in search_results %}
-                                <article class="tariff-card">
-                                    <h3>
-                                        <a href="/pricing/#tariff-{{ tariff.id }}">{{ tariff.title }}</a>
-                                    </h3>
-                                    <p>{{ tariff.description|truncatechars:100 }}</p>
-                                    <ul>
-                                        <li>CPU: {{ tariff.cpu_cores }} ядра</li>
-                                        <li>RAM: {{ tariff.ram_gb }} ГБ</li>
-                                        <li>Диск: {{ tariff.storage_gb }} ГБ</li>
-                                    </ul>
-                                    <strong>{{ tariff.price_monthly }} ₽/мес</strong>
-                                </article>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        <p>По вашему запросу ничего не найдено.</p>
-                    {% endif %}
-                </div>
-            {% endif %}
-        </div>
-    </section>
-
     <section class="tariffs-section">
         <div class="container">
             <div class="section-title row-title">
                 <div>
                     <h2>Рекомендуемые тарифы</h2>
-                    <p>Данные карточек формируются из таблицы Tariff.</p>
+                    <p></p>
                 </div>
                 <a href="/pricing/">Все тарифы</a>
             </div>
@@ -212,7 +171,7 @@
                         <a class="primary-btn" href="/pricing/#tariff-{{ tariff.id }}">Выбрать</a>
                     </article>
                 {% empty %}
-                    <p>Тарифы пока не добавлены.</p>
+                    <p>Рекомендуемые тарифы пока не добавлены</p>
                 {% endfor %}
             </div>
         </div>
@@ -222,7 +181,7 @@
         <div class="container">
             <div class="section-title">
                 <h2>Платформа в цифрах</h2>
-                <p>Этот блок использует агрегатные запросы COUNT, AVG и SUM.</p>
+                <p>Основные показатели нашей платформы.</p>
             </div>
 
             <div class="stats-grid">
@@ -245,40 +204,6 @@
                     <strong>{{ stats.avg_price|floatformat:0 }}</strong>
                     <span>средняя цена, ₽</span>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="servers-section">
-        <div class="container">
-            <div class="section-title row-title">
-                <div>
-                    <h2>Последние созданные серверы</h2>
-                    <p>Демонстрация MVP: серверы имеют тариф, владельца и статус.</p>
-                </div>
-                <a href="/dashboard/servers/">Личный кабинет</a>
-            </div>
-
-            <div class="server-list">
-                {% for server in latest_servers %}
-                    <div class="server-row">
-                        <div>
-                            <strong>
-                                <a href="/server/{{ server.id }}/">
-                                    {{ server.ip_address }}
-                                </a>
-                            </strong>
-                            <p>{{ server.tariff.title }} · {{ server.user.email }}</p>
-                        </div>
-
-                        <div class="server-meta">
-                            <span class="status status-{{ server.status.name }}">{{ server.status.name }}</span>
-                            <p>до {{ server.expires_at|date:"d.m.Y" }}</p>
-                        </div>
-                    </div>
-                {% empty %}
-                    <p>Серверы пока не созданы.</p>
-                {% endfor %}
             </div>
         </div>
     </section>

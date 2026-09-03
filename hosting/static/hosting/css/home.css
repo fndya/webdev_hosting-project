@@ -32,14 +32,27 @@
 
 .hero-button {
     position: absolute;
-    right: 56px;
-    bottom: 60px;
+    right: 48px;
+    bottom: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 54px;
+    padding: 0 28px;
+    border-radius: 8px;
     background: #042CC6;
     color: white;
-    padding: 25px 34px;
-    border-radius: 8px;
-    font-size: 28px;
+    font-size: 18px;
     font-weight: 800;
+    line-height: 1;
+    text-decoration: none;
+    box-sizing: border-box;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.hero-button:hover {
+    background: #06239a;
+    transform: translateY(-2px);
 }
 
 /* ADVANTAGES */
@@ -104,46 +117,10 @@
 
 /* MVP SECTIONS */
 
-.search-section,
 .tariffs-section,
-.stats-section,
-.servers-section {
+.stats-section {
     padding: 64px 0;
 }
-
-/* SEARCH */
-
-.search-form {
-    display: flex;
-    gap: 14px;
-    margin-bottom: 24px;
-}
-
-.search-form input {
-    flex: 1;
-    min-height: 52px;
-    border: 1px solid #4A5163;
-    border-radius: 5px;
-    padding: 0 18px;
-    font-size: 16px;
-}
-
-.search-form button {
-    border: none;
-    background: #042CC6;
-    color: white;
-    border-radius: 8px;
-    padding: 14px 24px;
-    font-weight: 800;
-    cursor: pointer;
-}
-
-.search-results {
-    background: white;
-    border-radius: 8px;
-    padding: 24px;
-}
-
 /* HOME TARIFF CARDS */
 
 .tariff-grid {
@@ -223,35 +200,6 @@
 
 .stat-card span {
     color: #4A5163;
-}
-
-/* SERVERS */
-
-.server-list {
-    background: white;
-    border-radius: 8px;
-    padding: 10px 24px;
-}
-
-.server-row {
-    padding: 18px 0;
-    border-bottom: 1px solid #E1E5EE;
-    display: flex;
-    justify-content: space-between;
-    gap: 24px;
-}
-
-.server-row:last-child {
-    border-bottom: none;
-}
-
-.server-row p {
-    margin: 6px 0 0;
-    color: #4A5163;
-}
-
-.server-meta {
-    text-align: right;
 }
 
 /* CONTACT */
@@ -340,14 +288,9 @@
         right: 14px;
         bottom: 14px;
         width: auto;
-        height: 50px;
-        padding: 0;
+        min-height: 50px;
+        padding: 0 16px;
         font-size: 16px;
-        border-radius: 7px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 5px 7px rgba(35, 47, 72, 0.35);
     }
 
     .advantages {
