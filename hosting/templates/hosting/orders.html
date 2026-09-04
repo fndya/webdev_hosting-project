@@ -1,0 +1,95 @@
+{% extends "hosting/base.html" %}
+
+{% load static %}
+
+{% block title %}
+    Мои заказы
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'hosting/css/account.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="account-page">
+    <div class="container">
+        <div class="account-sidebar">
+            <a href="{% url 'account' %}" class="account-sidebar-link">
+                Обзор
+            </a>
+
+            <a href="{% url 'my_orders' %}" class="account-sidebar-link is-active">
+                Мои заказы
+            </a>
+
+            <a href="{% url 'my_servers' %}" class="account-sidebar-link">
+                Мои серверы
+            </a>
+
+            <a href="{% url 'my_requests' %}" class="account-sidebar-link">
+                Мои обращения
+            </a>
+        </div>
+
+        <div class="account-header">
+            <span class="account-eyebrow">Личный кабинет</span>
+            <h1>Мои заказы</h1>
+            <p>История заказов и их текущий статус.</p>
+        </div>
+
+        <div class="account-section">
+            {% if orders %}
+                <div class="account-table-wrapper">
+                    <table class="account-table">
+                        <thead>
+                            <tr>
+                                <th>Тариф</th>
+                                <th>Количество</th>
+                                <th>Сумма</th>
+                                <th>Статус</th>
+                                <th>Дата</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for order in orders %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ order.tariff.name }}</strong>
+                                    </td>
+
+                                    <td>
+                                        {{ order.quantity }}
+                                    </td>
+
+                                    <td>
+                                        {{ order.total_price }} ₽
+                                    </td>
+
+                                    <td>
+                                        <span class="account-status">
+                                            {{ order.status }}
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        {{ order.created_at|date:"d.m.Y" }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="account-empty">
+                    <h2>Заказов пока нет</h2>
+                    <p>Выберите подходящий тариф и оформите первый заказ.</p>
+                    <a href="{% url 'pricing' %}" class="account-action">
+                        Перейти к тарифам
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends "hosting/base.html" %}
+
+{% load static %}
+
+{% block title %}
+    Мои обращения
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'hosting/css/account.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="account-page">
+    <div class="container">
+        <div class="account-sidebar">
+            <a href="{% url 'account' %}" class="account-sidebar-link">
+                Обзор
+            </a>
+
+            <a href="{% url 'my_orders' %}" class="account-sidebar-link">
+                Мои заказы
+            </a>
+
+            <a href="{% url 'my_servers' %}" class="account-sidebar-link">
+                Мои серверы
+            </a>
+
+            <a href="{% url 'my_requests' %}" class="account-sidebar-link is-active">
+                Мои обращения
+            </a>
+        </div>
+
+        <div class="account-header">
+            <span class="account-eyebrow">Личный кабинет</span>
+            <h1>Мои обращения</h1>
+            <p>История обращений в службу поддержки.</p>
+        </div>
+
+        <div class="account-section">
+            {% if contact_requests %}
+                <div class="account-request-list">
+                    {% for contact_request in contact_requests %}
+                        <article class="account-request-card">
+                            <div class="account-request-top">
+                                <div>
+                                    <span class="account-card-label">
+                                        Обращение №{{ contact_request.id }}
+                                    </span>
+
+                                    <h2>
+                                        {{ contact_request.subject|default:"Обращение в поддержку" }}
+                                    </h2>
+                                </div>
+
+                                <span class="account-status">
+                                    {{ contact_request.status }}
+                                </span>
+                            </div>
+
+                            <p class="account-request-message">
+                                {{ contact_request.message }}
+                            </p>
+
+                            <div class="account-request-date">
+                                Создано:
+                                {{ contact_request.created_at|date:"d.m.Y H:i" }}
+                            </div>
+                        </article>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="account-empty">
+                    <h2>Обращений пока нет</h2>
+                    <p>Если возникнет вопрос, вы можете обратиться в поддержку.</p>
+                    <a href="{% url 'support' %}" class="account-action">
+                        Написать в поддержку
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

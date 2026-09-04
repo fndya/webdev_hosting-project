@@ -14,26 +14,200 @@
 <section class="account-page">
     <div class="container">
         <div class="account-header">
-            <h1>Личный кабинет</h1>
-            <p>Добро пожаловать, {{ user.name }}!</p>
+            <div class="account-header-content">
+                <span class="account-eyebrow">Личный кабинет</span>
+                <h1>Добро пожаловать, {{ user.name }}!</h1>
+                <p>
+                    Управляйте заказами, серверами и обращениями
+                    в одном месте.
+                </p>
+            </div>
+
+            <div class="account-balance">
+                <span>Баланс</span>
+                <strong>{{ user.balance|default:"0.00" }} ₽</strong>
+            </div>
         </div>
 
-        <div class="account-grid">
-            <a href="{% url 'my_orders' %}" class="account-card">
-                <h2>Мои заказы</h2>
-                <p>{{ orders|length }}</p>
+        <div class="account-sidebar">
+            <a href="{% url 'account' %}" class="account-sidebar-link">
+                Обзор
             </a>
 
-            <a href="{% url 'my_servers' %}" class="account-card">
-                <h2>Мои серверы</h2>
-                <p>{{ servers|length }}</p>
+            <a href="{% url 'my_orders' %}" class="account-sidebar-link">
+                Мои заказы
             </a>
 
-            <a href="{% url 'my_requests' %}" class="account-card">
-                <h2>Обращения</h2>
-                <p>{{ contact_requests|length }}</p>
+            <a href="{% url 'my_servers' %}" class="account-sidebar-link">
+                Мои серверы
+            </a>
+
+            <a href="{% url 'my_requests' %}" class="account-sidebar-link">
+                Мои обращения
             </a>
         </div>
+
+        <div class="account-stats">
+
+            <a href="{% url 'my_orders' %}" class="account-stat-card">
+                <span class="stat-label">Мои заказы</span>
+                <strong>{{ orders|length }}</strong>
+                <small>Все заказы</small>
+            </a>
+
+            <a href="{% url 'my_servers' %}" class="account-stat-card">
+                <span class="stat-label">Мои серверы</span>
+                <strong>{{ servers|length }}</strong>
+                <small>Управление серверами</small>
+            </a>
+
+            <a href="{% url 'my_requests' %}" class="account-stat-card">
+                <span class="stat-label">Обращения</span>
+                <strong>{{ contact_requests|length }}</strong>
+                <small>История обращений</small>
+            </a>
+
+            <a href="{% url 'cart_detail' %}" class="account-stat-card">
+                <span class="stat-label">Корзина</span>
+                <strong>{{ cart|length }}</strong>
+                <small>Товары к оформлению</small>
+            </a>
+
+        </div>
+
+        <div class="account-layout">
+
+            <section class="dashboard-panel orders-panel">
+                <div class="panel-heading">
+                    <div>
+                        <span class="panel-kicker">История</span>
+                        <h2>Последние заказы</h2>
+                    </div>
+
+                    <a href="{% url 'my_orders' %}" class="panel-link">
+                        Все заказы →
+                    </a>
+                </div>
+
+                {% if orders %}
+                    <div class="dashboard-list">
+                        {% for order in orders|slice:":5" %}
+                            <div class="dashboard-list-item">
+                                <div class="list-main">
+                                    <strong>Заказ №{{ order.id }}</strong>
+                                    <span>{{ order.tariff.title }}</span>
+                                    <small>
+                                        {{ order.created_at|date:"d.m.Y" }}
+                                    </small>
+                                </div>
+
+                                <div class="item-side">
+                                    <strong>{{ order.total_price }} ₽</strong>
+                                    <span class="status-badge">
+                                        {{ order.status }}
+                                    </span>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="empty-state">
+                        У вас пока нет заказов.
+                    </div>
+                {% endif %}
+            </section>
+
+            <aside class="dashboard-panel quick-panel">
+                <div class="panel-heading">
+                    <div>
+                        <span class="panel-kicker">Навигация</span>
+                        <h2>Быстрые действия</h2>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <a href="{% url 'pricing' %}">
+                        <span>Выбрать тариф</span>
+                        <b>→</b>
+                    </a>
+
+                    <a href="{% url 'my_servers' %}">
+                        <span>Мои серверы</span>
+                        <b>→</b>
+                    </a>
+
+                    <a href="{% url 'support' %}">
+                        <span>Задать вопрос</span>
+                        <b>→</b>
+                    </a>
+
+                    <a href="{% url 'cart_detail' %}">
+                        <span>Открыть корзину</span>
+                        <b>→</b>
+                    </a>
+                </div>
+            </aside>
+
+        </div>
+
+        <section class="dashboard-panel servers-panel">
+            <div class="panel-heading">
+                <div>
+                    <span class="panel-kicker">Инфраструктура</span>
+                    <h2>Мои серверы</h2>
+                </div>
+
+                <a href="{% url 'my_servers' %}" class="panel-link">
+                    Все серверы →
+                </a>
+            </div>
+
+            {% if servers %}
+                <div class="servers-table-wrap">
+                    <table class="servers-table">
+                        <thead>
+                            <tr>
+                                <th>Тариф</th>
+                                <th>IP-адрес</th>
+                                <th>Статус</th>
+                                <th>Дата окончания</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for server in servers|slice:":5" %}
+                                <tr>
+                                    <td>
+                                        <strong>
+                                            {{ server.tariff.title }}
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        {{ server.ip_address }}
+                                    </td>
+
+                                    <td>
+                                        <span class="status-badge">
+                                            {{ server.status.name }}
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        {{ server.expires_at|date:"d.m.Y" }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    Активных серверов пока нет.
+                </div>
+            {% endif %}
+        </section>
+
     </div>
 </section>
 {% endblock %}

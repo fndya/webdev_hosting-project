@@ -1,0 +1,91 @@
+{% extends "hosting/base.html" %}
+
+{% load static %}
+
+{% block title %}
+    Мои серверы
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'hosting/css/account.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="account-page">
+    <div class="container">
+        <div class="account-sidebar">
+            <a href="{% url 'account' %}" class="account-sidebar-link">
+                Обзор
+            </a>
+
+            <a href="{% url 'my_orders' %}" class="account-sidebar-link">
+                Мои заказы
+            </a>
+
+            <a href="{% url 'my_servers' %}" class="account-sidebar-link is-active">
+                Мои серверы
+            </a>
+
+            <a href="{% url 'my_requests' %}" class="account-sidebar-link">
+                Мои обращения
+            </a>
+        </div>
+
+        <div class="account-header">
+            <span class="account-eyebrow">Личный кабинет</span>
+            <h1>Мои серверы</h1>
+            <p>Список серверов, привязанных к вашему аккаунту.</p>
+        </div>
+
+        <div class="account-server-grid">
+            {% if servers %}
+                {% for server in servers %}
+                    <article class="account-server-card">
+                        <div class="account-server-top">
+                            <div>
+                                <span class="account-card-label">Сервер</span>
+                                <h2>{{ server.tariff.name }}</h2>
+                            </div>
+
+                            <span class="account-status">
+                                {{ server.status }}
+                            </span>
+                        </div>
+
+                        <div class="account-server-info">
+                            <div>
+                                <span>IP-адрес</span>
+                                <strong>
+                                    {{ server.ip_address|default:"Не назначен" }}
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span>Создан</span>
+                                <strong>
+                                    {{ server.created_at|date:"d.m.Y" }}
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span>Оплачен до</span>
+                                <strong>
+                                    {{ server.expires_at|date:"d.m.Y" }}
+                                </strong>
+                            </div>
+                        </div>
+                    </article>
+                {% endfor %}
+            {% else %}
+                <div class="account-empty">
+                    <h2>Серверов пока нет</h2>
+                    <p>После оформления заказа ваши серверы появятся здесь.</p>
+                    <a href="{% url 'pricing' %}" class="account-action">
+                        Выбрать тариф
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}
