@@ -21,7 +21,7 @@ def generate_password():
     """Генерирует случайный пароль доступа."""
     return secrets.token_urlsafe(18)
 
-
+@shared_task
 def provision_order(order_id):
     """Выдаёт все серверы по заказу через Celery."""
     with transaction.atomic():
