@@ -48,7 +48,22 @@
                 <button type="submit" class="account-action">
                     Найти
                 </button>
+                <label for="searchMode" class="search-mode-label">Режим поиска</label>
+                <select name="search_mode" class="search-mode-select" id="searchMode">
+                    <option
+                        value="icontains"
+                        {% if search_mode == "icontains" %}selected{% endif %}
+                    >
+                        Поиск по части слова
+                    </option>
 
+                    <option
+                        value="contains"
+                        {% if search_mode == "contains" %}selected{% endif %}
+                    >
+                        Точное совпадение
+                    </option>
+                </select>
                 {% if search_query %}
                     <a href="{% url 'my_orders' %}" class="account-search-reset">
                         Сбросить
@@ -66,6 +81,7 @@
                     <table class="account-table">
                         <thead>
                             <tr>
+                                <th>ID заказа</th>
                                 <th>Тариф</th>
                                 <th>Количество</th>
                                 <th>Сумма</th>
@@ -77,6 +93,7 @@
                         <tbody>
                             {% for order in orders %}
                                 <tr>
+                                    <td>{{ order.id }}</td>
                                     <td>
                                         <strong>{{ order.tariff.title }}</strong>
                                     </td>

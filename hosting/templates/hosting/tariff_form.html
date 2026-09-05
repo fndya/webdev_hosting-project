@@ -8,7 +8,7 @@
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'hosting/css/tariff_detail.css' %}">
-    <link rel="stylesheet" href="{% static 'hosting/css/tariff_form.css' %}">
+    {{ form.media.css }}
 {% endblock %}
 
 {% block content %}

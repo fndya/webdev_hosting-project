@@ -143,8 +143,30 @@ class TariffForm(forms.ModelForm):
                 }
             ),
         }
+    
+    class Media:
+        css = {
+            "all": (
+                "hosting/css/tariff_form.css",
+            )
+        }
 
 class ContactRequestForm(forms.ModelForm):
+    message = forms.CharField(
+        label="Сообщение",
+        help_text="Опишите вопрос или проблему",
+        widget=forms.Textarea(
+            attrs={
+                "placeholder": "Ваше сообщение",
+                "rows": 5,
+            }
+        ),
+        error_messages={
+            "required": "Введите текст сообщения.",
+            "max_length": "Сообщение слишком длинное.",
+        },
+    )
+
     class Meta:
         model = ContactRequest
         fields = (
@@ -153,6 +175,24 @@ class ContactRequestForm(forms.ModelForm):
             "phone",
             "message",
         )
+        labels = {
+            "name": "Имя",
+            "email": "Электронная почта",
+            "phone": "Телефон",
+        }
+        help_texts = {
+            "email": "Укажите почту для ответа специалиста.",
+            "phone": "Номер телефона можно указать дополнительно.",
+        }
+        error_messages = {
+            "name": {
+                "required": "Введите имя.",
+            },
+            "email": {
+                "required": "Введите электронную почту.",
+                "invalid": "Введите корректный адрес электронной почты.",
+            },
+        }
         widgets = {
             "name": forms.TextInput(
                 attrs={
@@ -167,12 +207,6 @@ class ContactRequestForm(forms.ModelForm):
             "phone": forms.TextInput(
                 attrs={
                     "placeholder": "Телефон",
-                }
-            ),
-            "message": forms.Textarea(
-                attrs={
-                    "placeholder": "Ваше сообщение",
-                    "rows": 5,
                 }
             ),
         }

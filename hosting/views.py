@@ -465,6 +465,7 @@ def my_orders(request):
         return redirect("login")
 
     search_query = request.GET.get("q", "").strip()
+    search_mode = request.GET.get("search_mode", "icontains")
 
     orders = (
         Order.objects
@@ -473,10 +474,24 @@ def my_orders(request):
         .order_by("-created_at")
     )
 
-    if search_query:
-        orders = orders.filter(
-            tariff__title__icontains=search_query
+    order_ids = list(
+        orders.values_list(
+            "id",
+            flat=True,
         )
+    )
+
+    if search_query:
+        if search_mode == "contains":
+            orders = orders.filter(
+                tariff__title__contains=search_query
+            )
+        else:
+            search_mode = "icontains"
+
+            orders = orders.filter(
+                tariff__title__icontains=search_query
+            )
 
     orders_count = orders.count()
     has_orders = orders.exists()
@@ -498,10 +513,12 @@ def my_orders(request):
         {
             "user": user,
             "orders": orders,
+            "order_ids": order_ids,
             "orders_count": orders_count,
             "has_orders": has_orders,
             "order_preview": order_preview,
             "search_query": search_query,
+            "search_mode": search_mode,
             "cart": Cart(request),
         },
     )
