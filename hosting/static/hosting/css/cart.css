@@ -637,21 +637,35 @@
     width: 32px;
     height: 32px;
 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     padding: 0;
 
     border: none;
     background: transparent;
 
     color: #4A5163;
-
-    font-size: 28px;
-    line-height: 1;
-
+    transition: color 0.2s ease;
     cursor: pointer;
 }
 
 .order-modal-close:hover {
     color: #232F48;
+}
+
+.order-modal-close svg {
+    width: 24px;
+    height: 24px;
+    display: block;
+}
+
+.order-modal-close svg path {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
 }
 
 .order-modal-icon {
@@ -667,12 +681,15 @@
     border-radius: 50%;
 
     background: #E1E5EE;
-
     color: #042CC6;
-
-    font-size: 30px;
-    font-weight: 900;
 }
+
+.order-modal-icon img {
+    width: 30px;
+    height: 30px;
+    display: block;
+}
+
 
 .order-modal-window h2 {
     margin: 0 0 12px;

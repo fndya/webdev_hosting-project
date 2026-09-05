@@ -331,7 +331,7 @@ def cart_checkout(request):
 
     request.session["order_created"] = True
 
-    return redirect("my_orders")
+    return redirect("cart_detail")
 
 def register(request):
     if request.method == "POST":
@@ -464,11 +464,32 @@ def my_orders(request):
     if not user:
         return redirect("login")
 
+    search_query = request.GET.get("q", "").strip()
+
     orders = (
         Order.objects
         .filter(user=user)
         .select_related("tariff", "server")
         .order_by("-created_at")
+    )
+
+    if search_query:
+        orders = orders.filter(
+            tariff__title__icontains=search_query
+        )
+
+    orders_count = orders.count()
+    has_orders = orders.exists()
+
+    order_preview = list(
+        orders.values(
+            "id",
+            "tariff__title",
+            "quantity",
+            "total_price",
+            "status",
+            "created_at",
+        )[:5]
     )
 
     return render(
@@ -477,6 +498,10 @@ def my_orders(request):
         {
             "user": user,
             "orders": orders,
+            "orders_count": orders_count,
+            "has_orders": has_orders,
+            "order_preview": order_preview,
+            "search_query": search_query,
             "cart": Cart(request),
         },
     )

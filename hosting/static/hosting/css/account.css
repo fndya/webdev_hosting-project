@@ -568,6 +568,88 @@
     font-size: 12px;
 }
 
+.account-order-tools {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.account-search-form {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.account-search-form input {
+    flex: 1;
+    min-width: 220px;
+    min-height: 42px;
+    padding: 0 14px;
+    color: #344054;
+    background: #ffffff;
+    border: 1px solid #d9e0ea;
+    border-radius: 10px;
+    font: inherit;
+    outline: none;
+}
+
+.account-search-form input:focus {
+    border-color: #2563eb;
+}
+
+.account-search-form .account-action {
+    border: 0;
+    cursor: pointer;
+}
+
+.account-search-reset {
+    display: inline-flex;
+    align-items: center;
+    min-height: 42px;
+    padding: 0 12px;
+    color: #667085;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.account-search-reset:hover {
+    color: #2563eb;
+}
+
+.account-order-count {
+    flex-shrink: 0;
+    color: #7b8494;
+    font-size: 13px;
+}
+
+.account-order-count strong {
+    color: #172033;
+}
+
+@media (max-width: 700px) {
+    .account-order-tools {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .account-search-form {
+        flex-direction: column;
+    }
+
+    .account-search-form input {
+        min-width: 0;
+        width: 100%;
+    }
+
+    .account-search-form .account-action {
+        width: 100%;
+    }
+}
+
 @media (max-width: 700px) {
     .account-section {
         padding: 16px;

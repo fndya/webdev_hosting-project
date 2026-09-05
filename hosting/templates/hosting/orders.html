@@ -36,9 +36,32 @@
             <h1>Мои заказы</h1>
             <p>История заказов и их текущий статус.</p>
         </div>
+        <div class="account-order-tools">
+            <form method="get" class="account-search-form">
+                <input
+                    type="search"
+                    name="q"
+                    value="{{ search_query }}"
+                    placeholder="Поиск по названию тарифа"
+                >
 
+                <button type="submit" class="account-action">
+                    Найти
+                </button>
+
+                {% if search_query %}
+                    <a href="{% url 'my_orders' %}" class="account-search-reset">
+                        Сбросить
+                    </a>
+                {% endif %}
+            </form>
+
+            <div class="account-order-count">
+                Найдено заказов: <strong>{{ orders_count }}</strong>
+            </div>
+        </div>
         <div class="account-section">
-            {% if orders %}
+            {% if has_orders %}
                 <div class="account-table-wrapper">
                     <table class="account-table">
                         <thead>
@@ -55,7 +78,7 @@
                             {% for order in orders %}
                                 <tr>
                                     <td>
-                                        <strong>{{ order.tariff.name }}</strong>
+                                        <strong>{{ order.tariff.title }}</strong>
                                     </td>
 
                                     <td>
