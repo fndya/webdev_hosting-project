@@ -305,6 +305,19 @@ class Server(models.Model):
 
 
 class Order(models.Model):
+    STATUS_NEW = "new"
+    STATUS_PROCESSING = "processing"
+    STATUS_COMPLETED = "completed"
+    STATUS_CANCELLED = "cancelled"
+    STATUS_REFUNDED = "refunded"
+
+    ORDER_STATUSES = [
+        (STATUS_NEW, "Новый"),
+        (STATUS_PROCESSING, "В обработке"),
+        (STATUS_COMPLETED, "Выполнен"),
+        (STATUS_CANCELLED, "Отменён"),
+        (STATUS_REFUNDED, "Возвращён"),
+    ]
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -342,7 +355,9 @@ class Order(models.Model):
     )
     status = models.CharField(
         max_length=50,
-        verbose_name="Статус заказа"
+        choices=ORDER_STATUSES,
+        default=STATUS_NEW,
+        verbose_name="Статус заказа",
     )
     created_at = models.DateTimeField(
         auto_now_add=True,
@@ -406,6 +421,17 @@ class BalanceTransaction(models.Model):
 
 
 class ContactRequest(models.Model):
+    STATUS_NEW = "new"
+    STATUS_IN_PROGRESS = "in_progress"
+    STATUS_RESOLVED = "resolved"
+    STATUS_CLOSED = "closed"
+
+    REQUEST_STATUSES = [
+        (STATUS_NEW, "Новая"),
+        (STATUS_IN_PROGRESS, "В работе"),
+        (STATUS_RESOLVED, "Обработана"),
+        (STATUS_CLOSED, "Закрыта"),
+    ]
     user = models.ForeignKey(
         User,
         on_delete=models.SET_NULL,
@@ -431,8 +457,9 @@ class ContactRequest(models.Model):
     )
     status = models.CharField(
         max_length=50,
-        default="new",
-        verbose_name="Статус заявки"
+        choices=REQUEST_STATUSES,
+        default=STATUS_NEW,
+        verbose_name="Статус заявки",
     )
     handled_by = models.ForeignKey(
         User,

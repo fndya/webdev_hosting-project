@@ -19,11 +19,11 @@ from .models import (
     Server,
     User,
     Order,
+    BalanceTransaction,
     ContactRequest,
     TariffFeatureAssignment,
     Image,
 )
-
 def handle_contact_request(request, redirect_name):
     user = get_current_user(request)
 
@@ -315,16 +315,51 @@ def cart_checkout(request):
     if not items:
         return redirect("cart_detail")
 
-    user = get_current_user(request)
+    total_amount = sum(
+        item["total_price"]
+        for item in items
+    )
 
     with transaction.atomic():
+        user = (
+            User.objects
+            .select_for_update()
+            .get(id=request.session["user_id"])
+        )
+
+        if user.balance < total_amount:
+            messages.error(
+                request,
+                (
+                    "Недостаточно средств на балансе. "
+                    f"Сумма заказа: {total_amount:.2f} ₽, "
+                    f"ваш баланс: {user.balance:.2f} ₽."
+                ),
+            )
+            return redirect("cart_detail")
+
+        user.balance -= total_amount
+        user.save(
+            update_fields=[
+                "balance",
+                "updated_at",
+            ]
+        )
+
         for item in items:
-            Order.objects.create(
+            order = Order.objects.create(
                 user=user,
                 tariff=item["tariff"],
                 quantity=item["quantity"],
                 total_price=item["total_price"],
-                status="new",
+                status=Order.STATUS_NEW,
+            )
+
+            BalanceTransaction.objects.create(
+                user=user,
+                order=order,
+                transaction_type="purchase",
+                amount=item["total_price"],
             )
 
         cart.clear()
@@ -474,12 +509,7 @@ def my_orders(request):
         .order_by("-created_at")
     )
 
-    order_ids = list(
-        orders.values_list(
-            "id",
-            flat=True,
-        )
-    )
+
 
     if search_query:
         if search_mode == "contains":
@@ -492,6 +522,13 @@ def my_orders(request):
             orders = orders.filter(
                 tariff__title__icontains=search_query
             )
+
+    order_ids = list(
+        orders.values_list(
+            "id",
+            flat=True,
+        )
+    )
 
     orders_count = orders.count()
     has_orders = orders.exists()
