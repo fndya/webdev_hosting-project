@@ -1,5 +1,5 @@
 from django.db import transaction
-from django.db.models import Avg, Sum, Q
+from django.db.models import Avg, Sum, Q, F
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.cache import cache
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -339,7 +339,12 @@ def cart_checkout(request):
             )
             return redirect("cart_detail")
 
-        user.balance -= total_amount
+        User.objects.filter(id=user.id).update(
+            balance=F("balance") - total_amount,
+        )
+
+        user.refresh_from_db()
+        
         user.save(
             update_fields=[
                 "balance",

@@ -43,8 +43,9 @@ def provision_order(order_id):
         if created_count >= order.quantity:
             return f"Заказ #{order.id}: все серверы уже созданы"
 
-        order.status = Order.STATUS_PROCESSING
-        order.save(update_fields=["status", "updated_at"])
+        Order.objects.filter(id=order_id).update(
+            status=Order.STATUS_COMPLETED
+        )
 
         server_status = ServerStatus.objects.filter(
             name="active"
@@ -70,8 +71,9 @@ def provision_order(order_id):
                 expires_at=timezone.now() + timedelta(days=30),
             )
 
-        order.status = Order.STATUS_COMPLETED
-        order.save(update_fields=["status", "updated_at"])
+        Order.objects.filter(id=order_id).update(
+            status=Order.STATUS_COMPLETED
+        )
 
         return (
             f"Заказ #{order.id}: "
