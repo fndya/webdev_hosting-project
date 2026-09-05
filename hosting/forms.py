@@ -93,6 +93,35 @@ class TariffForm(forms.ModelForm):
             "features",
             "images",
         )
+        labels = {
+            "title": "Название тарифа",
+            "description": "Описание тарифа",
+            "cpu_cores": "Количество ядер CPU",
+            "ram_gb": "Оперативная память",
+            "storage_gb": "Дисковое пространство",
+            "traffic": "Трафик",
+            "price_monthly": "Цена за месяц",
+            "is_recommended": "Рекомендуемый тариф",
+            "is_active": "Активный тариф",
+            "features": "Характеристики",
+            "images": "Изображения",
+        }
+
+        help_texts = {
+            "price_monthly": "Укажите стоимость тарифа за один месяц.",
+            "features": "Выберите характеристики тарифа.",
+            "images": "Можно выбрать несколько изображений.",
+        }
+
+        error_messages = {
+            "title": {
+                "required": "Введите название тарифа.",
+            },
+            "price_monthly": {
+                "required": "Укажите стоимость тарифа.",
+                "invalid": "Введите корректную стоимость.",
+            },
+        }
 
         widgets = {
             "title": forms.TextInput(
@@ -154,16 +183,15 @@ class TariffForm(forms.ModelForm):
 class ContactRequestForm(forms.ModelForm):
     message = forms.CharField(
         label="Сообщение",
-        help_text="Опишите вопрос или проблему",
         widget=forms.Textarea(
             attrs={
                 "placeholder": "Ваше сообщение",
                 "rows": 5,
             }
         ),
+        help_text="Опишите вопрос или проблему.",
         error_messages={
             "required": "Введите текст сообщения.",
-            "max_length": "Сообщение слишком длинное.",
         },
     )
 
@@ -175,24 +203,29 @@ class ContactRequestForm(forms.ModelForm):
             "phone",
             "message",
         )
+
         labels = {
-            "name": "Имя",
+            "name": "Ваше имя",
             "email": "Электронная почта",
-            "phone": "Телефон",
+            "phone": "Номер телефона",
         }
+
         help_texts = {
-            "email": "Укажите почту для ответа специалиста.",
-            "phone": "Номер телефона можно указать дополнительно.",
+            "name": "Укажите ваше имя.",
+            "email": "На эту почту мы отправим ответ.",
+            "phone": "Необязательное поле.",
         }
+
         error_messages = {
             "name": {
-                "required": "Введите имя.",
+                "required": "Введите ваше имя.",
             },
             "email": {
                 "required": "Введите электронную почту.",
                 "invalid": "Введите корректный адрес электронной почты.",
             },
         }
+
         widgets = {
             "name": forms.TextInput(
                 attrs={
