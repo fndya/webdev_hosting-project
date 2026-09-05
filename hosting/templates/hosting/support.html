@@ -21,6 +21,7 @@
                 Опишите вопрос, и мы свяжемся с вами
                 для решения проблемы.
             </p>
+            
 
             <form
                 class="contact-form"
@@ -28,7 +29,15 @@
                 action="{% url 'support' %}"
             >
                 {% csrf_token %}
-
+                {% if messages %}
+                    <div class="support-messages">
+                        {% for message in messages %}
+                            <div class="support-message {{ message.tags }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
                 {% if contact_form.non_field_errors %}
                     <div class="form-errors">
                         {{ contact_form.non_field_errors }}

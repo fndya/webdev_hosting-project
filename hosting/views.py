@@ -3,6 +3,7 @@ from django.db.models import Avg, Sum, Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.cache import cache
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib import messages
 from django.contrib.auth.hashers import make_password, check_password
 from .cart import Cart
 
@@ -33,7 +34,10 @@ def handle_contact_request(request, redirect_name):
             contact_request = form.save(commit=False)
             contact_request.user = user
             contact_request.save()
-
+            messages.success(
+                request,
+                "Заявка успешно отправлена. Мы свяжемся с вами в ближайшее время."
+            )
             return redirect(redirect_name)
     else:
         initial = {}

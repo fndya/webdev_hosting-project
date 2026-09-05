@@ -417,6 +417,23 @@ a {
     letter-spacing: 0.03em;
 }
 
+.support-messages {
+    margin-bottom: 20px;
+}
+
+.support-message {
+    padding: 14px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.support-message.success {
+    color: #166534;
+    background: #dcfce7;
+    border: 1px solid #bbf7d0;
+}
+
 /* =========================
    FOCUS STYLES
    ========================= */
