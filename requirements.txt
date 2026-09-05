@@ -1,6 +1,8 @@
+celery
 Django
 Pillow
 django-debug-toolbar
 django-extensions
 python-dotenv
+redis
 reportlab

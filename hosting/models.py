@@ -272,6 +272,14 @@ class Server(models.Model):
         max_length=50,
         verbose_name="IP-адрес"
     )
+    order = models.ForeignKey(
+        "Order",
+        on_delete=models.CASCADE,
+        related_name="servers",
+        null=True,
+        blank=True,
+        verbose_name="Заказ",
+    )
     login = models.CharField(
         max_length=50,
         default="root",

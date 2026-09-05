@@ -6,6 +6,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 from django.contrib.auth.hashers import make_password, check_password
 from .cart import Cart
+from .tasks import provision_order
 
 from .forms import (
     RegisterForm,
@@ -360,6 +361,13 @@ def cart_checkout(request):
                 order=order,
                 transaction_type="purchase",
                 amount=item["total_price"],
+            )
+
+            transaction.on_commit(
+                lambda order_id=order.id: provision_order.apply_async(
+                    args=[order_id],
+                    countdown=10,
+                )
             )
 
         cart.clear()
