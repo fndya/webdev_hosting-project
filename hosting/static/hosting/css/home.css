@@ -202,64 +202,241 @@
     color: #4A5163;
 }
 
-/* CONTACT */
+/* =========================
+   SUPPORT PAGE
+   ========================= */
 
 .contact-section {
-    padding: 110px 0 150px;
-    text-align: center;
+    padding: 64px 0 80px;
 }
 
-.contact-section p {
-    max-width: 540px;
-    margin: -20px auto 20px;
-    color: #232F48;
-    font-size: 13px;
+.contact-section .container {
+    max-width: 900px;
 }
+
+.contact-section h1 {
+    margin: 0 0 12px;
+
+    color: #232F48;
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.contact-section > .container > p {
+    max-width: 620px;
+    margin: 0 0 32px;
+
+    color: #64748B;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+
+/* =========================
+   FORM CARD
+   ========================= */
 
 .contact-form {
-    max-width: 560px;
-    margin: 0 auto;
+    padding: 32px;
+
+    background: #FFFFFF;
+    border: 1px solid rgba(35, 47, 72, 0.06);
+    border-radius: 14px;
+
+    box-shadow: 0 10px 30px rgba(35, 47, 72, 0.07);
 }
 
 .form-row {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 16px;
+    margin-bottom: 18px;
 }
 
-.contact-form input {
-    height: 45px;
-    border: 1px solid #4A5163;
-    border-radius: 5px;
-    padding: 0 10px;
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 0;
 }
 
+.form-field label {
+    display: block;
+
+    color: #232F48;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.form-field input,
+.form-field textarea,
+.contact-form input,
 .contact-form textarea {
     width: 100%;
-    height: 250px;
-    margin-top: 16px;
-    border: 1px solid #4A5163;
-    border-radius: 5px;
-    padding: 12px;
+    box-sizing: border-box;
+
+    border: 1px solid #D8DEE9;
+    border-radius: 8px;
+
+    background: #F8FAFD;
+    color: #232F48;
+
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.5;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.form-field input,
+.contact-form input {
+    min-height: 46px;
+    padding: 0 14px;
+}
+
+.form-field textarea,
+.contact-form textarea {
+    min-height: 150px;
+    padding: 13px 14px;
     resize: vertical;
 }
 
-.form-button {
-    text-align: right;
-    margin-top: 20px;
+.form-field input:focus,
+.form-field textarea:focus,
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: #042CC6;
+    background: #FFFFFF;
+    box-shadow: 0 0 0 3px rgba(4, 44, 198, 0.1);
 }
 
-.contact-form button {
-    width: 170px;
-    font-size: 18px;
-    border: none;
-    background: #042CC6;
-    color: white;
-    border-radius: 8px;
-    padding: 14px 24px;
-    font-weight: 800;
-    cursor: pointer;
+.form-field input::placeholder,
+.form-field textarea::placeholder,
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+    color: #94A3B8;
 }
+
+
+/* =========================
+   HELP TEXT
+   ========================= */
+
+.form-help,
+.form-field .helptext {
+    margin-top: 1px;
+
+    color: #64748B;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+/* =========================
+   ERRORS
+   ========================= */
+
+.form-errors,
+.form-field .errorlist {
+    margin: 2px 0 0;
+    padding: 0;
+
+    color: #B42318;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.form-field .errorlist {
+    list-style: none;
+}
+
+.form-errors ul {
+    margin: 0;
+    padding-left: 18px;
+}
+
+.form-field input:has(+ .errorlist),
+.form-field textarea:has(+ .errorlist) {
+    border-color: #B42318;
+}
+
+.form-field input:has(+ .errorlist):focus,
+.form-field textarea:has(+ .errorlist):focus {
+    border-color: #B42318;
+    box-shadow: 0 0 0 3px rgba(180, 35, 24, 0.1);
+}
+
+
+/* =========================
+   NON-FIELD ERRORS
+   ========================= */
+
+.contact-form > .errorlist,
+.contact-form > .form-errors {
+    margin: 0 0 20px;
+    padding: 12px 14px;
+
+    background: #FFF4F2;
+    border: 1px solid #F3C7C1;
+    border-radius: 8px;
+
+    color: #B42318;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+
+/* =========================
+   SUBMIT BUTTON
+   ========================= */
+
+.form-button {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 24px;
+}
+
+.form-button button {
+    min-width: 190px;
+    min-height: 46px;
+    padding: 0 22px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #042CC6;
+    color: #FFFFFF;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow: 0 5px 12px rgba(4, 44, 198, 0.2);
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.form-button button:hover {
+    background: #021F91;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba(4, 44, 198, 0.25);
+}
+
+.form-button button:active {
+    transform: translateY(0);
+}
+
 
 @media (max-width: 950px) {
     .hero {
@@ -359,23 +536,6 @@
 
     .section-title p {
         font-size: 13px;
-    }
-
-    .search-form {
-        display: block;
-    }
-
-    .search-form input {
-        width: 100%;
-        min-height: 44px;
-        margin-bottom: 10px;
-        font-size: 14px;
-    }
-
-    .search-form button {
-        width: 100%;
-        height: 48px;
-        font-size: 16px;
     }
 
     .tariff-grid,

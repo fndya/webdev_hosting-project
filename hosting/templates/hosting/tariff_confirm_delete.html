@@ -1,17 +1,16 @@
 {% extends "hosting/base.html" %}
 {% load static %}
-{% load hosting_tags %}
 
 {% block title %}
-    Удаление тарифа
+    Удаление тарифа "{{ tariff.title }}"
 {% endblock %}
 
 {% block extra_css %}
+    <link rel="stylesheet" href="{% static 'hosting/css/tariff_detail.css' %}">
     <link rel="stylesheet" href="{% static 'hosting/css/tariff_form.css' %}">
 {% endblock %}
 
 {% block content %}
-
 
 <main class="tariff-form-page">
 
@@ -32,35 +31,27 @@
                     <h1>Удаление тарифа</h1>
 
                     <p>
-                        Вы действительно хотите удалить этот тариф?
+                        Вы действительно хотите удалить тариф
+                        «{{ tariff.title }}»?
                     </p>
                 </div>
             </div>
 
-
-            <div class="form-section">
-
-                <h2>{{ tariff.title }}</h2>
-
+            <div class="tariff-form-field">
                 <p>
-                    Цена: {{ tariff.price_monthly }} ₽ в месяц
+                    После удаления тариф исчезнет из списка доступных
+                    тарифов. Это действие нельзя отменить.
                 </p>
-
-                <p>
-                    После удаления восстановить тариф будет невозможно.
-                </p>
-
             </div>
 
-
-            <form method="post">
+            <form method="post" class="tariff-form">
 
                 {% csrf_token %}
 
                 <div class="tariff-form-actions">
 
                     <a
-                        href="{% url 'tariff_detail' tariff.id %}"
+                        href="{% url 'pricing' %}"
                         class="form-cancel-btn"
                     >
                         Отмена
@@ -83,13 +74,4 @@
 
 </main>
 
-
-<footer class="footer">
-    <div class="container">
-        <strong>ТУРБОСЕРВЕР</strong>
-        <span>© {% current_year %}</span>
-    </div>
-</footer>
-
-</body>
-</html>
+{% endblock %}

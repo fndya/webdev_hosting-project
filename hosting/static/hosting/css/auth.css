@@ -201,6 +201,101 @@
     text-decoration: underline;
 }
 
+/* =========================
+   FORM FIELDS
+   ========================= */
+
+.auth-card .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-bottom: 18px;
+}
+
+.auth-card .form-field label {
+    display: block;
+
+    color: #232F48;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.auth-card .form-field input {
+    width: 100%;
+    box-sizing: border-box;
+
+    min-height: 46px;
+    padding: 0 14px;
+
+    border: 1px solid #D8DEE9;
+    border-radius: 8px;
+
+    background: #F8FAFD;
+    color: #232F48;
+
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.5;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.auth-card .form-field input:focus {
+    outline: none;
+    border-color: #042CC6;
+    background: #FFFFFF;
+    box-shadow: 0 0 0 3px rgba(4, 44, 198, 0.1);
+}
+
+.auth-card .form-field input::placeholder {
+    color: #94A3B8;
+}
+
+
+/* =========================
+   HELP TEXT
+   ========================= */
+
+.auth-card .form-help {
+    margin-top: 1px;
+
+    color: #64748B;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+/* =========================
+   ERRORS
+   ========================= */
+
+.auth-card .form-errors,
+.auth-card .form-field .errorlist {
+    margin: 2px 0 0;
+    padding: 0;
+
+    color: #B42318;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.auth-card .form-field .errorlist {
+    list-style: none;
+}
+
+.auth-card .form-errors {
+    margin-bottom: 20px;
+    padding: 12px 14px;
+
+    background: #FFF4F2;
+    border: 1px solid #F3C7C1;
+    border-radius: 8px;
+}
+
 
 /* =========================
    MOBILE

@@ -45,7 +45,7 @@
 
 .form-row {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 16px;
     margin-bottom: 18px;
 }
@@ -54,6 +54,16 @@
     display: flex;
     flex-direction: column;
     gap: 7px;
+    min-width: 0;
+}
+
+.form-field label {
+    display: block;
+
+    color: #232F48;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
 }
 
 .form-field input,
@@ -103,8 +113,24 @@
 }
 
 .form-field input::placeholder,
-.form-field textarea::placeholder {
+.form-field textarea::placeholder,
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
     color: #94A3B8;
+}
+
+
+/* =========================
+   HELP TEXT
+   ========================= */
+
+.form-help,
+.form-field .helptext {
+    margin-top: 1px;
+
+    color: #64748B;
+    font-size: 12px;
+    line-height: 1.5;
 }
 
 
@@ -114,7 +140,7 @@
 
 .form-errors,
 .form-field .errorlist {
-    margin: 6px 0 0;
+    margin: 2px 0 0;
     padding: 0;
 
     color: #B42318;
@@ -129,6 +155,36 @@
 .form-errors ul {
     margin: 0;
     padding-left: 18px;
+}
+
+.form-field input:has(+ .errorlist),
+.form-field textarea:has(+ .errorlist) {
+    border-color: #B42318;
+}
+
+.form-field input:has(+ .errorlist):focus,
+.form-field textarea:has(+ .errorlist):focus {
+    border-color: #B42318;
+    box-shadow: 0 0 0 3px rgba(180, 35, 24, 0.1);
+}
+
+
+/* =========================
+   NON-FIELD ERRORS
+   ========================= */
+
+.contact-form > .errorlist,
+.contact-form > .form-errors {
+    margin: 0 0 20px;
+    padding: 12px 14px;
+
+    background: #FFF4F2;
+    border: 1px solid #F3C7C1;
+    border-radius: 8px;
+
+    color: #B42318;
+    font-size: 13px;
+    line-height: 1.5;
 }
 
 
