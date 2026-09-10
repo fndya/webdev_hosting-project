@@ -99,20 +99,26 @@ def pricing(request):
             300
         )
 
-    paginator = Paginator(tariffs_list, 6)
+    print_mode = request.GET.get("print") == "1"
 
-    page_number = request.GET.get("page")
+    if print_mode:
+        tariffs = tariffs_list
+    else:
+        paginator = Paginator(tariffs_list, 6)
 
-    try:
-        tariffs = paginator.page(page_number)
-    except PageNotAnInteger:
-        tariffs = paginator.page(1)
-    except EmptyPage:
-        tariffs = paginator.page(paginator.num_pages)
+        page_number = request.GET.get("page")
+
+        try:
+            tariffs = paginator.page(page_number)
+        except PageNotAnInteger:
+            tariffs = paginator.page(1)
+        except EmptyPage:
+            tariffs = paginator.page(paginator.num_pages)
 
     return render(request, "hosting/pricing.html", {
         "tariffs": tariffs,
         "cart": cart,
+        "print_mode": print_mode,
     })
 
 def tariff_detail(request, tariff_id):
@@ -476,7 +482,7 @@ def account(request):
     orders = (
         Order.objects
         .filter(user=user)
-        .select_related("tariff", "server")
+        #.select_related("tariff")
         .order_by("-created_at")
     )
 

@@ -29,7 +29,7 @@
 
                     <div class="tariff-row">
                         <span class="tariff-icon">
-                            <img src="{% static 'hosting/icons/region.svg' %}">
+                            <img src="{% static 'hosting/icons/region.svg' %}" alt="">
                         </span>
                         <strong>Регион</strong>
                         <span>Россия</span>
@@ -37,7 +37,7 @@
 
                     <div class="tariff-row">
                         <span class="tariff-icon">
-                            <img src="{% static 'hosting/icons/cpu.svg' %}">
+                            <img src="{% static 'hosting/icons/cpu.svg' %}" alt="">
                         </span>
                         <strong>ЦП</strong>
                         <span>{{ tariff.cpu_cores }} ядра</span>
@@ -45,7 +45,7 @@
 
                     <div class="tariff-row">
                         <span class="tariff-icon">
-                            <img src="{% static 'hosting/icons/ram.svg' %}">
+                            <img src="{% static 'hosting/icons/ram.svg' %}" alt="">
                         </span>
                         <strong>ОЗУ</strong>
                         <span>{{ tariff.ram_gb }} ГБ</span>
@@ -53,7 +53,7 @@
 
                     <div class="tariff-row">
                         <span class="tariff-icon">
-                            <img src="{% static 'hosting/icons/storage.svg' %}">
+                            <img src="{% static 'hosting/icons/storage.svg' %}" alt="">
                         </span>
                         <strong>Диск</strong>
                         <span>{{ tariff.storage_gb }} ГБ</span>
@@ -61,7 +61,7 @@
 
                     <div class="tariff-row">
                         <span class="tariff-icon">
-                            <img src="{% static 'hosting/icons/traffic.svg' %}">
+                            <img src="{% static 'hosting/icons/traffic.svg' %}" alt="">
                         </span>
                         <strong>Трафик</strong>
                         <span>{{ tariff.traffic }}</span>
@@ -69,7 +69,7 @@
 
                     <div class="tariff-row">
                         <span class="tariff-icon">
-                            <img src="{% static 'hosting/icons/pricetag.svg' %}">
+                            <img src="{% static 'hosting/icons/pricetag.svg' %}" alt="">
                         </span>
                         <strong>Цена</strong>
                         <span>{{ tariff.price_monthly|floatformat:0 }} ₽/мес</span>
@@ -86,7 +86,7 @@
                 <p>Тарифы пока не добавлены.</p>
             {% endfor %}
         </div>
-        {% if tariffs.has_other_pages %}
+        {% if not print_mode and tariffs.has_other_pages %}
             <div class="pagination">
                 {% if tariffs.has_previous %}
                     <a href="?page={{ tariffs.previous_page_number }}">← Назад</a>

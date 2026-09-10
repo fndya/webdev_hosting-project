@@ -278,3 +278,97 @@
         height: 42px;
     }
 }
+
+/* =========================
+   PRINT
+   ========================= */
+
+@media print {
+
+    @page {
+        size: A4;
+        margin: 10mm;
+    }
+
+    html,
+    body {
+        min-height: 0;
+        height: auto;
+    }
+
+    body {
+        background: #ffffff;
+        color: #000000;
+    }
+
+    main {
+        flex: none;
+    }
+
+    .header,
+    .footer,
+    .pagination,
+    .skip-link,
+    .card-details-btn,
+    .card-buy-btn,
+    .current-page {
+        display: none;
+    }
+
+    .pricing-page {
+        padding: 0;
+    }
+
+    .page-title {
+        margin: 0 0 12px;
+        color: #000000;
+        font-size: 26px;
+    }
+
+    .pricing-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6mm;
+    }
+
+    .pricing-card {
+        min-height: 0;
+
+        padding: 5mm;
+
+        background: #ffffff;
+        color: #000000;
+
+        border: 1px solid #000000;
+        border-radius: 0;
+
+        box-shadow: none;
+
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .pricing-card h2,
+    .tariff-row,
+    .tariff-row strong,
+    .tariff-row span:last-child {
+        color: #000000;
+    }
+
+    .tariff-row {
+        margin-bottom: 8px;
+    }
+
+    .tariff-icon img {
+        filter: brightness(0);
+    }
+
+    .pricing-badge {
+        position: static;
+
+        background: #ffffff;
+        color: #000000;
+
+        border: 1px solid #000000;
+        box-shadow: none;
+    }
+}

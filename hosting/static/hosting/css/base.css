@@ -448,6 +448,36 @@ select:focus-visible {
 }
 
 /* =========================
+   ACCESSIBILITY
+   ========================= */
+
+.skip-link {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+
+    z-index: 9999;
+
+    padding: 10px 16px;
+
+    background: #ffffff;
+    color: #232F48;
+
+    border: 2px solid #042CC6;
+    border-radius: 6px;
+
+    font-size: 14px;
+    font-weight: 800;
+
+    transform: translateY(-150%);
+    transition: transform 0.2s ease;
+}
+
+.skip-link:focus {
+    transform: translateY(0);
+}
+
+/* =========================
    MOBILE
    ========================= */
 
