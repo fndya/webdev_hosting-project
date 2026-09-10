@@ -99,26 +99,21 @@ def pricing(request):
             300
         )
 
-    print_mode = request.GET.get("print") == "1"
+    paginator = Paginator(tariffs_list, 6)
 
-    if print_mode:
-        tariffs = tariffs_list
-    else:
-        paginator = Paginator(tariffs_list, 6)
+    page_number = request.GET.get("page")
 
-        page_number = request.GET.get("page")
-
-        try:
-            tariffs = paginator.page(page_number)
-        except PageNotAnInteger:
-            tariffs = paginator.page(1)
-        except EmptyPage:
-            tariffs = paginator.page(paginator.num_pages)
+    try:
+        tariffs = paginator.page(page_number)
+    except PageNotAnInteger:
+        tariffs = paginator.page(1)
+    except EmptyPage:
+        tariffs = paginator.page(paginator.num_pages)
 
     return render(request, "hosting/pricing.html", {
         "tariffs": tariffs,
+        "all_tariffs": tariffs_list,
         "cart": cart,
-        "print_mode": print_mode,
     })
 
 def tariff_detail(request, tariff_id):

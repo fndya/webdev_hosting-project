@@ -279,6 +279,10 @@
     }
 }
 
+.print-only-tariffs {
+    display: none;
+}
+
 /* =========================
    PRINT
    ========================= */
@@ -326,6 +330,11 @@
     }
 
     .pricing-grid {
+        display: none;
+    }
+
+    .print-only-tariffs {
+        display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 6mm;
     }
