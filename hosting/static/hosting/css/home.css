@@ -155,6 +155,36 @@
     padding-left: 18px;
 }
 
+.tariff-feature {
+    margin: 40px 0;
+    padding: 28px 32px;
+    border-radius: 12px;
+}
+
+.tariff-feature h2 {
+    margin: 0 0 10px;
+    color: #232F48;
+    font-size: 24px;
+}
+
+.tariff-feature > p {
+    margin: 0 0 20px;
+    color: #4A5163;
+}
+
+.tariff-feature ul {
+    margin: 0;
+    padding-left: 22px;
+}
+
+.tariff-feature li {
+    margin-bottom: 8px;
+    color: #232F48;
+}
+
+.tariff-feature li:last-child {
+    margin-bottom: 0;
+}
 .badge {
     display: inline-block;
     background: #042CC6;
@@ -521,6 +551,7 @@
     .search-section,
     .tariffs-section,
     .stats-section,
+    .feature-section,
     .servers-section {
         padding: 34px 0;
     }

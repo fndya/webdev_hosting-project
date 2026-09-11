@@ -2,7 +2,7 @@ from datetime import datetime
 
 from django import template
 
-from hosting.models import Tariff
+from hosting.models import TariffFeature
 
 register = template.Library()
 
@@ -16,8 +16,5 @@ def current_path(context):
     return request.path
 
 @register.simple_tag
-def get_recommended_tariffs():
-    return Tariff.active.filter(
-        is_recommended=True
-    )
-
+def get_features():
+    return TariffFeature.objects.all()
