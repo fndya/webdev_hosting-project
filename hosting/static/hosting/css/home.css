@@ -1,53 +1,74 @@
-/* HERO */
+/* =========================
+   HERO
+   ========================= */
 
 .hero {
     padding: 44px 0 30px;
 }
 
 .hero-card {
+    position: relative;
+
     height: 700px;
-    border-radius: 2px;
+
     overflow: hidden;
+
+    border-radius: 2px;
+
     background:
-        linear-gradient(90deg, rgba(18, 27, 51, 0.8), rgba(18, 27, 51, 0.08)),
+        linear-gradient(
+            90deg,
+            rgba(18, 27, 51, 0.8),
+            rgba(18, 27, 51, 0.08)
+        ),
         url("../images/hero-image.jpg");
+
     background-size: cover;
     background-position: center;
-    position: relative;
 }
 
 .hero-overlay {
     position: absolute;
     inset: 0;
+
     padding: 72px 48px;
 }
 
 .hero h1 {
-    color: white;
     max-width: 430px;
+
+    margin: 0;
+
+    color: #ffffff;
+
     font-size: 38px;
     line-height: 1.1;
-    margin: 0;
 }
 
 .hero-button {
     position: absolute;
     right: 48px;
     bottom: 48px;
+
     display: inline-flex;
     align-items: center;
     justify-content: center;
+
     min-height: 54px;
     padding: 0 28px;
+
     border-radius: 8px;
+
     background: #042CC6;
-    color: white;
+    color: #ffffff;
+
     font-size: 18px;
     font-weight: 800;
     line-height: 1;
-    text-decoration: none;
-    box-sizing: border-box;
-    transition: background 0.2s ease, transform 0.2s ease;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
 }
 
 .hero-button:hover {
@@ -55,94 +76,117 @@
     transform: translateY(-2px);
 }
 
-/* ADVANTAGES */
+
+/* =========================
+   ADVANTAGES
+   ========================= */
 
 .advantages {
     padding: 18px 0 88px;
 }
 
-.advantages h2,
-.contact-section h2 {
-    text-align: center;
-    font-size: 28px;
+.advantages h2 {
     margin-bottom: 34px;
+
+    text-align: center;
+
+    font-size: 28px;
 }
 
 .advantages-grid {
     display: grid;
+
     grid-template-columns: repeat(3, 1fr);
+
     gap: 44px 20px;
 }
 
 .advantage-title {
     display: flex;
     align-items: center;
+
     gap: 16px;
+
     margin-bottom: 6px;
 }
 
 .advantage-title h3 {
-    font-size: 22px;
     margin: 0;
+
+    font-size: 22px;
 }
 
 .icon {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background: #042CC6;
-    color: white;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-weight: 900;
+
+    width: 45px;
+    height: 45px;
+
+    flex: 0 0 45px;
+
+    border-radius: 50%;
+
+    background: #042CC6;
 }
 
 .icon img {
+    display: block;
+
     width: 22px;
     height: 22px;
-    display: block;
 }
 
 .advantage p {
-    margin: 0;
-    background: white;
     min-height: 185px;
+
+    margin: 0;
     padding: 18px 14px;
+
     border-radius: 5px;
+
+    background: #ffffff;
     color: #4A5163;
+
     font-size: 18px;
     line-height: 1.25;
 }
 
-/* MVP SECTIONS */
 
-.tariffs-section,
-.stats-section {
+/* =========================
+   RECOMMENDED TARIFFS
+   ========================= */
+
+.tariffs-section {
     padding: 64px 0;
 }
-/* HOME TARIFF CARDS */
 
 .tariff-grid {
     display: grid;
+
     grid-template-columns: repeat(3, 1fr);
+
     gap: 22px;
 }
 
 .tariff-card {
     position: relative;
-    background: white;
-    border-radius: 8px;
-    padding: 24px;
-    box-shadow: 0 12px 28px rgba(35, 47, 72, 0.08);
+
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: flex-start;
+    justify-content: space-between;
+
+    padding: 24px;
+
+    background: #ffffff;
+    border-radius: 8px;
 }
 
 .tariff-card h3 {
     margin-top: 0;
+
     font-size: 24px;
 }
 
@@ -155,122 +199,142 @@
     padding-left: 18px;
 }
 
-.tariff-feature {
-    margin: 40px 0;
-    padding: 28px 32px;
-    border-radius: 12px;
-}
-
-.tariff-feature h2 {
-    margin: 0 0 10px;
-    color: #232F48;
-    font-size: 24px;
-}
-
-.tariff-feature > p {
-    margin: 0 0 20px;
-    color: #4A5163;
-}
-
-.tariff-feature ul {
-    margin: 0;
-    padding-left: 22px;
-}
-
-.tariff-feature li {
-    margin-bottom: 8px;
-    color: #232F48;
-}
-
-.tariff-feature li:last-child {
-    margin-bottom: 0;
-}
-.badge {
-    display: inline-block;
-    background: #042CC6;
-    color: white;
-    border-radius: 999px;
-    padding: 6px 12px;
+.tariff-card .pricing-badge {
     margin-bottom: 14px;
-    font-size: 13px;
-    font-weight: 800;
 }
 
 .price {
+    margin: 18px 0;
+
     font-size: 26px;
     font-weight: 900;
-    margin: 18px 0;
 }
 
-/* STATS */
+
+/* =========================
+   FEATURES
+   ========================= */
+
+.feature-section {
+    padding: 64px 0;
+}
+
+.feature-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 20px;
+}
+
+.feature-card {
+    padding: 22px;
+
+    background: #ffffff;
+
+    border: 1px solid rgba(35, 47, 72, 0.06);
+    border-radius: 8px;
+
+    box-shadow: 0 8px 24px rgba(35, 47, 72, 0.05);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-3px);
+
+    border-color: rgba(4, 44, 198, 0.12);
+
+    box-shadow: 0 14px 30px rgba(35, 47, 72, 0.09);
+}
+
+.feature-card h3 {
+    margin: 0 0 10px;
+
+    color: #232F48;
+
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.feature-card p {
+    margin: 0;
+
+    color: #4A5163;
+
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+
+/* =========================
+   STATISTICS
+   ========================= */
 
 .stats-section {
+    padding: 64px 0;
+
     background: rgba(255, 255, 255, 0.35);
 }
 
 .stats-grid {
     display: grid;
+
     grid-template-columns: repeat(4, 1fr);
+
     gap: 18px;
 }
 
 .stat-card {
-    background: white;
-    border-radius: 8px;
     padding: 24px;
-    box-shadow: 0 12px 28px rgba(35, 47, 72, 0.07);
+
+    background: #ffffff;
+    border-radius: 8px;
 }
 
 .stat-card strong {
     display: block;
-    color: #042CC6;
-    font-size: 34px;
+
     margin-bottom: 8px;
+
+    color: #042CC6;
+
+    font-size: 34px;
 }
 
 .stat-card span {
     color: #4A5163;
 }
 
+
 /* =========================
-   SUPPORT PAGE
+   CONTACT
    ========================= */
 
 .contact-section {
     padding: 64px 0 80px;
 }
 
+.contact-section h2 {
+    margin-bottom: 34px;
+
+    text-align: center;
+
+    font-size: 28px;
+}
+
 .contact-section .container {
     max-width: 900px;
 }
 
-.contact-section h1 {
-    margin: 0 0 12px;
-
-    color: #232F48;
-    font-size: 36px;
-    font-weight: 800;
-    line-height: 1.2;
-}
-
-.contact-section > .container > p {
-    max-width: 620px;
-    margin: 0 0 32px;
-
-    color: #64748B;
-    font-size: 16px;
-    line-height: 1.7;
-}
-
-
-/* =========================
-   FORM CARD
-   ========================= */
-
 .contact-form {
     padding: 32px;
 
-    background: #FFFFFF;
+    background: #ffffff;
+
     border: 1px solid rgba(35, 47, 72, 0.06);
     border-radius: 14px;
 
@@ -279,15 +343,20 @@
 
 .form-row {
     display: grid;
+
     grid-template-columns: repeat(3, minmax(0, 1fr));
+
     gap: 16px;
+
     margin-bottom: 18px;
 }
 
 .form-field {
     display: flex;
     flex-direction: column;
+
     gap: 7px;
+
     min-width: 0;
 }
 
@@ -295,16 +364,16 @@
     display: block;
 
     color: #232F48;
+
     font-size: 14px;
     font-weight: 700;
     line-height: 1.4;
 }
 
 .form-field input,
-.form-field textarea,
-.contact-form input,
-.contact-form textarea {
+.form-field textarea {
     width: 100%;
+
     box-sizing: border-box;
 
     border: 1px solid #D8DEE9;
@@ -323,54 +392,43 @@
         box-shadow 0.2s ease;
 }
 
-.form-field input,
-.contact-form input {
+.form-field input {
     min-height: 46px;
     padding: 0 14px;
 }
 
-.form-field textarea,
-.contact-form textarea {
+.form-field textarea {
     min-height: 150px;
     padding: 13px 14px;
+
     resize: vertical;
 }
 
 .form-field input:focus,
-.form-field textarea:focus,
-.contact-form input:focus,
-.contact-form textarea:focus {
+.form-field textarea:focus {
     outline: none;
+
     border-color: #042CC6;
-    background: #FFFFFF;
+
+    background: #ffffff;
+
     box-shadow: 0 0 0 3px rgba(4, 44, 198, 0.1);
 }
 
 .form-field input::placeholder,
-.form-field textarea::placeholder,
-.contact-form input::placeholder,
-.contact-form textarea::placeholder {
+.form-field textarea::placeholder {
     color: #94A3B8;
 }
-
-
-/* =========================
-   HELP TEXT
-   ========================= */
 
 .form-help,
 .form-field .helptext {
     margin-top: 1px;
 
     color: #64748B;
+
     font-size: 12px;
     line-height: 1.5;
 }
-
-
-/* =========================
-   ERRORS
-   ========================= */
 
 .form-errors,
 .form-field .errorlist {
@@ -378,6 +436,7 @@
     padding: 0;
 
     color: #B42318;
+
     font-size: 13px;
     line-height: 1.5;
 }
@@ -399,49 +458,62 @@
 .form-field input:has(+ .errorlist):focus,
 .form-field textarea:has(+ .errorlist):focus {
     border-color: #B42318;
+
     box-shadow: 0 0 0 3px rgba(180, 35, 24, 0.1);
 }
 
-
-/* =========================
-   NON-FIELD ERRORS
-   ========================= */
-
-.contact-form > .errorlist,
 .contact-form > .form-errors {
     margin: 0 0 20px;
     padding: 12px 14px;
 
     background: #FFF4F2;
+
     border: 1px solid #F3C7C1;
     border-radius: 8px;
 
     color: #B42318;
+
     font-size: 13px;
     line-height: 1.5;
 }
 
+.form-messages {
+    margin-bottom: 20px;
+}
 
-/* =========================
-   SUBMIT BUTTON
-   ========================= */
+.form-message {
+    padding: 14px 18px;
+
+    border-radius: 10px;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.form-message.success {
+    color: #166534;
+    background: #dcfce7;
+    border: 1px solid #bbf7d0;
+}
 
 .form-button {
     display: flex;
     justify-content: flex-end;
+
     margin-top: 24px;
 }
 
 .form-button button {
     min-width: 190px;
     min-height: 46px;
+
     padding: 0 22px;
 
     border: none;
     border-radius: 8px;
 
     background: #042CC6;
-    color: #FFFFFF;
+    color: #ffffff;
 
     font-family: inherit;
     font-size: 14px;
@@ -459,7 +531,9 @@
 
 .form-button button:hover {
     background: #021F91;
+
     transform: translateY(-1px);
+
     box-shadow: 0 8px 18px rgba(4, 44, 198, 0.25);
 }
 
@@ -468,15 +542,18 @@
 }
 
 
+/* =========================
+   MOBILE
+   ========================= */
+
 @media (max-width: 950px) {
+
     .hero {
         padding: 16px 0 24px;
     }
 
     .hero-card {
         height: 580px;
-        border-radius: 2px;
-        background-position: center;
     }
 
     .hero-overlay {
@@ -485,18 +562,21 @@
 
     .hero h1 {
         max-width: 290px;
+
         font-size: 30px;
         line-height: 0.96;
         font-weight: 900;
     }
 
     .hero-button {
-        left: 14px;
         right: 14px;
         bottom: 14px;
-        width: auto;
+        left: 14px;
+
         min-height: 50px;
+
         padding: 0 16px;
+
         font-size: 16px;
     }
 
@@ -505,9 +585,10 @@
     }
 
     .advantages h2 {
+        margin-bottom: 14px;
+
         font-size: 14px;
         font-weight: 500;
-        margin: 0 0 14px;
     }
 
     .advantages-grid {
@@ -520,6 +601,7 @@
 
     .advantage-title {
         gap: 8px;
+
         margin-bottom: 4px;
     }
 
@@ -531,8 +613,8 @@
     .icon {
         width: 26px;
         height: 26px;
-        flex: 0 0 26px;
-        font-size: 13px;
+
+        flex-basis: 26px;
     }
 
     .icon img {
@@ -542,18 +624,23 @@
 
     .advantage p {
         min-height: auto;
+
         padding: 8px 10px;
-        border-radius: 5px;
+
         font-size: 14px;
         line-height: 1.12;
     }
 
-    .search-section,
     .tariffs-section,
-    .stats-section,
     .feature-section,
-    .servers-section {
+    .stats-section {
         padding: 34px 0;
+    }
+
+    .tariff-grid,
+    .feature-grid,
+    .stats-grid {
+        grid-template-columns: 1fr;
     }
 
     .section-title {
@@ -569,74 +656,38 @@
         font-size: 13px;
     }
 
-    .tariff-grid,
-    .stats-grid,
-    .form-row {
-        grid-template-columns: 1fr;
-    }
-
-    .server-row,
-    .row-title {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .server-meta {
-        text-align: left;
-    }
-
     .contact-section {
         padding: 18px 0 50px;
     }
 
     .contact-section h2 {
-        font-size: 18px;
         margin-bottom: 4px;
-    }
 
-    .contact-section p {
-        max-width: 260px;
-        margin: 0 auto 14px;
-        font-size: 12px;
-        line-height: 1.15;
-        font-weight: 700;
+        font-size: 18px;
     }
 
     .contact-form {
-        width: 100%;
-        max-width: none;
+        padding: 24px 18px;
     }
 
     .form-row {
         display: block;
+
+        margin-bottom: 0;
     }
 
-    .contact-form input {
-        width: 100%;
-        height: 45px;
+    .form-field {
         margin-bottom: 12px;
-        border-radius: 5px;
-        font-size: 13px;
-        text-transform: uppercase;
-    }
-
-    .contact-form textarea {
-        height: 270px;
-        margin-top: 0;
-        border-radius: 5px;
-        font-size: 13px;
-        text-transform: uppercase;
     }
 
     .form-button {
         margin-top: 12px;
-        text-align: left;
     }
 
-    .contact-form button {
+    .form-button button {
         width: 100%;
-        height: 54px;
+        min-height: 54px;
+
         font-size: 16px;
-        border-radius: 7px;
     }
 }

@@ -104,7 +104,7 @@
                 {% for tariff in recommended_tariffs %}
                     <article class="tariff-card">
                         {% if tariff.is_recommended %}
-                            <span class="badge">Рекомендуем</span>
+                            <span class="pricing-badge">Рекомендуем</span>
                         {% endif %}
 
                         <h3>
@@ -162,20 +162,28 @@
             </div>
         </div>
     </section>
-<!-- 
     {% get_features as features %}
+
     <section class="feature-section">
         <div class="container">
-            <h2>Характеристики</h2>
+            <div class="section-title">
+                <h2>Характеристики</h2>
                 <p>Вы можете заказать сервер с разными характеристиками.</p>
+            </div>
 
-                <ul>
-                    {% for feature in features %}
-                        <li>{{ feature.title }}</li>
-                    {% endfor %}
-                </ul>
-        </div>    
-    </section> -->
+            <div class="feature-grid">
+                {% for feature in features %}
+                    <article class="feature-card">
+                        <h3>{{ feature.title }}</h3>
+
+                        {% if feature.description %}
+                            <p>{{ feature.description }}</p>
+                        {% endif %}
+                    </article>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
     <section class="contact-section">
         <div class="container">
             <h2>Свяжитесь с нами</h2>

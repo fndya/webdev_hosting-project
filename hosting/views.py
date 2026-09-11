@@ -477,7 +477,7 @@ def account(request):
     orders = (
         Order.objects
         .filter(user=user)
-        #.select_related("tariff")
+        .select_related("tariff")
         .order_by("-created_at")
     )
 
