@@ -1,5 +1,7 @@
 from django.contrib import admin, messages
 from .pdf import generate_order_pdf
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
 
 # Register your models here.
 from django.contrib import admin
@@ -105,9 +107,13 @@ class ImageAdmin(admin.ModelAdmin):
     readonly_fields = ("created_at",)
     date_hierarchy = "created_at"
 
+class TariffResource(resources.ModelResource):
+    class Meta:
+        model = Tariff
 
 @admin.register(Tariff)
-class TariffAdmin(admin.ModelAdmin):
+class TariffAdmin(ImportExportModelAdmin):
+    resource_class = TariffResource
     list_display = (
         "id",
         "title",
@@ -178,8 +184,13 @@ def generate_order_pdfs(modeladmin, request, queryset):
         messages.SUCCESS,
     )
 
+class OrderResource(resources.ModelResource):
+    class Meta:
+        model = Order
+
 @admin.register(Order)
-class OrderAdmin(admin.ModelAdmin):
+class OrderAdmin(ImportExportModelAdmin):
+    resource_class = OrderResource
     list_display = (
         "id",
         "user",
