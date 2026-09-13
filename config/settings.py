@@ -44,10 +44,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    'django_filters',
     'debug_toolbar',
     'simple_history',
     'import_export',
     'hosting',
+    'rest_framework',
+    'rest_api',
 ]
 
 INTERNAL_IPS = [
