@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
+from simple_history.models import HistoricalRecords
 
 class Role(models.Model):
     name = models.CharField(
@@ -233,6 +234,8 @@ class Tariff(models.Model):
     objects = models.Manager()
     active = ActiveTariffManager()
 
+    history = HistoricalRecords()
+
     class Meta:
         verbose_name = "Тариф"
         verbose_name_plural = "Тарифы"
@@ -375,6 +378,8 @@ class Order(models.Model):
         auto_now=True,
         verbose_name="Дата изменения"
     )
+
+    history = HistoricalRecords()
 
     class Meta:
         verbose_name = "Заказ"

@@ -3,6 +3,8 @@ Django
 Pillow
 django-debug-toolbar
 django-extensions
+django-simple-history
+django-import-export
 python-dotenv
 redis
 reportlab
