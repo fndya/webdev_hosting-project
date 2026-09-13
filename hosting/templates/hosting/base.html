@@ -17,10 +17,13 @@
     <link rel="icon" href="{% static 'hosting/favicon.ico' %}" type="image/x-icon">
     {% block extra_css %}{% endblock %}
 </head>
+
 <body>
+
 <a class="skip-link" href="#main-content">
     Перейти к основному содержимому
 </a>
+
 <header class="header">
     <div class="container header-inner">
 
@@ -36,28 +39,113 @@
 
             {% if request.session.user_id %}
                 <a href="{% url 'account' %}">Личный кабинет</a>
-            {% else %}
-
             {% endif %}
         </nav>
 
         <div class="header-actions">
+
             <a href="{% url 'cart_detail' %}" class="small-btn cart-link">
                 Корзина
                 <span class="cart-count">{{ cart|length }}</span>
             </a>
 
             {% if request.session.user_id %}
+
                 <a class="user-name" href="{% url 'account' %}">
                     {{ request.session.user_name }}
                 </a>
+
                 <a class="small-btn" href="{% url 'logout' %}">
                     Выйти
                 </a>
-                {% else %}
-                <a class="small-btn login-prompt" href="{% url 'login' %}">Вход</a>
-                <a class="small-btn" href="{% url 'register' %}">Регистрация</a>
+
+            {% else %}
+
+                <a class="small-btn login-prompt" href="{% url 'login' %}">
+                    Вход
+                </a>
+
+                <a class="small-btn" href="{% url 'register' %}">
+                    Регистрация
+                </a>
+
             {% endif %}
+
+        </div>
+
+        <button
+            class="menu-toggle"
+            type="button"
+            aria-label="Открыть меню"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+        >
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+    </div>
+
+    <div class="mobile-menu" id="mobile-menu">
+
+        <nav class="mobile-nav" aria-label="Мобильная навигация">
+
+            <a href="{% url 'home' %}">
+                Главная
+            </a>
+
+            <a href="{% url 'pricing' %}">
+                Тарифы
+            </a>
+
+            <a href="{% url 'support' %}">
+                Поддержка
+            </a>
+
+            <a href="#">
+                О нас
+            </a>
+
+            {% if request.session.user_id %}
+
+                <a href="{% url 'account' %}">
+                    Личный кабинет
+                </a>
+
+            {% endif %}
+
+        </nav>
+
+        <div class="mobile-actions">
+
+            <a href="{% url 'cart_detail' %}" class="small-btn cart-link">
+                Корзина
+                <span class="cart-count">{{ cart|length }}</span>
+            </a>
+
+            {% if request.session.user_id %}
+
+                <a class="user-name" href="{% url 'account' %}">
+                    {{ request.session.user_name }}
+                </a>
+
+                <a class="small-btn" href="{% url 'logout' %}">
+                    Выйти
+                </a>
+
+            {% else %}
+
+                <a class="small-btn login-prompt" href="{% url 'login' %}">
+                    Вход
+                </a>
+
+                <a class="small-btn" href="{% url 'register' %}">
+                    Регистрация
+                </a>
+
+            {% endif %}
+
         </div>
 
     </div>
@@ -75,6 +163,8 @@
 </footer>
 
 {% block extra_js %}{% endblock %}
+
+<script src="{% static 'hosting/js/mobile-menu.js' %}"></script>
 
 </body>
 </html>
