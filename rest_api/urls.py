@@ -18,6 +18,13 @@ from rest_api.views.tariff import (
     TariffListCreateView,
 )
 
+from rest_api.views.cart import (
+    CartItemCreateView,
+    CartItemDeleteView,
+    CartItemUpdateView,
+    CartView,
+)
+
 urlpatterns = [
     path(
         "tariffs/",
@@ -64,5 +71,21 @@ urlpatterns = [
         "orders/checkout/",
         OrderCheckoutView.as_view(),
         name="api-order-checkout",
+    ),
+    path("cart/", CartView.as_view(), name="cart"),
+    path(
+        "cart/items/",
+        CartItemCreateView.as_view(),
+        name="cart_item_create",
+    ),
+    path(
+        "cart/items/<int:tariff_id>/",
+        CartItemUpdateView.as_view(),
+        name="cart_item_update",
+    ),
+    path(
+        "cart/items/<int:tariff_id>/delete/",
+        CartItemDeleteView.as_view(),
+        name="cart_item_delete",
     ),
 ]
