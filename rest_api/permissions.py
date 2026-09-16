@@ -35,3 +35,26 @@ class IsAdminByRole(BasePermission):
             user.role
             and user.role.name == "admin"
         )
+
+class IsAdminByRoleOnly(BasePermission):
+    message = "Для выполнения операции необходимы права администратора."
+
+    def has_permission(self, request, view):
+        user_id = request.session.get("user_id")
+
+        if not user_id:
+            return False
+
+        try:
+            user = (
+                User.objects
+                .select_related("role")
+                .get(id=user_id)
+            )
+        except User.DoesNotExist:
+            return False
+
+        return bool(
+            user.role
+            and user.role.name == "admin"
+        )
