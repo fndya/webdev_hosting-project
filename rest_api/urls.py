@@ -30,6 +30,11 @@ from rest_api.views.server import (
     ServerListView,
 )
 
+from rest_api.views.request import (
+    ContactRequestDetailView,
+    ContactRequestListCreateView,
+)
+
 urlpatterns = [
     path(
         "tariffs/",
@@ -103,5 +108,14 @@ urlpatterns = [
         ServerDetailView.as_view(),
         name="api-server-detail",
     ),
-    
+    path(
+        "requests/",
+        ContactRequestListCreateView.as_view(),
+        name="api-request-list-create",
+    ),
+    path(
+        "requests/<int:pk>/",
+        ContactRequestDetailView.as_view(),
+        name="api-request-detail",
+    ),
 ]
