@@ -25,6 +25,11 @@ from rest_api.views.cart import (
     CartView,
 )
 
+from rest_api.views.server import (
+    ServerDetailView,
+    ServerListView,
+)
+
 urlpatterns = [
     path(
         "tariffs/",
@@ -88,4 +93,15 @@ urlpatterns = [
         CartItemDeleteView.as_view(),
         name="cart_item_delete",
     ),
+    path(
+        "servers/",
+        ServerListView.as_view(),
+        name="api-server-list",
+    ),
+    path(
+        "servers/<int:pk>/",
+        ServerDetailView.as_view(),
+        name="api-server-detail",
+    ),
+    
 ]

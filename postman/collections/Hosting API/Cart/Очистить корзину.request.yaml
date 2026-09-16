@@ -1,4 +1,4 @@
 $kind: http-request
-url: ""
-method: GET
+url: "{{base_url}}/api/cart/"
+method: DELETE
 order: 3844137902137797

@@ -1,4 +1,4 @@
 $kind: http-request
-url: ""
-method: GET
+url: "{{base_url}}/api/auth/logout/"
+method: POST
 order: 3767577980771208

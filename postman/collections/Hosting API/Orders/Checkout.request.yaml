@@ -1,4 +1,7 @@
 $kind: http-request
-url: ""
-method: GET
+url: "{{base_url}}/api/orders/checkout/"
+method: POST
+body:
+  type: json
+  content: "{}"
 order: 2767175738000277

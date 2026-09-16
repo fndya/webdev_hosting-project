@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{base_url}}/api/servers/27/"
+method: GET
+order: 1193966659391515

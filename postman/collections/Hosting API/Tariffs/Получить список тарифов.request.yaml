@@ -1,4 +1,4 @@
 $kind: http-request
-url: ""
+url: "{{base_url}}/api/tariffs/"
 method: GET
 order: 1789486955576
