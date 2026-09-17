@@ -1,0 +1,10 @@
+$kind: http-request
+url: "{{base_url}}/api/admin/orders/1/"
+method: PATCH
+body:
+  type: json
+  content: |-
+    {
+        "status": "processing"
+    }
+order: 4442863689103324

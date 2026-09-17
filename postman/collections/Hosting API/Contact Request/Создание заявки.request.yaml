@@ -1,0 +1,13 @@
+$kind: http-request
+url: "{{base_url}}/api/requests/"
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "name": "Иван",
+        "email": "ivan@example.com",
+        "phone": "+79990000000",
+        "message": "Проверка REST API"
+    }
+order: 762614283341

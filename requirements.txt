@@ -5,6 +5,8 @@ django-debug-toolbar
 django-extensions
 django-simple-history
 django-import-export
+djangorestframework
+django-filter
 python-dotenv
 redis
 reportlab

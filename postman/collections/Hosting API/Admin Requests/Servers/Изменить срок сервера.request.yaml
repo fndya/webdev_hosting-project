@@ -1,0 +1,10 @@
+$kind: http-request
+url: "{{base_url}}/api/admin/servers/1/"
+method: PATCH
+body:
+  type: json
+  content: |-
+    {
+        "expires_at": "2027-01-01T12:00:00Z"
+    }
+order: 2060379609287422

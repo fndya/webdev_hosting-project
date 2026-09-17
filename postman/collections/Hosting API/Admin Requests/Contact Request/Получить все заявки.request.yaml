@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{base_url}}/api/admin/requests/"
+method: GET
+order: 1789627016271

@@ -1,0 +1,11 @@
+$kind: http-request
+url: "{{base_url}}/api/cart/items/"
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "tariff_id": 1,
+        "quantity": 1
+    }
+order: 798185749635754

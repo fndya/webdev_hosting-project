@@ -1,0 +1,10 @@
+$kind: http-request
+url: "{{base_url}}/api/admin/servers/1/"
+method: PATCH
+body:
+  type: json
+  content: |-
+    {
+        "status": 2
+    }
+order: 1971224934103003

@@ -1,0 +1,10 @@
+$kind: http-request
+url: "{{base_url}}/api/admin/servers/1/"
+method: PATCH
+body:
+  type: json
+  content: |-
+    {
+        "password": "test-password-123"
+    }
+order: 2368005008728312
