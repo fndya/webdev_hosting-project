@@ -28,6 +28,8 @@ from rest_api.views.cart import (
 )
 
 from rest_api.views.server import (
+    AdminServerDetailView,
+    AdminServerListView,
     ServerDetailView,
     ServerListView,
 )
@@ -141,5 +143,15 @@ urlpatterns = [
         "admin/requests/<int:pk>/",
         AdminContactRequestDetailView.as_view(),
         name="api-admin-request-detail",
+    ),
+    path(
+        "admin/servers/",
+        AdminServerListView.as_view(),
+        name="api-admin-server-list",
+    ),
+    path(
+        "admin/servers/<int:pk>/",
+        AdminServerDetailView.as_view(),
+        name="api-admin-server-detail",
     ),
 ]
