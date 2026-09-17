@@ -3,7 +3,11 @@ from django.db.models import F
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.generics import ListAPIView, RetrieveAPIView
+from rest_framework.generics import (
+    ListAPIView,
+    RetrieveAPIView,
+    RetrieveUpdateAPIView,
+)
 
 from hosting.cart import Cart
 from hosting.models import (
@@ -13,8 +17,11 @@ from hosting.models import (
 )
 from hosting.tasks import provision_order
 
-from rest_api.serializers.order import OrderSerializer
-
+from rest_api.serializers.order import (
+    OrderSerializer,
+    AdminOrderSerializer,
+)
+from rest_api.permissions import IsAdminByRoleOnly
 
 def get_session_user(request):
     user_id = request.session.get("user_id")
@@ -60,6 +67,35 @@ class OrderDetailView(RetrieveAPIView):
             .select_related("tariff", "server")
         )
 
+class AdminOrderListView(ListAPIView):
+    serializer_class = AdminOrderSerializer
+    permission_classes = (IsAdminByRoleOnly,)
+
+    def get_queryset(self):
+        return (
+            Order.objects
+            .select_related(
+                "user",
+                "tariff",
+                "server",
+            )
+            .order_by("-created_at")
+        )
+
+
+class AdminOrderDetailView(RetrieveUpdateAPIView):
+    serializer_class = AdminOrderSerializer
+    permission_classes = (IsAdminByRoleOnly,)
+
+    def get_queryset(self):
+        return (
+            Order.objects
+            .select_related(
+                "user",
+                "tariff",
+                "server",
+            )
+        )
 
 class OrderCheckoutView(APIView):
     def post(self, request):

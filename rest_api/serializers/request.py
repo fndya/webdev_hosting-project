@@ -42,3 +42,49 @@ class ContactRequestSerializer(serializers.ModelSerializer):
                 pass
 
         return super().create(validated_data)
+
+class AdminContactRequestSerializer(serializers.ModelSerializer):
+    status_display = serializers.CharField(
+        source="get_status_display",
+        read_only=True,
+    )
+    user_email = serializers.CharField(
+        source="user.email",
+        read_only=True,
+    )
+    handled_by_email = serializers.CharField(
+        source="handled_by.email",
+        read_only=True,
+    )
+
+    class Meta:
+        model = ContactRequest
+        fields = (
+            "id",
+            "user",
+            "user_email",
+            "name",
+            "email",
+            "phone",
+            "message",
+            "status",
+            "status_display",
+            "handled_by",
+            "handled_by_email",
+            "created_at",
+            "updated_at",
+        )
+        read_only_fields = (
+            "id",
+            "user",
+            "user_email",
+            "name",
+            "email",
+            "phone",
+            "message",
+            "status_display",
+            "handled_by",
+            "handled_by_email",
+            "created_at",
+            "updated_at",
+        )

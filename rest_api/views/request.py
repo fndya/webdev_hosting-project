@@ -2,11 +2,17 @@ from rest_framework import status
 from rest_framework.generics import (
     ListCreateAPIView,
     RetrieveAPIView,
+    ListAPIView,
+    RetrieveUpdateAPIView,
 )
 from rest_framework.response import Response
 
 from hosting.models import ContactRequest, User
-from rest_api.serializers.request import ContactRequestSerializer
+from rest_api.permissions import IsAdminByRoleOnly
+from rest_api.serializers.request import (
+    ContactRequestSerializer,
+    AdminContactRequestSerializer,
+)
 
 
 def get_session_user(request):
@@ -60,3 +66,32 @@ class ContactRequestDetailView(RetrieveAPIView):
             return ContactRequest.objects.none()
 
         return ContactRequest.objects.filter(user=user)
+
+class AdminContactRequestListView(ListAPIView):
+    serializer_class = AdminContactRequestSerializer
+    permission_classes = (IsAdminByRoleOnly,)
+
+    def get_queryset(self):
+        return (
+            ContactRequest.objects
+            .select_related("user", "handled_by")
+            .order_by("-created_at")
+        )
+
+
+class AdminContactRequestDetailView(RetrieveUpdateAPIView):
+    serializer_class = AdminContactRequestSerializer
+    permission_classes = (IsAdminByRoleOnly,)
+
+    def get_queryset(self):
+        return (
+            ContactRequest.objects
+            .select_related("user", "handled_by")
+        )
+
+    def perform_update(self, serializer):
+        user = get_session_user(self.request)
+
+        serializer.save(
+            handled_by=user,
+        )

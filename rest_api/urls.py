@@ -8,6 +8,8 @@ from rest_api.views.auth import (
 )
 
 from rest_api.views.order import (
+    AdminOrderDetailView,
+    AdminOrderListView,
     OrderCheckoutView,
     OrderDetailView,
     OrderListView,
@@ -33,6 +35,8 @@ from rest_api.views.server import (
 from rest_api.views.request import (
     ContactRequestDetailView,
     ContactRequestListCreateView,
+    AdminContactRequestListView,
+    AdminContactRequestDetailView,
 )
 
 urlpatterns = [
@@ -117,5 +121,25 @@ urlpatterns = [
         "requests/<int:pk>/",
         ContactRequestDetailView.as_view(),
         name="api-request-detail",
+    ),
+    path(
+        "admin/orders/",
+        AdminOrderListView.as_view(),
+        name="api-admin-order-list",
+    ),
+    path(
+        "admin/orders/<int:pk>/",
+        AdminOrderDetailView.as_view(),
+        name="api-admin-order-detail",
+    ),
+    path(
+        "admin/requests/",
+        AdminContactRequestListView.as_view(),
+        name="api-admin-request-list",
+    ),
+    path(
+        "admin/requests/<int:pk>/",
+        AdminContactRequestDetailView.as_view(),
+        name="api-admin-request-detail",
     ),
 ]
