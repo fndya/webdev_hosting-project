@@ -1,0 +1,26 @@
+.pricing-page {
+    padding: 40px 0 70px;
+}
+
+.page-title {
+    margin: 0 0 32px;
+
+    color: #232F48;
+
+    font-size: 32px;
+    line-height: 1.2;
+    font-weight: 900;
+}
+
+
+/* =========================
+   PRICING GRID
+   ========================= */
+
+.pricing-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 24px;
+}

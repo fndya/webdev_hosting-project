@@ -1,0 +1,266 @@
+
+.pricing-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 24px;
+}
+
+
+/* =========================
+   PRICING CARD
+   ========================= */
+
+.pricing-card {
+    position: relative;
+
+    min-height: 320px;
+
+    background: #ffffff;
+
+    border: 1px solid #4A5163;
+    border-radius: 8px;
+
+    padding: 22px 28px 26px;
+
+    box-shadow: 0 4px 8px rgba(35, 47, 72, 0.22);
+}
+.pricing-card h2 {
+    margin: 0 0 24px;
+
+    color: #232F48;
+
+    font-size: 18px;
+    line-height: 1.2;
+    font-weight: 900;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================
+   TARIFF PARAMETERS
+   ========================= */
+
+.tariff-row {
+    display: grid;
+
+    grid-template-columns: 24px 1fr auto;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 14px;
+
+    color: #232F48;
+}
+
+.tariff-row strong {
+    font-size: 16px;
+    line-height: 1;
+    font-weight: 900;
+}
+
+.tariff-row span:last-child {
+    color: #4A5163;
+
+    font-size: 16px;
+    line-height: 1;
+
+    white-space: nowrap;
+}
+
+.pricing-badge {
+    position: absolute;
+
+    top: -12px;
+    right: 16px;
+
+    background: #042CC6;
+    color: #ffffff;
+
+    padding: 6px 12px;
+    border-radius: 999px;
+
+    font-size: 12px;
+    font-weight: 900;
+}
+
+
+/* =========================
+   DETAILS BUTTON
+   ========================= */
+
+.card-details-btn {
+    width: 170px;
+    height: 35px;
+
+    margin: 22px auto 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #E1E5EE;
+    color: #232F48;
+
+    border: 1px solid #4A5163;
+    border-radius: 6px;
+
+    box-shadow: 0 4px 6px rgba(35, 47, 72, 0.18);
+
+    font-size: 16px;
+    font-weight: 900;
+}
+
+.card-details-btn:hover {
+    background: #232F48;
+    color: #ffffff;
+}
+
+
+/* =========================
+   BUY BUTTON
+   ========================= */
+
+.pricing-card .card-buy-btn {
+    width: 170px;
+    height: 35px;
+
+    margin: 10px auto 0;
+}
+
+
+/* =========================
+   PAGINATION
+   ========================= */
+
+.pagination {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 24px;
+
+    margin-top: 36px;
+
+    color: #4A5163;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.pagination a {
+    padding: 9px 16px;
+
+    background: #ffffff;
+
+    color: #232F48;
+
+    border: 1px solid #4A5163;
+    border-radius: 6px;
+
+    transition:
+        background 0.15s ease,
+        color 0.15s ease;
+}
+
+.pagination a:hover {
+    background: #232F48;
+    color: #ffffff;
+}
+
+
+/* =========================
+   TABLET
+   ========================= */
+
+@media (max-width: 1100px) {
+
+    .pricing-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 700px) {
+
+    .pricing-page {
+        padding: 28px 0 50px;
+    }
+
+    .page-title {
+        margin-bottom: 24px;
+
+        font-size: 28px;
+    }
+
+    .pricing-grid {
+        grid-template-columns: 1fr;
+
+        gap: 18px;
+    }
+
+    .pricing-card {
+        padding: 22px 20px;
+    }
+
+    .pricing-card h2 {
+        font-size: 17px;
+    }
+
+    .tariff-row {
+        grid-template-columns: 24px 1fr auto;
+
+        gap: 8px;
+
+        margin-bottom: 13px;
+    }
+
+    .tariff-row strong,
+    .tariff-row span:last-child {
+        font-size: 14px;
+    }
+
+    .pagination {
+        flex-wrap: wrap;
+
+        gap: 12px;
+
+        margin-top: 28px;
+    }
+}
+
+
+@media (max-width: 480px) {
+
+    .pricing-card {
+        padding: 20px 16px;
+    }
+
+    .tariff-row {
+        grid-template-columns: 24px 1fr;
+    }
+
+    .tariff-row span:last-child {
+        grid-column: 2;
+
+        white-space: normal;
+    }
+
+    .pricing-card .card-buy-btn,
+    .card-details-btn {
+        height: 42px;
+    }
+}
+
+.print-only-tariffs {
+    display: none;
+}
