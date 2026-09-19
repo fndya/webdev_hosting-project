@@ -11,3 +11,7 @@ interface TariffResponse {
 export function getTariffs(): Promise<TariffResponse> {
   return apiFetch("/tariffs/");
 }
+
+export function getRecommendedTariffs():  Promise<TariffResponse> {
+  return apiFetch("/tariffs/?is_recommended=true");
+}

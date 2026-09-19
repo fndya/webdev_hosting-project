@@ -6,9 +6,27 @@ import ram from "@/assets/icons/ram.svg";
 import storage from "@/assets/icons/storage.svg";
 import traffic from "@/assets/icons/traffic.svg";
 import price from "@/assets/icons/pricetag.svg";
+import { Link } from "react-router-dom";
+import TariffParameter from "./TariffParameter";
 
 interface TariffCardProps {
   tariff: Tariff;
+}
+
+function getCoreWord(count: number) {
+  if (count % 10 === 1 && count % 100 !== 11) {
+    return "ядро";
+  }
+
+  if (
+    count % 10 >= 2 &&
+    count % 10 <= 4 &&
+    (count % 100 < 10 || count % 100 >= 20)
+  ) {
+    return "ядра";
+  }
+
+  return "ядер";
 }
 
 function TariffCard({ tariff }: TariffCardProps) {
@@ -18,54 +36,42 @@ function TariffCard({ tariff }: TariffCardProps) {
 
       <p>{tariff.description}</p>
 
-      <div className="tariff-row">
-        <span className="tariff-icon">
-          <img src={region} alt=""></img>
-        </span>
-        <strong>Регион</strong>
-        <span>Россия</span>
-      </div>
-      <div className="tariff-row">
-        <span className="tariff-icon">
-          <img src={cpu} alt=""></img>
-        </span>
-        <strong>ЦП</strong>
-        <span>{tariff.cpu_cores} ядра</span>
-      </div>
-      <div className="tariff-row">
-        <span className="tariff-icon">
-          <img src={ram} alt=""></img>
-        </span>
-        <strong>ОЗУ</strong>
-        <span>{tariff.ram_gb} ГБ</span>
-      </div>
-      <div className="tariff-row">
-        <span className="tariff-icon">
-          <img src={storage} alt=""></img>
-        </span>
-        <strong>Диск</strong>
-        <span>{tariff.storage_gb} ГБ</span>
-      </div>
-      <div className="tariff-row">
-        <span className="tariff-icon">
-          <img src={traffic} alt=""></img>
-        </span>
-        <strong>Трафик</strong>
-        <span>{tariff.traffic}</span>
-      </div>
-      <div className="tariff-row">
-        <span className="tariff-icon">
-          <img src={price} alt=""></img>
-        </span>
-        <strong>Цена</strong>
-        <span>{tariff.price_monthly}  ₽/мес</span>
-      </div>
-      <a className="card-details-btn" href="{{ tariff.get_absolute_url }}">
+      <TariffParameter
+        icon={region}
+        label="Регион"
+        value="Россия"
+      />
+      <TariffParameter
+        icon={cpu}
+        label="ЦП"
+        value={`${tariff.cpu_cores}` + ` ${getCoreWord(tariff.cpu_cores)}` }
+      />
+      <TariffParameter
+        icon={ram}
+        label="ОЗУ"
+        value={`${tariff.ram_gb}`+ " ГБ" }
+      />
+      <TariffParameter
+        icon={storage}
+        label="Диск"
+        value={`${tariff.storage_gb}`+ " ГБ" }
+      />
+      <TariffParameter
+        icon={traffic}
+        label="Трафик"
+        value={`${tariff.traffic}`}
+      />
+      <TariffParameter
+        icon={price}
+        label="Цена"
+        value={`${tariff.price_monthly}`+ " ₽/мес" }
+      />
+      <Link className="card-details-btn" to={`/tariffs/${tariff.id}/`}>
         Подробнее
-      </a>
-      <a className="card-buy-btn" href="{% url 'cart_add' tariff.id %}">
+      </Link>
+      <Link className="card-buy-btn" to={`/tariffs/${tariff.id}/`}>
           Купить
-      </a>
+      </Link>
         
       {tariff.is_recommended && (
         <span className="pricing-badge">Рекомендуемый тариф</span>

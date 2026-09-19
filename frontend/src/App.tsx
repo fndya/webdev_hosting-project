@@ -1,7 +1,9 @@
-import TariffsPage from "@/pages/tariffs/TariffsPage";
 
+import "./index.css";
+import HomePage from "./pages/home/HomePage";
+//import TariffsPage from "./pages/tariffs/TariffsPage";
 function App() {
-  return <TariffsPage />;
+  return <HomePage/>;
 }
 
 export default App;

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import "./TariffsPage.css";
 import { getTariffs } from "@/api/tariffs";
 import type { Tariff } from "@/types/tariff";
 import TariffCard from "@/components/tariff/TariffCard";
