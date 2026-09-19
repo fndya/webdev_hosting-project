@@ -9,14 +9,29 @@
 
     min-height: 320px;
 
+    padding: 24px 28px 26px;
+
     background: #ffffff;
 
-    border: 1px solid #4A5163;
-    border-radius: 8px;
+    border: 1px solid rgba(35, 47, 72, 0.08);
+    border-radius: 12px;
 
-    padding: 22px 28px 26px;
+    box-shadow:
+        0 6px 18px rgba(35, 47, 72, 0.07);
 
-    box-shadow: 0 4px 8px rgba(35, 47, 72, 0.22);
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.pricing-card:hover {
+    transform: translateY(-4px);
+
+    border-color: rgba(4, 44, 198, 0.16);
+
+    box-shadow:
+        0 12px 28px rgba(35, 47, 72, 0.12);
 }
 .pricing-card h2 {
     margin: 0 0 24px;
@@ -87,7 +102,7 @@
 
 .card-details-btn {
     width: 170px;
-    height: 35px;
+    height: 36px;
 
     margin: 22px auto 0;
 
@@ -98,18 +113,25 @@
     background: #E1E5EE;
     color: #232F48;
 
-    border: 1px solid #4A5163;
-    border-radius: 6px;
+    border: 1px solid rgba(35, 47, 72, 0.12);
+    border-radius: 7px;
 
-    box-shadow: 0 4px 6px rgba(35, 47, 72, 0.18);
+    box-shadow: none;
 
-    font-size: 16px;
-    font-weight: 900;
+    font-size: 15px;
+    font-weight: 800;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
 }
 
 .card-details-btn:hover {
     background: #232F48;
     color: #ffffff;
+
+    transform: translateY(-1px);
 }
 
 
@@ -119,86 +141,32 @@
 
 .pricing-card .card-buy-btn {
     width: 170px;
-    height: 35px;
+    height: 36px;
+    background: #042CC6;
+    color: #ffffff;
 
     margin: 10px auto 0;
-}
-
-
-/* =========================
-   PAGINATION
-   ========================= */
-
-.pagination {
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-
-    gap: 24px;
-
-    margin-top: 36px;
-
-    color: #4A5163;
-
-    font-size: 14px;
-    font-weight: 700;
-}
-
-.pagination a {
-    padding: 9px 16px;
-
-    background: #ffffff;
-
-    color: #232F48;
-
-    border: 1px solid #4A5163;
-    border-radius: 6px;
 
     transition:
-        background 0.15s ease,
-        color 0.15s ease;
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
-.pagination a:hover {
-    background: #232F48;
-    color: #ffffff;
+.pricing-card .card-buy-btn:hover {
+    background: #134ecc;
+
+    transform: translateY(-1px);
+
+    box-shadow: 0 6px 12px rgba(35, 47, 72, 0.16);
 }
-
-
-/* =========================
-   TABLET
-   ========================= */
-/* 
-@media (max-width: 1100px) {
-
-    .pricing-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-} */
 
 
 /* =========================
    MOBILE
    ========================= */
 
-/* @media (max-width: 700px) {
-
-    .pricing-page {
-        padding: 28px 0 50px;
-    }
-
-    .page-title {
-        margin-bottom: 24px;
-
-        font-size: 28px;
-    }
-
-    .pricing-grid {
-        grid-template-columns: 1fr;
-
-        gap: 18px;
-    }
+@media (max-width: 700px) {
 
     .pricing-card {
         padding: 22px 20px;
@@ -219,14 +187,6 @@
     .tariff-row strong,
     .tariff-row span:last-child {
         font-size: 14px;
-    }
-
-    .pagination {
-        flex-wrap: wrap;
-
-        gap: 12px;
-
-        margin-top: 28px;
     }
 }
 
@@ -252,7 +212,3 @@
         height: 42px;
     }
 }
-
-.print-only-tariffs {
-    display: none;
-} */

@@ -33,7 +33,12 @@ function HomePage() {
     return (
         <><section className="hero">
             <div className="container">
-
+                <div className="hero-card">
+                    <div className="hero-overlay">
+                        <h1>Облачная платформа с широким выбором IT-сервисов</h1>
+                        <Link to="/pricing/" className="hero-button">Перейти к тарифам</Link>
+                    </div>
+                </div>
             </div>
         </section>
         <section className="advantages">
@@ -63,7 +68,7 @@ function HomePage() {
                     />
                     <AdvantageCard 
                         icon={sliders}
-                        title="Защита данных"
+                        title="Гибкие конфигурации"
                         description="Можно выбрать подходящую конфигурацию под личный сайт, интернет-магазин или корпоративный проект без переплаты за лишние ресурсы."
                     />
                     <AdvantageCard 
@@ -81,8 +86,8 @@ function HomePage() {
                     <div>
                         <h2>Рекомендуемые тарифы</h2>
                         <p></p>
-                        <Link to="/tariffs">Все тарифы</Link>
                     </div>
+                    <Link to="/tariffs">Все тарифы</Link>
                 </div>
                 <div className="tariff-section-grid">
                     {tariffs

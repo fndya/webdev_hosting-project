@@ -74,7 +74,7 @@ function TariffCard({ tariff }: TariffCardProps) {
       </Link>
         
       {tariff.is_recommended && (
-        <span className="pricing-badge">Рекомендуемый тариф</span>
+        <span className="pricing-badge">Рекомендуем</span>
       )}
     </article>
   );

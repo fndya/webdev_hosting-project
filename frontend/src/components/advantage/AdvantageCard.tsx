@@ -1,3 +1,5 @@
+import "./AdvantageCard.css";
+
 interface AdvantageCardProps {
     icon: string;
     title: string;
