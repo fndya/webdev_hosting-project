@@ -41,6 +41,8 @@ from rest_api.views.request import (
     AdminContactRequestDetailView,
 )
 
+from rest_api.views.stats import PlatformStatsView
+
 urlpatterns = [
     path(
         "tariffs/",
@@ -153,5 +155,10 @@ urlpatterns = [
         "admin/servers/<int:pk>/",
         AdminServerDetailView.as_view(),
         name="api-admin-server-detail",
+    ),
+    path(
+        "stats/",
+        PlatformStatsView.as_view(),
+        name="api-platform-stats",
     ),
 ]

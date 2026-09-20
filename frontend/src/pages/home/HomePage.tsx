@@ -11,15 +11,18 @@ import settings from "@/assets/icons/settings.svg";
 import sliders from "@/assets/icons/sliders.svg";
 import zap from "@/assets/icons/zap.svg";
 import helpcircle from "@/assets/icons/help-circle.svg";
-
+import { getPlatformStats } from "@/api/stats";
+import type { PlatformStats } from "@/api/stats";
 
 
 
 function HomePage() {    
     const [tariffs, setTariffs] = useState<Tariff[]>([]);
+    const [stats, setStats] = useState<PlatformStats | null>(null);
     const [error, setError] = useState("");
 
     useEffect(() => {
+        document.title = "Турбосервер";
         getRecommendedTariffs()
             .then((data) => {
             setTariffs(data.results);
@@ -29,6 +32,17 @@ function HomePage() {
             setError(error.message);
             });
         }, []);
+
+    useEffect(() => {
+        getPlatformStats()
+            .then((data) => {
+                setStats(data);
+            })
+            .catch((error: Error) => {
+                console.error(error);
+                setError(error.message);
+            });
+    }, []);
 
     return (
         <><section className="hero">
@@ -102,6 +116,38 @@ function HomePage() {
         </section>
         <section className="stats-section">
             <div className="container">
+                <div className="section-title">
+                    <h2>Платформа в цифрах</h2>
+                    <p>Основные показатели нашей платформы.</p>
+                </div>
+
+                <div className="stats-grid">
+                    <div className="stat-card">
+                        <strong>{stats?.users_count ?? "—"}</strong>
+                        <span>пользователей</span>
+                    </div>
+
+                    <div className="stat-card">
+                        <strong>{stats?.servers_count ?? "—"}</strong>
+                        <span>серверов создано</span>
+                    </div>
+
+                    <div className="stat-card">
+                        <strong>{stats?.active_tariffs_count ?? "—"}</strong>
+                        <span>активных тарифов</span>
+                    </div>
+
+                    <div className="stat-card">
+                        <strong>
+                            {stats
+                                ? Math.round(
+                                    Number(stats.average_tariff_price)
+                                )
+                                : "—"}
+                        </strong>
+                        <span>средняя цена, ₽</span>
+                    </div>
+                </div>
                 
             </div>
         </section>

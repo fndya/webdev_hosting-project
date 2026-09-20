@@ -8,8 +8,8 @@ interface TariffResponse {
   results: Tariff[];
 }
 
-export function getTariffs(): Promise<TariffResponse> {
-  return apiFetch("/tariffs/");
+export function getTariffs(page = 1): Promise<TariffResponse> {
+  return apiFetch(`/tariffs/?page=${page}`);
 }
 
 export function getRecommendedTariffs():  Promise<TariffResponse> {
