@@ -1,21 +1,26 @@
-import { getRecommendedTariffs} from "@/api/tariffs";
-import TariffCard from "@/components/tariff/TariffCard";
-import type { Tariff } from "@/types/tariff";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "./HomePage.css";
+
+import { getFeatures } from "@/api/features";
+import { getPlatformStats } from "@/api/stats";
+import { getRecommendedTariffs } from "@/api/tariffs";
+
 import AdvantageCard from "@/components/advantage/AdvantageCard";
+import FeatureCard from "@/components/feature/FeatureCard";
+import TariffCard from "@/components/tariff/TariffCard";
+
 import clock from "@/assets/icons/clock.svg";
-import shield from "@/assets/icons/shield.svg";
+import helpcircle from "@/assets/icons/help-circle.svg";
 import settings from "@/assets/icons/settings.svg";
+import shield from "@/assets/icons/shield.svg";
 import sliders from "@/assets/icons/sliders.svg";
 import zap from "@/assets/icons/zap.svg";
-import helpcircle from "@/assets/icons/help-circle.svg";
-import { getPlatformStats } from "@/api/stats";
+
 import type { PlatformStats } from "@/api/stats";
-import { getFeatures } from "@/api/features";
 import type { TariffFeature } from "@/types/feature";
-import FeatureCard from "@/components/feature/FeatureCard";
+import type { Tariff } from "@/types/tariff";
+
+import "./HomePage.css";
 
 
 function HomePage() {    
