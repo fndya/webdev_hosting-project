@@ -1,4 +1,4 @@
-import { getRecommendedTariffs, getTariffs } from "@/api/tariffs";
+import { getRecommendedTariffs} from "@/api/tariffs";
 import TariffCard from "@/components/tariff/TariffCard";
 import type { Tariff } from "@/types/tariff";
 import { useEffect, useState } from "react";
@@ -13,13 +13,24 @@ import zap from "@/assets/icons/zap.svg";
 import helpcircle from "@/assets/icons/help-circle.svg";
 import { getPlatformStats } from "@/api/stats";
 import type { PlatformStats } from "@/api/stats";
-
+import { getFeatures } from "@/api/features";
+import type { TariffFeature } from "@/types/feature";
+import FeatureCard from "@/components/feature/FeatureCard";
 
 
 function HomePage() {    
     const [tariffs, setTariffs] = useState<Tariff[]>([]);
     const [stats, setStats] = useState<PlatformStats | null>(null);
     const [error, setError] = useState("");
+    const [features, setFeatures] = useState<TariffFeature[]>([]);
+
+    useEffect(() => {
+    getFeatures()
+        .then(setFeatures)
+        .catch((error: Error) => {
+        console.error(error);
+        });
+    }, []);
 
     useEffect(() => {
         document.title = "Турбосервер";
@@ -53,6 +64,7 @@ function HomePage() {
                         <Link to="/pricing/" className="hero-button">Перейти к тарифам</Link>
                     </div>
                 </div>
+                {error && <p>{error}</p>}
             </div>
         </section>
         <section className="advantages">
@@ -153,7 +165,19 @@ function HomePage() {
         </section>
         <section className="feature-section">
             <div className="container">
-                
+                <div className="section-title">
+                    <h2>Возможности</h2>
+                    <p>Всё необходимое для стабильной работы ваших проектов.</p>
+                </div>
+
+                <div className="feature-grid">
+                    {features.map((feature) => (
+                        <FeatureCard
+                            key={feature.id}
+                            feature={feature}
+                        />
+                    ))}
+                </div>
             </div>
         </section>
         <section className="contact-section">

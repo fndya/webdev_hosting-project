@@ -42,6 +42,7 @@ from rest_api.views.request import (
 )
 
 from rest_api.views.stats import PlatformStatsView
+from rest_api.views.feature import TariffFeatureListView
 
 urlpatterns = [
     path(
@@ -160,5 +161,10 @@ urlpatterns = [
         "stats/",
         PlatformStatsView.as_view(),
         name="api-platform-stats",
+    ),
+    path(
+        "features/",
+        TariffFeatureListView.as_view(),
+        name="api-feature-list",
     ),
 ]
