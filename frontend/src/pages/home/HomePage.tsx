@@ -66,7 +66,7 @@ function HomePage() {
                 <div className="hero-card">
                     <div className="hero-overlay">
                         <h1>Облачная платформа с широким выбором IT-сервисов</h1>
-                        <Link to="/pricing/" className="hero-button">Перейти к тарифам</Link>
+                        <Link to="/tariffs/" className="hero-button">Перейти к тарифам</Link>
                     </div>
                 </div>
                 {error && <p>{error}</p>}

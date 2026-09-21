@@ -1,3 +1,5 @@
+import type { TariffFeature } from "./feature";
+
 export interface Tariff {
   id: number;
   title: string;
@@ -14,10 +16,4 @@ export interface Tariff {
   image_urls: string[];
   created_at: string;
   updated_at: string;
-}
-
-export interface TariffFeature {
-  id: number;
-  title: string;
-  description: string;
 }

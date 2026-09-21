@@ -12,6 +12,10 @@ export function getTariffs(page = 1): Promise<TariffResponse> {
   return apiFetch(`/tariffs/?page=${page}`);
 }
 
+export function getTariff(id: number): Promise<Tariff> {
+    return apiFetch(`/tariffs/${id}/`);
+}
+
 export function getRecommendedTariffs():  Promise<TariffResponse> {
   return apiFetch("/tariffs/?is_recommended=true");
 }
