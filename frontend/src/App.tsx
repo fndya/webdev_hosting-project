@@ -7,6 +7,8 @@ import Footer from "@/components/layout/footer/Footer";
 import HomePage from "@/pages/home/HomePage";
 import TariffsPage from "@/pages/tariffs/TariffsPage";
 import TariffDetailPage from "./pages/tariff-detail/TariffDetailPage";
+import LoginPage from "./pages/auth/LoginPage";
+import RegisterPage from "./pages/auth/RegisterPage";
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
 
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
         <Route path="/tariffs" element={<TariffsPage />} />
         <Route
           path="/tariffs/:id"
