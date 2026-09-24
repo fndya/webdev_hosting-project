@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 
 import "./index.css";
 
+import { AuthProvider } from "@/context/AuthContext";
 import Header from "@/components/layout/header/Header";
 import Footer from "@/components/layout/footer/Footer";
 import HomePage from "@/pages/home/HomePage";
@@ -13,19 +14,22 @@ import RegisterPage from "./pages/auth/RegisterPage";
 function App() {
   return (
     <>
-      <Header />
+       <AuthProvider>
+            <Header />
 
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/tariffs" element={<TariffsPage />} />
-        <Route
-          path="/tariffs/:id"
-          element={<TariffDetailPage />}
-        />
-      </Routes>
-      <Footer />
+            <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
+                <Route path="/tariffs" element={<TariffsPage />} />
+                <Route
+                    path="/tariffs/:id"
+                    element={<TariffDetailPage />}
+                />
+            </Routes>
+
+            <Footer />
+        </AuthProvider>
     </>
   );
 }

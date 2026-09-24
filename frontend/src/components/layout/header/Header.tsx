@@ -1,13 +1,22 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
+import { useAuth } from "@/context/AuthContext";
+
 import "./Header.css";
 
 function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+    const { user, isLoading, logout } = useAuth();
+
     const closeMenu = () => {
         setIsMenuOpen(false);
+    };
+
+    const handleLogout = async () => {
+        await logout();
+        closeMenu();
     };
 
     return (
@@ -27,9 +36,18 @@ function Header() {
                         aria-label="Основная навигация"
                     >
                         <NavLink to="/">Главная</NavLink>
-                        <NavLink to="/tariffs">Тарифы</NavLink>
-                        <NavLink to="/support">Поддержка</NavLink>
-                        <NavLink to="/about">О нас</NavLink>
+
+                        <NavLink to="/tariffs">
+                            Тарифы
+                        </NavLink>
+
+                        <NavLink to="/support">
+                            Поддержка
+                        </NavLink>
+
+                        <NavLink to="/about">
+                            О нас
+                        </NavLink>
                     </nav>
 
                     <div className="header-actions">
@@ -40,18 +58,40 @@ function Header() {
                             Корзина
                         </NavLink>
 
-                        <NavLink
-                            to="/login"
-                            className="small-btn login-prompt"
-                        >
-                            Войти
-                        </NavLink>
-                        <NavLink
-                            to="/register"
-                            className="small-btn"
-                        >
-                            Регистрация
-                        </NavLink>
+                        {!isLoading && user ? (
+                            <>
+                                <NavLink
+                                    to="/account"
+                                    className="user-name"
+                                >
+                                    {user.name}
+                                </NavLink>
+
+                                <button
+                                    type="button"
+                                    className="small-btn"
+                                    onClick={handleLogout}
+                                >
+                                    Выйти
+                                </button>
+                            </>
+                        ) : !isLoading ? (
+                            <>
+                                <NavLink
+                                    to="/login"
+                                    className="small-btn login-prompt"
+                                >
+                                    Войти
+                                </NavLink>
+
+                                <NavLink
+                                    to="/register"
+                                    className="small-btn"
+                                >
+                                    Регистрация
+                                </NavLink>
+                            </>
+                        ) : null}
                     </div>
 
                     <button
@@ -59,7 +99,9 @@ function Header() {
                         className={`menu-toggle ${
                             isMenuOpen ? "is-open" : ""
                         }`}
-                        onClick={() => setIsMenuOpen((open) => !open)}
+                        onClick={() =>
+                            setIsMenuOpen((open) => !open)
+                        }
                         aria-expanded={isMenuOpen}
                         aria-controls="mobile-menu"
                         aria-label={
@@ -84,7 +126,10 @@ function Header() {
                         className="mobile-nav"
                         aria-label="Мобильная навигация"
                     >
-                        <NavLink to="/" onClick={closeMenu}>
+                        <NavLink
+                            to="/"
+                            onClick={closeMenu}
+                        >
                             Главная
                         </NavLink>
 
@@ -126,21 +171,43 @@ function Header() {
                             Корзина
                         </NavLink>
 
-                        <NavLink
-                            to="/login"
-                            className="small-btn login-prompt"
-                            onClick={closeMenu}
-                        >
-                            Вход
-                        </NavLink>
+                        {!isLoading && user ? (
+                            <>
+                                <NavLink
+                                    to="/account"
+                                    className="user-name"
+                                    onClick={closeMenu}
+                                >
+                                    {user.name}
+                                </NavLink>
 
-                        <NavLink
-                            to="/register"
-                            className="small-btn"
-                            onClick={closeMenu}
-                        >
-                            Регистрация
-                        </NavLink>
+                                <button
+                                    type="button"
+                                    className="small-btn"
+                                    onClick={handleLogout}
+                                >
+                                    Выйти
+                                </button>
+                            </>
+                        ) : !isLoading ? (
+                            <>
+                                <NavLink
+                                    to="/login"
+                                    className="small-btn login-prompt"
+                                    onClick={closeMenu}
+                                >
+                                    Вход
+                                </NavLink>
+
+                                <NavLink
+                                    to="/register"
+                                    className="small-btn"
+                                    onClick={closeMenu}
+                                >
+                                    Регистрация
+                                </NavLink>
+                            </>
+                        ) : null}
                     </div>
                 </div>
             </div>

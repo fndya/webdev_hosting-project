@@ -2,13 +2,13 @@ import { useState } from "react";
 import type { FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import { register } from "@/api/auth";
+import { useAuth } from "@/context/AuthContext";
 
 import "./Auth.css";
 
 function RegisterPage() {
     const navigate = useNavigate();
-
+    const { register } = useAuth();
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
