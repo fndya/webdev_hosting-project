@@ -10,7 +10,7 @@ function TariffParameter({
   value,
 }: TariffParameterProps) {
   return (
-    <div className="tariff-row">
+    <div className="tariff-row tariff-detail-row">
       <span className="tariff-icon">
         <img src={icon} alt="" />
       </span>

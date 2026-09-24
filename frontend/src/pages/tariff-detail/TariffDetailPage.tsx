@@ -1,21 +1,49 @@
-import { getTariff } from "@/api/tariffs";
-import FeatureCard from "@/components/feature/FeatureCard";
-import type { TariffFeature } from "@/types/feature";
-import type { Tariff } from "@/types/tariff";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+
+import { getTariff } from "@/api/tariffs";
+import TariffParameter from "@/components/tariff/TariffParameter";
+import type { Tariff } from "@/types/tariff";
+
+import region from "@/assets/icons/region.svg";
+import cpu from "@/assets/icons/cpu.svg";
+import ram from "@/assets/icons/ram.svg";
+import storage from "@/assets/icons/storage.svg";
+import traffic from "@/assets/icons/traffic.svg";
+
+import "./TariffDetailPage.css";
+import FeatureCard from "@/components/feature/FeatureCard";
+
+function getCoreWord(count: number) {
+    if (count % 10 === 1 && count % 100 !== 11) {
+        return "ядро";
+    }
+
+    if (
+        count % 10 >= 2 &&
+        count % 10 <= 4 &&
+        (count % 100 < 10 || count % 100 >= 20)
+    ) {
+        return "ядра";
+    }
+
+    return "ядер";
+}
 
 function TariffDetailPage() {
+    const { id } = useParams<{ id: string }>();
+
     const [tariff, setTariff] = useState<Tariff | null>(null);
     const [error, setError] = useState("");
-    const { id } = useParams<{ id: string }>();    
-    useEffect( () => {
+
+    useEffect(() => {
         if (!id) {
             return;
         }
+
         getTariff(Number(id))
             .then(setTariff)
-            .catch((error : Error) => {
+            .catch((error: Error) => {
                 console.error(error);
                 setError(error.message);
             });
@@ -26,20 +54,168 @@ function TariffDetailPage() {
             return;
         }
 
-        document.title = `${tariff.title} | Турбосервер`;
+        document.title = `Тариф "${tariff.title}"`;
     }, [tariff]);
-    return (
-        
-        <div>
-            {tariff?.features.map((feature: TariffFeature) => (
-            <FeatureCard
-                key={feature.id}
-                feature={feature}
-            />
-        ))}
-        </div>
-        
 
+    if (error) {
+        return (
+            <main className="tariff-detail-page">
+                <div className="container">
+                    <Link
+                        to="/tariffs"
+                        className="back-link"
+                    >
+                        ← Вернуться к тарифам
+                    </Link>
+
+                    <section className="tariff-detail-card">
+                        <h1>Тариф не найден</h1>
+                        <p>{error}</p>
+                    </section>
+                </div>
+            </main>
+        );
+    }
+
+    if (!tariff) {
+        return (
+            <main className="tariff-detail-page">
+                <div className="container">
+                    <p>Загрузка...</p>
+                </div>
+            </main>
+        );
+    }
+
+    return (
+        <main className="tariff-detail-page">
+            <div className="container">
+
+                <Link
+                    to="/tariffs"
+                    className="back-link"
+                >
+                    ← Вернуться к тарифам
+                </Link>
+
+                <section className="tariff-detail-card">
+
+                    <div className="tariff-detail-header">
+
+                        <div>
+                            {tariff.is_recommended && (
+                                <span className="pricing-badge">
+                                    Рекомендуем
+                                </span>
+                            )}
+
+                            <h1>{tariff.title}</h1>
+
+                            {tariff.description && (
+                                <p className="tariff-description">
+                                    {tariff.description}
+                                </p>
+                            )}
+                        </div>
+
+                        <div className="tariff-detail-price">
+                            <strong>
+                                {tariff.price_monthly} ₽
+                            </strong>
+
+                            <span>в месяц</span>
+                        </div>
+
+                    </div>
+
+                    <div className="tariff-detail-specs">
+
+                        <TariffParameter
+                            icon={region}
+                            label="Регион"
+                            value="Россия"
+                        />
+
+                        <TariffParameter
+                            icon={cpu}
+                            label="ЦП"
+                            value={`${tariff.cpu_cores} ${getCoreWord(tariff.cpu_cores)}`}
+                        />
+
+                        <TariffParameter
+                            icon={ram}
+                            label="ОЗУ"
+                            value={`${tariff.ram_gb} ГБ`}
+                        />
+
+                        <TariffParameter
+                            icon={storage}
+                            label="Диск"
+                            value={`${tariff.storage_gb} ГБ`}
+                        />
+
+                        <TariffParameter
+                            icon={traffic}
+                            label="Трафик"
+                            value={tariff.traffic}
+                        />
+
+                    </div>
+
+                    <section className="tariff-features-section">
+
+                        <h2>Дополнительные возможности</h2>
+
+                        <div className="tariff-features">
+
+                            {tariff.features.length > 0 ? (
+                                tariff.features.map((feature) => (
+                                    <FeatureCard
+                                        key={feature.id}
+                                        feature={feature}
+                                    />
+                                ))
+                            ) : (
+                                <p>
+                                    Дополнительные характеристики отсутствуют.
+                                </p>
+                            )}
+
+                        </div>
+
+                    </section>
+
+                    {tariff.image_urls.length > 0 && (
+                        <section className="tariff-images">
+
+                            {tariff.image_urls.map(
+                                (imageUrl, index) => (
+                                    <img
+                                        key={imageUrl}
+                                        src={imageUrl}
+                                        alt={`${tariff.title} — изображение ${index + 1}`}
+                                    />
+                                )
+                            )}
+
+                        </section>
+                    )}
+
+                    <div className="tariff-detail-actions">
+
+                        <Link
+                            to={`/cart/?tariff=${tariff.id}`}
+                            className="card-buy-btn"
+                        >
+                            Купить тариф
+                        </Link>
+
+                    </div>
+
+                </section>
+
+            </div>
+        </main>
     );
 }
 

@@ -239,7 +239,23 @@
 
     border-radius: 8px;
 
-    border: 1px solid #4A5163;
+    border: 1px solid rgba(35, 47, 72, 0.06);
+    border-radius: 8px;
+
+    box-shadow: 0 8px 24px rgba(35, 47, 72, 0.05);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.tariff-images img:hover {
+    transform: translateY(-3px);
+
+    border-color: rgba(4, 44, 198, 0.12);
+
+    box-shadow: 0 14px 30px rgba(35, 47, 72, 0.09);
 }
 
 
