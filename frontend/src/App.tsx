@@ -10,6 +10,7 @@ import TariffsPage from "@/pages/tariffs/TariffsPage";
 import TariffDetailPage from "./pages/tariff-detail/TariffDetailPage";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
+import CartPage from "./pages/cart/CartPage";
 
 function App() {
   return (
@@ -25,6 +26,10 @@ function App() {
                 <Route
                     path="/tariffs/:id"
                     element={<TariffDetailPage />}
+                />
+                <Route
+                    path="/cart"
+                    element={<CartPage />}
                 />
             </Routes>
 

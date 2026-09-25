@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, Link, useParams } from "react-router-dom";
 
+import { addToCart } from "@/api/cart";
 import { getTariff } from "@/api/tariffs";
+
 import TariffParameter from "@/components/tariff/TariffParameter";
+import FeatureCard from "@/components/feature/FeatureCard";
+
 import type { Tariff } from "@/types/tariff";
 
 import region from "@/assets/icons/region.svg";
@@ -12,7 +16,6 @@ import storage from "@/assets/icons/storage.svg";
 import traffic from "@/assets/icons/traffic.svg";
 
 import "./TariffDetailPage.css";
-import FeatureCard from "@/components/feature/FeatureCard";
 
 function getCoreWord(count: number) {
     if (count % 10 === 1 && count % 100 !== 11) {
@@ -32,9 +35,11 @@ function getCoreWord(count: number) {
 
 function TariffDetailPage() {
     const { id } = useParams<{ id: string }>();
+    const navigate = useNavigate();
 
     const [tariff, setTariff] = useState<Tariff | null>(null);
     const [error, setError] = useState("");
+    const [isAddingToCart, setIsAddingToCart] = useState(false);
 
     useEffect(() => {
         if (!id) {
@@ -57,7 +62,31 @@ function TariffDetailPage() {
         document.title = `Тариф "${tariff.title}"`;
     }, [tariff]);
 
-    if (error) {
+    const handleAddToCart = async () => {
+        if (!tariff) {
+            return;
+        }
+
+        setIsAddingToCart(true);
+        setError("");
+
+        try {
+            await addToCart(tariff.id);
+            navigate("/cart");
+        } catch (error) {
+            console.error(error);
+
+            if (error instanceof Error) {
+                setError(error.message);
+            } else {
+                setError("Не удалось добавить тариф в корзину.");
+            }
+        } finally {
+            setIsAddingToCart(false);
+        }
+    };
+
+    if (error && !tariff) {
         return (
             <main className="tariff-detail-page">
                 <div className="container">
@@ -127,6 +156,12 @@ function TariffDetailPage() {
                         </div>
 
                     </div>
+
+                    {error && (
+                        <div className="form-errors">
+                            {error}
+                        </div>
+                    )}
 
                     <div className="tariff-detail-specs">
 
@@ -203,12 +238,16 @@ function TariffDetailPage() {
 
                     <div className="tariff-detail-actions">
 
-                        <Link
-                            to={`/cart/?tariff=${tariff.id}`}
+                        <button
+                            type="button"
                             className="card-buy-btn"
+                            onClick={handleAddToCart}
+                            disabled={isAddingToCart}
                         >
-                            Купить тариф
-                        </Link>
+                            {isAddingToCart
+                                ? "Добавление..."
+                                : "Купить тариф"}
+                        </button>
 
                     </div>
 

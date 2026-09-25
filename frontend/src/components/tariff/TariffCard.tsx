@@ -6,8 +6,10 @@ import ram from "@/assets/icons/ram.svg";
 import storage from "@/assets/icons/storage.svg";
 import traffic from "@/assets/icons/traffic.svg";
 import price from "@/assets/icons/pricetag.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import TariffParameter from "./TariffParameter";
+import { useState } from "react";
+import { addToCart } from "@/api/cart";
 
 interface TariffCardProps {
   tariff: Tariff;
@@ -30,6 +32,23 @@ function getCoreWord(count: number) {
 }
 
 function TariffCard({ tariff }: TariffCardProps) {
+   const navigate = useNavigate();
+
+    const [isAddingToCart, setIsAddingToCart] = useState(false);
+
+    const handleBuy = async () => {
+        setIsAddingToCart(true);
+
+        try {
+            await addToCart(tariff.id);
+
+            navigate("/cart");
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setIsAddingToCart(false);
+        }
+    };
   return (
     <article className="pricing-card">
       <h2>{tariff.title}</h2>
@@ -69,10 +88,15 @@ function TariffCard({ tariff }: TariffCardProps) {
       <Link className="card-details-btn" to={`/tariffs/${tariff.id}/`}>
         Подробнее
       </Link>
-      <Link className="card-buy-btn" to={`/tariffs/${tariff.id}/`}>
-          Купить
-      </Link>
-        
+      <button
+          type="button"
+          className="card-buy-btn"
+          onClick={handleBuy}
+          disabled={isAddingToCart}
+      >
+          {isAddingToCart ? "Добавление..." : "Купить"}
+      </button>
+
       {tariff.is_recommended && (
         <span className="pricing-badge">Рекомендуем</span>
       )}
