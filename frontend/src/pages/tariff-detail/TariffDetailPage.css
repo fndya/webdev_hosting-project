@@ -289,6 +289,83 @@
     background: #232F48;
 }
 
+/* =========================
+   DETAIL PAGE SKELETON
+   ========================= */
+
+.detail-skeleton-back {
+    width: 180px;
+    height: 18px;
+
+    margin-bottom: 22px;
+}
+
+.tariff-detail-skeleton {
+    pointer-events: none;
+}
+
+.detail-skeleton-info {
+    flex: 1;
+}
+
+.detail-skeleton-title {
+    width: 55%;
+    height: 40px;
+
+    margin: 14px 0 18px;
+}
+
+.detail-skeleton-description {
+    width: 90%;
+    height: 16px;
+
+    margin-bottom: 8px;
+}
+
+.detail-skeleton-description.short {
+    width: 65%;
+}
+
+.detail-skeleton-price {
+    min-width: 180px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    gap: 10px;
+}
+
+.detail-skeleton-price .skeleton {
+    width: 150px;
+    height: 34px;
+}
+
+.detail-skeleton-price .skeleton.short {
+    width: 90px;
+    height: 16px;
+}
+
+.detail-skeleton-row {
+    width: 100%;
+    height: 48px;
+}
+
+.detail-skeleton-section-title {
+    width: 320px;
+    height: 30px;
+
+    margin-bottom: 22px;
+}
+
+.detail-skeleton-feature {
+    min-height: 110px;
+}
+
+.detail-skeleton-button {
+    width: 220px;
+    height: 48px;
+}
 
 /* =========================
    TABLET
@@ -322,6 +399,18 @@
 
     .tariff-features {
         grid-template-columns: 1fr;
+    }
+
+    .detail-skeleton-price {
+        align-items: flex-start;
+    }
+
+    .detail-skeleton-title {
+        width: 70%;
+    }
+
+    .detail-skeleton-feature {
+        min-height: 100px;
     }
 }
 
@@ -421,6 +510,44 @@
     }
 
     .tariff-detail-actions .card-buy-btn {
+        width: 100%;
+        height: 48px;
+    }
+
+    .detail-skeleton-back {
+        width: 160px;
+        height: 16px;
+
+        margin-bottom: 16px;
+    }
+
+    .detail-skeleton-title {
+        width: 80%;
+        height: 30px;
+
+        margin-top: 12px;
+    }
+
+    .detail-skeleton-description {
+        width: 100%;
+        height: 14px;
+    }
+
+    .detail-skeleton-price .skeleton {
+        width: 130px;
+        height: 30px;
+    }
+
+    .detail-skeleton-row {
+        height: 48px;
+    }
+
+    .detail-skeleton-section-title {
+        width: 240px;
+        height: 25px;
+    }
+
+    .detail-skeleton-button {
         width: 100%;
         height: 48px;
     }

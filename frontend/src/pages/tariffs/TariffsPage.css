@@ -1,7 +1,8 @@
 .pricing-page {
+    flex: 1;
+    min-height: 600px;
     padding: 40px 0 70px;
 }
-
 .page-title {
     margin: 0 0 32px;
 
@@ -100,6 +101,7 @@
 @media (max-width: 700px) {
 
     .pricing-page {
+        min-height: 500px;
         padding: 28px 0 50px;
     }
 

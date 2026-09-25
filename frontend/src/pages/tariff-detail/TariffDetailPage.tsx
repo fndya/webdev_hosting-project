@@ -16,6 +16,7 @@ import storage from "@/assets/icons/storage.svg";
 import traffic from "@/assets/icons/traffic.svg";
 
 import "./TariffDetailPage.css";
+import TariffDetailSkeleton from "./TariffDetailSkeleton";
 
 function getCoreWord(count: number) {
     if (count % 10 === 1 && count % 100 !== 11) {
@@ -64,7 +65,7 @@ function TariffDetailPage() {
 
     const handleAddToCart = async () => {
         if (!tariff) {
-            return;
+            return <TariffDetailSkeleton />;
         }
 
         setIsAddingToCart(true);
@@ -87,33 +88,11 @@ function TariffDetailPage() {
     };
 
     if (error && !tariff) {
-        return (
-            <main className="tariff-detail-page">
-                <div className="container">
-                    <Link
-                        to="/tariffs"
-                        className="back-link"
-                    >
-                        ← Вернуться к тарифам
-                    </Link>
-
-                    <section className="tariff-detail-card">
-                        <h1>Тариф не найден</h1>
-                        <p>{error}</p>
-                    </section>
-                </div>
-            </main>
-        );
+        return <TariffDetailSkeleton />;
     }
 
     if (!tariff) {
-        return (
-            <main className="tariff-detail-page">
-                <div className="container">
-                    <p>Загрузка...</p>
-                </div>
-            </main>
-        );
+        return <TariffDetailSkeleton />;
     }
 
     return (

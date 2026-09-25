@@ -37,9 +37,16 @@ main {
 
 .app-content {
     flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    min-height: 0;
 }
 
-
+.app-content > main {
+    flex: 1;
+}
 a {
     color: inherit;
     text-decoration: none;
