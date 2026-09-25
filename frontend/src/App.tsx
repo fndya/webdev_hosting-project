@@ -17,8 +17,8 @@ function App() {
     <>
        <AuthProvider>
             <Header />
-
-            <Routes>
+            <div className="app-content">
+              <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
@@ -31,7 +31,9 @@ function App() {
                     path="/cart"
                     element={<CartPage />}
                 />
-            </Routes>
+              </Routes>
+            </div>
+            
 
             <Footer />
         </AuthProvider>

@@ -3,25 +3,33 @@ import "./TariffsPage.css";
 import { getTariffs } from "@/api/tariffs";
 import type { Tariff } from "@/types/tariff";
 import TariffCard from "@/components/tariff/TariffCard";
+import TariffCardSkeleton from "@/components/tariff/TariffCardSkeleton";
 
 function TariffsPage() {
   const [tariffs, setTariffs] = useState<Tariff[]>([]);
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  useEffect(() => {
+useEffect(() => {
     document.title = "Тарифы | Турбосервер";
+
+    setIsLoading(true);
+
     getTariffs(currentPage)
-      .then((data) => {
-        setTariffs(data.results);
-        setTotalPages(Math.ceil(data.count / 6));
-      })
-      .catch((error: Error) => {
-        console.error(error);
-        setError(error.message);
-      });
-  }, [currentPage]);
+        .then((data) => {
+            setTariffs(data.results);
+            setTotalPages(Math.ceil(data.count / 6));
+        })
+        .catch((error: Error) => {
+            console.error(error);
+            setError(error.message);
+        })
+        .finally(() => {
+            setIsLoading(false);
+        });
+}, [currentPage]);
 
   return (
     <main className="pricing-page">
@@ -31,12 +39,16 @@ function TariffsPage() {
         {error && <p>{error}</p>}
 
         <div className="pricing-grid">
-          {tariffs.map((tariff) => (
-            <TariffCard
-              key={tariff.id}
-              tariff={tariff}
-            />
-          ))}
+          {isLoading
+              ? Array.from({ length: 6 }).map((_, index) => (
+                  <TariffCardSkeleton key={index} />
+              ))
+              : tariffs.map((tariff) => (
+                  <TariffCard
+                      key={tariff.id}
+                      tariff={tariff}
+                  />
+              ))}
         </div>
         <div className="pagination">
           <button

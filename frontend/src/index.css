@@ -1,4 +1,11 @@
-* {
+html,
+body,
+#root {
+    min-height: 100%;
+}
+
+
+* {    
     box-sizing: border-box;
 }
 
@@ -17,9 +24,21 @@ body {
     text-rendering: optimizeLegibility;
 }
 
+#root {
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+}
+
 main {
     flex: 1;
 }
+
+.app-content {
+    flex: 1;
+}
+
 
 a {
     color: inherit;
