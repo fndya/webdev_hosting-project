@@ -1,0 +1,98 @@
+
+.servers-page {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.servers-header h2 {
+    margin: 0 0 8px;
+}
+
+.servers-header p {
+    margin: 0;
+}
+
+.servers-panel {
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+}
+
+.servers-toolbar {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.servers-toolbar label {
+    font-weight: 600;
+}
+
+.servers-search {
+    display: flex;
+    gap: 10px;
+}
+
+.servers-search input {
+    flex: 1;
+    min-width: 0;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font: inherit;
+}
+
+.servers-search button {
+    padding: 10px 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+}
+
+.servers-search button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.servers-count {
+    font-size: 14px;
+}
+
+.servers-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.servers-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.servers-table th,
+.servers-table td {
+    padding: 12px;
+    border-bottom: 1px solid #e5e5e5;
+    white-space: nowrap;
+}
+
+.servers-table th {
+    font-weight: 600;
+}
+
+@media (max-width: 600px) {
+    .servers-panel {
+        padding: 12px;
+    }
+
+    .servers-search {
+        flex-direction: column;
+    }
+
+    .servers-search button {
+        align-self: flex-start;
+    }
+}
