@@ -6,6 +6,8 @@ import { AuthProvider } from "@/context/AuthContext";
 import Header from "@/components/layout/header/Header";
 import Footer from "@/components/layout/footer/Footer";
 import AccountPage from "@/pages/account/AccountPage";
+import AccountLayout from "@/pages/account/AccountLayout";
+import OrdersPage from "@/pages/account/orders/OrdersPage";
 import HomePage from "@/pages/home/HomePage";
 import TariffsPage from "@/pages/tariffs/TariffsPage";
 import TariffDetailPage from "./pages/tariff-detail/TariffDetailPage";
@@ -32,10 +34,10 @@ function App() {
                     path="/cart"
                     element={<CartPage />}
                 />
-                <Route
-                    path="/account"
-                    element={<AccountPage />}
-                />
+                <Route path="/account" element={<AccountLayout />}>
+                    <Route index element={<AccountPage />} />
+                    <Route path="orders" element={<OrdersPage />} />
+                </Route>
               </Routes>
             </div>
             

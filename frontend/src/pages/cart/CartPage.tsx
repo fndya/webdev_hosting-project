@@ -543,17 +543,15 @@ function CartPage() {
                             aria-label="Закрыть"
                             onClick={closeOrderModal}
                         >
-                            <svg
-                                viewBox="0 0 24 24"
-                                aria-hidden="true"
-                            >
-                                <path d="M6 6L18 18M18 6L6 18" />
-                            </svg>
+                            <img
+                                src="/src/assets/icons/cross.svg"
+                                alt=""
+                            />
                         </button>
 
                         <div className="order-modal-icon">
                             <img
-                                src="/icons/check.svg"
+                                src="/src/assets/icons/check.svg"
                                 alt=""
                             />
                         </div>
