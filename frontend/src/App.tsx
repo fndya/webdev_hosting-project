@@ -5,6 +5,7 @@ import "./index.css";
 import { AuthProvider } from "@/context/AuthContext";
 import Header from "@/components/layout/header/Header";
 import Footer from "@/components/layout/footer/Footer";
+import AccountPage from "@/pages/account/AccountPage";
 import HomePage from "@/pages/home/HomePage";
 import TariffsPage from "@/pages/tariffs/TariffsPage";
 import TariffDetailPage from "./pages/tariff-detail/TariffDetailPage";
@@ -30,6 +31,10 @@ function App() {
                 <Route
                     path="/cart"
                     element={<CartPage />}
+                />
+                <Route
+                    path="/account"
+                    element={<AccountPage />}
                 />
               </Routes>
             </div>
