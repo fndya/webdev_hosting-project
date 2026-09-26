@@ -227,6 +227,34 @@ function AccountPage() {
                                                     </article>
                                                 ))}
                                             </div>
+                                            
+                                        )}
+                                        {orders.length > PAGE_SIZE && (
+                                            <div className="account-pagination">
+                                                <button
+                                                    type="button"
+                                                    disabled={ordersPage === 1}
+                                                    onClick={() =>
+                                                        setOrdersPage((page) => page - 1)
+                                                    }
+                                                >
+                                                    Назад
+                                                </button>
+
+                                                <span>
+                                                    Страница {ordersPage} из {ordersTotalPages}
+                                                </span>
+
+                                                <button
+                                                    type="button"
+                                                    disabled={ordersPage >= ordersTotalPages}
+                                                    onClick={() =>
+                                                        setOrdersPage((page) => page + 1)
+                                                    }
+                                                >
+                                                    Далее
+                                                </button>
+                                            </div>
                                         )}
                                     </section>
 
@@ -274,7 +302,7 @@ function AccountPage() {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {servers.map((server) => (
+                                                    {paginatedServers.map((server) => (
                                                         <tr key={server.id}>
                                                             <td>
                                                                 <strong>
@@ -306,6 +334,33 @@ function AccountPage() {
                                                     ))}
                                                 </tbody>
                                             </table>
+                                        </div>
+                                    )}
+                                    {servers.length > PAGE_SIZE && (
+                                        <div className="account-pagination">
+                                            <button
+                                                type="button"
+                                                disabled={serversPage === 1}
+                                                onClick={() =>
+                                                    setServersPage((page) => page - 1)
+                                                }
+                                            >
+                                                Назад
+                                            </button>
+
+                                            <span>
+                                                Страница {serversPage} из {serversTotalPages}
+                                            </span>
+
+                                            <button
+                                                type="button"
+                                                disabled={serversPage >= serversTotalPages}
+                                                onClick={() =>
+                                                    setServersPage((page) => page + 1)
+                                                }
+                                            >
+                                                Далее
+                                            </button>
                                         </div>
                                     )}
                                 </section>

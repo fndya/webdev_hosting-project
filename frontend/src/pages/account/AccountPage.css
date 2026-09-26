@@ -678,6 +678,48 @@
     font-size: 13px;
 }
 
+.account-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 22px;
+}
+
+.account-pagination button {
+    min-height: 36px;
+    padding: 0 14px;
+    border: 1px solid #d9e0ea;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #2563eb;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.account-pagination button:hover:not(:disabled) {
+    border-color: #2563eb;
+    background: #eaf2ff;
+}
+
+.account-pagination button:disabled {
+    color: #aab2c0;
+    background: #f7f9fc;
+    cursor: not-allowed;
+}
+
+.account-pagination span {
+    color: #687386;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+
 .account-order-count strong {
     color: #172033;
 }
@@ -805,5 +847,15 @@
 
     .panel-link {
         white-space: normal;
+    }
+}
+
+@media (max-width: 420px) {
+    .account-pagination {
+        gap: 8px;
+    }
+
+    .account-pagination button {
+        padding: 0 10px;
     }
 }
