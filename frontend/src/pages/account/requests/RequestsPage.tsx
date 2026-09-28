@@ -1,8 +1,9 @@
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { apiFetch } from "@/api/client";
 import { usePagination } from "@/hooks/usePagination";
+import AccountSectionHeader from "@/components/account/AccountSectionHeader";
 
 interface ContactRequest {
     id: number;
@@ -40,13 +41,10 @@ function RequestsPage() {
 
     return (
         <>
-            <header className="account-header">
-                <span className="account-eyebrow">
-                    Личный кабинет
-                </span>
-                <h1>Мои обращения</h1>
-                <p>История обращений в службу поддержки.</p>
-            </header>
+            <AccountSectionHeader
+                title="Мои обращения"
+                description="История обращений в службу поддержки."
+            />
 
             {error && <p role="alert">{error}</p>}
 

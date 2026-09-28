@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { getServers } from "@/api/account";
 import type { Server } from "@/types/server";
 import { usePagination } from "@/hooks/usePagination";
+import AccountSectionHeader from "@/components/account/AccountSectionHeader";
 
 
 function ServersPage() {
@@ -42,15 +43,10 @@ function ServersPage() {
 
     return (
         <>
-            <header className="account-header">
-                <span className="account-eyebrow">
-                    Личный кабинет
-                </span>
-                <h1>Мои серверы</h1>
-                <p>
-                    Список серверов, привязанных к вашему аккаунту.
-                </p>
-            </header>
+            <AccountSectionHeader
+                title="Мои серверы"
+                description="Список серверов, привязанных к вашему аккаунту."
+            />
 
             {error && <p role="alert">{error}</p>}
 

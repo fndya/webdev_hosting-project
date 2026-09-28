@@ -2,10 +2,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { getOrders } from "@/api/account";
+import AccountSectionHeader from "@/components/account/AccountSectionHeader";
 import type { Order } from "@/types/order";
 import { usePagination } from "@/hooks/usePagination";
 
-const PAGE_SIZE = 10;
+
 
 function OrdersPage() {
     const [orders, setOrders] = useState<Order[]>([]);
@@ -38,13 +39,10 @@ function OrdersPage() {
 
     return (
         <>
-            <header className="account-header">
-                <span className="account-eyebrow">
-                    Личный кабинет
-                </span>
-                <h1>Мои заказы</h1>
-                <p>История заказов и их текущий статус.</p>
-            </header>
+            <AccountSectionHeader
+                title="Мои заказы"
+                description="История заказов и их текущий статус."
+            />
 
             {error && <p role="alert">{error}</p>}
 
