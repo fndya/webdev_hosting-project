@@ -3,13 +3,12 @@ import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { getServers } from "@/api/account";
 import type { Server } from "@/types/server";
+import { usePagination } from "@/hooks/usePagination";
 
-const PAGE_SIZE = 10;
 
 function ServersPage() {
     const [servers, setServers] = useState<Server[]>([]);
     const [search, setSearch] = useState("");
-    const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
@@ -32,14 +31,12 @@ function ServersPage() {
         );
     }, [servers, search]);
 
-    const pages = Math.max(
-        1, Math.ceil(filtered.length / PAGE_SIZE)
-    );
-    const currentPage = Math.min(page, pages);
-    const visible = filtered.slice(
-        (currentPage - 1) * PAGE_SIZE,
-        currentPage * PAGE_SIZE
-    );
+    const {
+        setPage,
+        pages,
+        currentPage,
+        visible,
+    } = usePagination(filtered);    
 
     if (loading) return <p>Загрузка серверов...</p>;
 
@@ -167,7 +164,7 @@ function ServersPage() {
                 </section>
             )}
 
-            {filtered.length > PAGE_SIZE && (
+            {filtered.length > 10 && (
                 <nav
                     className="account-pagination"
                     aria-label="Страницы серверов"

@@ -11,6 +11,8 @@ import type { Tariff } from "@/types/tariff";
 
 import { useAuth } from "@/context/AuthContext";
 
+import { getCoreWord } from "@/utils/formatTariff";
+
 import region from "@/assets/icons/region.svg";
 import cpu from "@/assets/icons/cpu.svg";
 import ram from "@/assets/icons/ram.svg";
@@ -19,22 +21,6 @@ import traffic from "@/assets/icons/traffic.svg";
 
 import "./TariffDetailPage.css";
 import TariffDetailSkeleton from "./TariffDetailSkeleton";
-
-function getCoreWord(count: number) {
-    if (count % 10 === 1 && count % 100 !== 11) {
-        return "ядро";
-    }
-
-    if (
-        count % 10 >= 2 &&
-        count % 10 <= 4 &&
-        (count % 100 < 10 || count % 100 >= 20)
-    ) {
-        return "ядра";
-    }
-
-    return "ядер";
-}
 
 function TariffDetailPage() {
     const { id } = useParams<{ id: string }>();

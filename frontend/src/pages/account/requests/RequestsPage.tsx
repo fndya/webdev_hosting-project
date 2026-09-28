@@ -2,6 +2,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { apiFetch } from "@/api/client";
+import { usePagination } from "@/hooks/usePagination";
 
 interface ContactRequest {
     id: number;
@@ -15,11 +16,9 @@ interface ContactRequest {
     updated_at: string;
 }
 
-const PAGE_SIZE = 10;
 
 function RequestsPage() {
     const [requests, setRequests] = useState<ContactRequest[]>([]);
-    const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
@@ -30,17 +29,12 @@ function RequestsPage() {
             .finally(() => setLoading(false));
     }, []);
 
-    const pages = Math.max(
-        1, Math.ceil(requests.length / PAGE_SIZE)
-    );
-    const currentPage = Math.min(page, pages);
-    const visible = useMemo(
-        () => requests.slice(
-            (currentPage - 1) * PAGE_SIZE,
-            currentPage * PAGE_SIZE
-        ),
-        [requests, currentPage]
-    );
+    const {
+        setPage,
+        pages,
+        currentPage,
+        visible,
+    } = usePagination(requests);
 
     if (loading) return <p>Загрузка обращений...</p>;
 
@@ -107,7 +101,7 @@ function RequestsPage() {
                 )}
             </section>
 
-            {requests.length > PAGE_SIZE && (
+            {requests.length > 10 && (
                 <nav
                     className="account-pagination"
                     aria-label="Страницы обращений"
