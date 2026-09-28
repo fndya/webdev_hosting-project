@@ -222,12 +222,13 @@ function TariffDetailPage() {
 
                     <div className="tariff-detail-actions">
                         {isAdmin && (
-                            <Link
-                                to={`/tariffs/${tariff.id}/edit`}
-                                className="card-details-btn"
-                            >
-                                Редактировать тариф
-                            </Link>
+                            <button className="card-buy-btn tariff-edit-button">
+                                <Link
+                                    to={`/tariffs/${tariff.id}/edit`}
+                                >
+                                    Редактировать тариф
+                                </Link>
+                            </button>
                         )}
                         <button
                             type="button"

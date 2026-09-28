@@ -266,7 +266,7 @@
 .tariff-detail-actions {
     display: flex;
     justify-content: flex-end;
-
+    gap: 20px;
     padding-top: 30px;
 
     margin-top: 30px;
@@ -280,14 +280,33 @@
 
     margin: 0;
 
-    background: #042CC6;
-
     font-size: 16px;
+}
+
+.card-buy-btn {
+    background: #042CC6;
 }
 
 .tariff-detail-actions .card-buy-btn:hover {
     background: #232F48;
 }
+
+
+.tariff-edit-button {
+    background: #E1E5EE;
+    color: #232F48;
+    border-color: #232F48;
+
+}
+
+.tariff-edit-button:hover {
+    background: #232F48;
+    color: #E1E5EE;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
 
 /* =========================
    DETAIL PAGE SKELETON
