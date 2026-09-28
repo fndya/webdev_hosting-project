@@ -123,134 +123,228 @@ function TariffFormPage() {
     return null;
   }
 
-  return (
-    <main className="container tariff-form-page">
-      <Link to="/tariffs">← К тарифам</Link>
-      <h1>{isEdit ? "Редактирование тарифа" : "Создание тарифа"}</h1>
+  
+    return (
+        <main className="tariff-form-page">
+            <div className="container">
+                <Link to="/tariffs" className="back-link">
+                    ← Вернуться к тарифам
+                </Link>
 
-      {error && <p role="alert" className="form-error">{error}</p>}
+                <section className="tariff-detail-card tariff-form-card">
+                    <div className="tariff-form-header">
+                        <div>
+                            <span className="form-label">
+                                Управление тарифом
+                            </span>
 
-      <form onSubmit={handleSubmit} className="tariff-form">
-        <label>
-          Название тарифа
-          <input
-            required
-            value={form.title}
-            onChange={(e) => setField("title", e.target.value)}
-          />
-        </label>
+                            <h1>
+                                {isEdit ? "Редактирование тарифа" : "Создание тарифа"}
+                            </h1>
 
-        <label>
-          Описание
-          <textarea
-            value={form.description}
-            onChange={(e) => setField("description", e.target.value)}
-          />
-        </label>
+                            <p>
+                                Заполните параметры тарифа и сохраните изменения.
+                            </p>
+                        </div>
+                    </div>
 
-        <label>
-          Количество ядер CPU
-          <input
-            type="number"
-            min="1"
-            required
-            value={form.cpu_cores}
-            onChange={(e) => setField("cpu_cores", Number(e.target.value))}
-          />
-        </label>
+                    <form
+                        className="tariff-form"
+                        onSubmit={handleSubmit}
+                        noValidate
+                    >
+                        {error && (
+                            <div className="form-error" role="alert">
+                                {error}
+                            </div>
+                        )}
 
-        <label>
-          Оперативная память (ГБ)
-          <input
-            type="number"
-            min="1"
-            required
-            value={form.ram_gb}
-            onChange={(e) => setField("ram_gb", Number(e.target.value))}
-          />
-        </label>
+                        <section className="form-section">
+                            <h2>Основная информация</h2>
 
-        <label>
-          Диск (ГБ)
-          <input
-            type="number"
-            min="1"
-            required
-            value={form.storage_gb}
-            onChange={(e) => setField("storage_gb", Number(e.target.value))}
-          />
-        </label>
+                            <div className="form-fields">
+                                <div className="tariff-form-field">
+                                    <label htmlFor="title">Название тарифа</label>
+                                    <input
+                                        id="title"
+                                        name="title"
+                                        value={form.title}
+                                        onChange={(e) => setField("title", e.target.value)}
+                                        required
+                                    />
+                                </div>
 
-        <label>
-          Трафик
-          <input
-            required
-            value={form.traffic}
-            onChange={(e) => setField("traffic", e.target.value)}
-          />
-        </label>
+                                <div className="tariff-form-field">
+                                    <label htmlFor="description">Описание</label>
+                                    <textarea
+                                        id="description"
+                                        name="description"
+                                        value={form.description}
+                                        onChange={(e) => setField("description", e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                        </section>
 
-        <label>
-          Цена в месяц
-          <input
-            type="number"
-            min="0"
-            step="0.01"
-            required
-            value={form.price_monthly}
-            onChange={(e) => setField("price_monthly", e.target.value)}
-          />
-        </label>
+                        <section className="form-section">
+                            <h2>Ресурсы сервера</h2>
 
-        <fieldset>
-          <legend>Дополнительные характеристики</legend>
-          {features.map((feature) => (
-            <label key={feature.id} className="feature-option">
-              <input
-                type="checkbox"
-                checked={form.feature_ids.includes(feature.id)}
-                onChange={() => toggleFeature(feature.id)}
-              />
-              <span>{feature.title}</span>
-            </label>
-          ))}
-        </fieldset>
+                            <div className="form-fields form-fields-three">
+                                <div className="tariff-form-field">
+                                    <label htmlFor="cpu_cores">Количество ядер ЦП</label>
+                                    <input
+                                        id="cpu_cores"
+                                        type="number"
+                                        min="1"
+                                        value={form.cpu_cores}
+                                        onChange={(e) => setField("cpu_cores", Number(e.target.value))}
+                                        required
+                                    />
+                                </div>
 
-        <label>
-          Новое изображение
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) =>
-              setField("new_image", e.target.files?.[0] ?? null)
-            }
-          />
-        </label>
+                                <div className="tariff-form-field">
+                                    <label htmlFor="ram_gb">ОЗУ (ГБ)</label>
+                                    <input
+                                        id="ram_gb"
+                                        type="number"
+                                        min="1"
+                                        value={form.ram_gb}
+                                        onChange={(e) => setField("ram_gb", Number(e.target.value))}
+                                        required
+                                    />
+                                </div>
 
-        <label className="feature-option">
-          <input
-            type="checkbox"
-            checked={form.is_recommended}
-            onChange={(e) => setField("is_recommended", e.target.checked)}
-          />
-          Рекомендуемый тариф
-        </label>
+                                <div className="tariff-form-field">
+                                    <label htmlFor="storage_gb">Диск (ГБ)</label>
+                                    <input
+                                        id="storage_gb"
+                                        type="number"
+                                        min="1"
+                                        value={form.storage_gb}
+                                        onChange={(e) => setField("storage_gb", Number(e.target.value))}
+                                        required
+                                    />
+                                </div>
+                            </div>
 
-        <label className="feature-option">
-          <input
-            type="checkbox"
-            checked={form.is_active}
-            onChange={(e) => setField("is_active", e.target.checked)}
-          />
-          Активный тариф
-        </label>
+                            <div className="form-fields">
+                                <div className="tariff-form-field">
+                                    <label htmlFor="traffic">Трафик</label>
+                                    <input
+                                        id="traffic"
+                                        value={form.traffic}
+                                        onChange={(e) => setField("traffic", e.target.value)}
+                                        required
+                                    />
+                                </div>
 
-        <button type="submit" disabled={isSaving}>
-          {isSaving ? "Сохранение..." : "Сохранить"}
-        </button>
-      </form>
-    </main>
-  );
+                                <div className="tariff-form-field">
+                                    <label htmlFor="price_monthly">Цена в месяц (₽)</label>
+                                    <input
+                                        id="price_monthly"
+                                        type="number"
+                                        min="0"
+                                        step="0.01"
+                                        value={form.price_monthly}
+                                        onChange={(e) => setField("price_monthly", e.target.value)}
+                                        required
+                                    />
+                                </div>
+                            </div>
+                        </section>
+
+                        <section className="form-section">
+                            <h2>Параметры тарифа</h2>
+
+                            <div className="form-options">
+                                <label className="form-checkbox">
+                                    <input
+                                        type="checkbox"
+                                        checked={form.is_recommended}
+                                        onChange={(e) => setField("is_recommended", e.target.checked)}
+                                    />
+                                    <span>Рекомендуемый тариф</span>
+                                </label>
+
+                                <label className="form-checkbox">
+                                    <input
+                                        type="checkbox"
+                                        checked={form.is_active}
+                                        onChange={(e) => setField("is_active", e.target.checked)}
+                                    />
+                                    <span>Активный тариф</span>
+                                </label>
+                            </div>
+                        </section>
+
+                        <section className="form-section">
+                            <h2>Дополнительные возможности</h2>
+
+                            <div className="tariff-form-field">
+                                <label htmlFor="features">Возможности тарифа</label>
+                                <select
+                                    id="features"
+                                    multiple
+                                    value={form.feature_ids.map(String)}
+                                    onChange={(e) => {
+                                        const ids = Array.from(
+                                            e.target.selectedOptions,
+                                            (option) => Number(option.value)
+                                        );
+                                        setField("feature_ids", ids);
+                                    }}
+                                >
+                                    {features.map((feature) => (
+                                        <option key={feature.id} value={feature.id}>
+                                            {feature.title}
+                                        </option>
+                                    ))}
+                                </select>
+                                <small>
+                                    Для выбора нескольких пунктов используйте Ctrl
+                                    или Cmd.
+                                </small>
+                            </div>
+                        </section>
+
+                        <section className="form-section">
+                            <h2>Изображения</h2>
+
+                            <div className="tariff-form-field">
+                                <label htmlFor="new_image">Новое изображение</label>
+                                <input
+                                    id="new_image"
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={(e) =>
+                                        setField("new_image", e.target.files?.[0] ?? null)
+                                    }
+                                />
+                                <small>
+                                    Выберите файл, если необходимо добавить новое изображение.
+                                </small>
+                            </div>
+                        </section>
+
+                        <div className="tariff-form-actions">
+                            <Link to="/tariffs" className="form-cancel-btn">
+                                Отмена
+                            </Link>
+
+                            <button
+                                type="submit"
+                                className="form-save-btn"
+                                disabled={isLoading}
+                            >
+                                {isLoading ? "Сохранение..." : "Сохранить тариф"}
+                            </button>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </main>
+    );
+
 }
 
 export default TariffFormPage;
