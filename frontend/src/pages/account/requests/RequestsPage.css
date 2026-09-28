@@ -1,0 +1,45 @@
+
+.account-request-list {
+    display: grid;
+    gap: 16px;
+}
+
+.account-request-card {
+    padding: 22px;
+    background: #fff;
+    border: 1px solid #e8edf3;
+    border-radius: 18px;
+}
+
+.account-request-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.account-request-card h2 {
+    margin: 0;
+    color: #172033;
+    font-size: 20px;
+}
+
+.account-request-message {
+    margin: 0 0 18px;
+    color: #667085;
+    font-size: 14px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+}
+
+.account-request-date {
+    color: #98a2b3;
+    font-size: 12px;
+}
+
+@media (max-width: 700px) {
+    .account-request-top {
+        flex-direction: column;
+    }
+}

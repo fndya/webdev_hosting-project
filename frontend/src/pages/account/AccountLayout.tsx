@@ -1,121 +1,79 @@
 
 import { NavLink, Outlet } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
-
 import "./AccountLayout.css";
 
 function AccountLayout() {
     const { user, isLoading } = useAuth();
 
     if (isLoading) {
-        return (
-            <main className="account-page">
-                <div className="container">
-                    <p>Загрузка личного кабинета...</p>
-                </div>
-            </main>
-        );
+        return <main className="account-page">
+            <div className="container">
+                <p>Загрузка личного кабинета...</p>
+            </div>
+        </main>;
     }
 
     if (!user) {
-        return (
-            <main className="account-page">
-                <div className="container">
-                    <h1>Личный кабинет</h1>
-                    <p>Для просмотра необходимо войти.</p>
-                    <NavLink to="/login">Войти</NavLink>
-                </div>
-            </main>
-        );
+        return <main className="account-page">
+            <div className="container">
+                <h1>Личный кабинет</h1>
+                <p>Для просмотра необходимо войти.</p>
+                <NavLink to="/login">Войти</NavLink>
+            </div>
+        </main>;
     }
+
+    const links = [
+        { to: "/account", label: "Обзор", end: true },
+        { to: "/account/orders", label: "Мои заказы" },
+        { to: "/account/servers", label: "Мои серверы" },
+        { to: "/account/requests", label: "Мои обращения" },
+    ];
 
     return (
         <main className="account-page">
             <div className="container">
                 <header className="account-header">
-                    <div className="account-header-content">
+                    <div>
                         <span className="account-eyebrow">
                             Личный кабинет
                         </span>
-                        <h1>Здравствуйте, {user.name}!</h1>
+                        <h1>Добро пожаловать, {user.name}!</h1>
                         <p>
-                            Управляйте заказами и следите за состоянием
-                            своих серверов.
+                            Управляйте заказами, серверами и
+                            обращениями в одном месте.
                         </p>
                     </div>
-
                     <div className="account-balance">
-                        <span>Текущий баланс</span>
+                        <span>Баланс</span>
                         <strong>{user.balance} ₽</strong>
                     </div>
                 </header>
 
-                <div className="account-layout">
-                    <nav className="account-sidebar">
+                <nav
+                    className="account-sidebar"
+                    aria-label="Навигация личного кабинета"
+                >
+                    {links.map(({ to, label, end }) => (
                         <NavLink
-                            to="/account"
-                            end
+                            key={to}
+                            to={to}
+                            end={end}
                             className={({ isActive }) =>
                                 `account-sidebar-link ${
-                                    isActive ? "active" : ""
+                                    isActive ? "is-active" : ""
                                 }`
                             }
                         >
-                            Обзор
+                            {label}
                         </NavLink>
+                    ))}
+                </nav>
 
-                        <NavLink
-                            to="/account/orders"
-                            className={({ isActive }) =>
-                                `account-sidebar-link ${
-                                    isActive ? "active" : ""
-                                }`
-                            }
-                        >
-                            Заказы
-                        </NavLink>
-
-                        <NavLink
-                            to="/account/servers"
-                            className={({ isActive }) =>
-                                `account-sidebar-link ${
-                                    isActive ? "active" : ""
-                                }`
-                            }
-                        >
-                            Серверы
-                        </NavLink>
-
-                        <NavLink
-                            to="/account/requests"
-                            className={({ isActive }) =>
-                                `account-sidebar-link ${
-                                    isActive ? "active" : ""
-                                }`
-                            }
-                        >
-                            Обращения
-                        </NavLink>
-
-                        <NavLink
-                            to="/tariffs"
-                            className="account-sidebar-link"
-                        >
-                            Тарифы
-                        </NavLink>
-
-                        <NavLink
-                            to="/cart"
-                            className="account-sidebar-link"
-                        >
-                            Корзина
-                        </NavLink>
-                    </nav>
-
-                    <section className="account-content">
-                        <Outlet />
-                    </section>
-                </div>
+                <section className="account-content">
+                    <Outlet />
+                </section>
             </div>
         </main>
     );

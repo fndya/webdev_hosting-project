@@ -9,6 +9,7 @@ import AccountPage from "@/pages/account/AccountPage";
 import AccountLayout from "@/pages/account/AccountLayout";
 import OrdersPage from "@/pages/account/orders/OrdersPage";
 import ServersPage from "./pages/account/servers/ServersPage";
+import RequestsPage from "@/pages/account/requests/RequestsPage";
 import HomePage from "@/pages/home/HomePage";
 import TariffsPage from "@/pages/tariffs/TariffsPage";
 import TariffDetailPage from "./pages/tariff-detail/TariffDetailPage";
@@ -40,6 +41,7 @@ function App() {
                     <Route index element={<AccountPage />} />
                     <Route path="orders" element={<OrdersPage />} />
                     <Route path="servers" element={<ServersPage />} />
+                    <Route path="requests" element={<RequestsPage />} />
                 </Route>
               </Routes>
             </div>

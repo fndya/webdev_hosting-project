@@ -53,17 +53,23 @@ function AccountPage() {
             {error && <p role="alert">{error}</p>}
 
             <section className="account-stats">
-                <article className="account-stat-card">
-                    <span className="stat-label">Заказы</span>
-                    <strong>{orders.length}</strong>
-                    <small>Всего оформлено</small>
-                </article>
+                <Link to="/account/orders">
+                    <article className="account-stat-card">
+                        <span className="stat-label">Заказы</span>
+                        <strong>{orders.length}</strong>
+                        <small>Всего оформлено</small>
+                    </article>
+                </Link>
+                
 
-                <article className="account-stat-card">
-                    <span className="stat-label">Серверы</span>
-                    <strong>{servers.length}</strong>
-                    <small>Всего подключено</small>
-                </article>
+                <Link to="/account/servers">
+                    <article className="account-stat-card">
+                        <span className="stat-label">Серверы</span>
+                        <strong>{servers.length}</strong>
+                        <small>Всего подключено</small>
+                    </article>
+                </Link>
+                
 
                 <article className="account-stat-card">
                     <span className="stat-label">Аккаунт</span>

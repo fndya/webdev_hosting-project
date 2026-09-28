@@ -1,10 +1,8 @@
 
 import { useEffect, useMemo, useState } from "react";
-
+import { Link } from "react-router-dom";
 import { getServers } from "@/api/account";
 import type { Server } from "@/types/server";
-
-import "./ServersPage.css";
 
 const PAGE_SIZE = 10;
 
@@ -12,183 +10,186 @@ function ServersPage() {
     const [servers, setServers] = useState<Server[]>([]);
     const [search, setSearch] = useState("");
     const [page, setPage] = useState(1);
-    const [isLoading, setIsLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
     useEffect(() => {
         getServers()
             .then(setServers)
             .catch((err: Error) => setError(err.message))
-            .finally(() => setIsLoading(false));
+            .finally(() => setLoading(false));
     }, []);
 
-    const filteredServers = useMemo(() => {
-        const query = search.trim().toLowerCase();
-
-        if (!query) return servers;
-
-        return servers.filter((server) =>
+    const filtered = useMemo(() => {
+        const q = search.trim().toLowerCase();
+        return servers.filter(server =>
             [
                 server.tariff_title,
-                server.ip_address,
-                server.login,
-                server.status_name,
-            ].some((value) =>
-                value.toLowerCase().includes(query)
-            )
+                server.ip_address || "",
+                server.login || "",
+                server.status_name
+            ].some(value => value.toLowerCase().includes(q))
         );
     }, [servers, search]);
 
-    const totalPages = Math.max(
-        1,
-        Math.ceil(filteredServers.length / PAGE_SIZE)
+    const pages = Math.max(
+        1, Math.ceil(filtered.length / PAGE_SIZE)
+    );
+    const currentPage = Math.min(page, pages);
+    const visible = filtered.slice(
+        (currentPage - 1) * PAGE_SIZE,
+        currentPage * PAGE_SIZE
     );
 
-    const paginatedServers = filteredServers.slice(
-        (page - 1) * PAGE_SIZE,
-        page * PAGE_SIZE
-    );
-
-    function handleSearch(value: string) {
-        setSearch(value);
-        setPage(1);
-    }
-
-    function resetSearch() {
-        setSearch("");
-        setPage(1);
-    }
-
-    if (isLoading) {
-        return <p>Загрузка серверов...</p>;
-    }
+    if (loading) return <p>Загрузка серверов...</p>;
 
     return (
-        <div className="servers-page">
-            <header className="servers-header">
-                <h2>Мои серверы</h2>
-                <p>Список подключённых серверов и их состояние.</p>
+        <>
+            <header className="account-header">
+                <span className="account-eyebrow">
+                    Личный кабинет
+                </span>
+                <h1>Мои серверы</h1>
+                <p>
+                    Список серверов, привязанных к вашему аккаунту.
+                </p>
             </header>
 
             {error && <p role="alert">{error}</p>}
 
-            <section className="servers-panel">
-                <div className="servers-toolbar">
-                    <label htmlFor="server-search">
-                        Поиск по тарифу, IP-адресу, логину или статусу
-                    </label>
-
-                    <div className="servers-search">
-                        <input
-                            id="server-search"
-                            type="search"
-                            value={search}
-                            onChange={(event) =>
-                                handleSearch(event.target.value)
-                            }
-                            placeholder="Введите данные сервера"
-                        />
-
+            <div className="account-order-tools">
+                <form
+                    className="account-search-form"
+                    onSubmit={e => e.preventDefault()}
+                >
+                    <input
+                        type="search"
+                        value={search}
+                        onChange={e => {
+                            setSearch(e.target.value);
+                            setPage(1);
+                        }}
+                        placeholder="Поиск по тарифу, IP, логину или статусу"
+                        aria-label="Поиск серверов"
+                    />
+                    {search && (
                         <button
                             type="button"
-                            onClick={resetSearch}
-                            disabled={!search}
+                            className="account-search-reset"
+                            onClick={() => {
+                                setSearch("");
+                                setPage(1);
+                            }}
                         >
                             Сбросить
                         </button>
-                    </div>
-
-                    <span className="servers-count">
-                        Найдено серверов: {filteredServers.length}
-                    </span>
+                    )}
+                </form>
+                <div className="account-order-count">
+                    Найдено серверов: <strong>{filtered.length}</strong>
                 </div>
+            </div>
 
-                {paginatedServers.length === 0 ? (
-                    <div className="empty-state">
-                        {servers.length === 0
-                            ? "У вас пока нет серверов."
-                            : "Серверы по заданному запросу не найдены."}
-                    </div>
-                ) : (
-                    <div className="servers-table-wrap">
-                        <table className="servers-table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Тариф</th>
-                                    <th>IP-адрес</th>
-                                    <th>Статус</th>
-                                    <th>Логин</th>
-                                    <th>Срок действия</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                {paginatedServers.map((server) => (
-                                    <tr key={server.id}>
-                                        <td>{server.id}</td>
-                                        <td>
-                                            <strong>
-                                                {server.tariff_title}
-                                            </strong>
-                                        </td>
-                                        <td>
-                                            {server.ip_address ||
-                                                "Не назначен"}
-                                        </td>
-                                        <td>
-                                            <span className="status-badge">
-                                                {server.status_name}
-                                            </span>
-                                        </td>
-                                        <td>{server.login}</td>
-                                        <td>
-                                            {server.expires_at
-                                                ? new Date(
-                                                      server.expires_at
-                                                  ).toLocaleDateString(
-                                                      "ru-RU"
-                                                  )
-                                                : "Не указан"}
-                                            {server.is_expired &&
-                                                " (истёк)"}
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                )}
-
-                {filteredServers.length > PAGE_SIZE && (
-                    <div className="account-pagination">
-                        <button
-                            type="button"
-                            disabled={page === 1}
-                            onClick={() =>
-                                setPage((current) => current - 1)
-                            }
+            {visible.length ? (
+                <div className="account-server-grid">
+                    {visible.map(server => (
+                        <article
+                            className="account-server-card"
+                            key={server.id}
                         >
-                            Назад
-                        </button>
+                            <div className="account-server-top">
+                                <div>
+                                    <span className="account-card-label">
+                                        Сервер №{server.id}
+                                    </span>
+                                    <h2>{server.tariff_title}</h2>
+                                </div>
+                                <span className="account-status">
+                                    {server.status_name}
+                                </span>
+                            </div>
 
-                        <span>
-                            Страница {page} из {totalPages}
-                        </span>
+                            <div className="account-server-info">
+                                <div>
+                                    <span>IP-адрес</span>
+                                    <strong>
+                                        {server.ip_address || "Не назначен"}
+                                    </strong>
+                                </div>
+                                <div>
+                                    <span>Логин</span>
+                                    <strong>
+                                        {server.login || "Не указан"}
+                                    </strong>
+                                </div>
+                                <div>
+                                    <span>Создан</span>
+                                    <strong>
+                                        {server.created_at
+                                            ? new Date(
+                                                server.created_at
+                                            ).toLocaleDateString("ru-RU")
+                                            : "Не указан"}
+                                    </strong>
+                                </div>
+                                <div>
+                                    <span>Оплачен до</span>
+                                    <strong>
+                                        {server.expires_at
+                                            ? new Date(
+                                                server.expires_at
+                                            ).toLocaleDateString("ru-RU")
+                                            : "Не указан"}
+                                        {server.is_expired && " (истёк)"}
+                                    </strong>
+                                </div>
+                            </div>
+                        </article>
+                    ))}
+                </div>
+            ) : (
+                <section className="account-section account-empty">
+                    <h2>
+                        {servers.length
+                            ? "Серверы не найдены"
+                            : "Серверов пока нет"}
+                    </h2>
+                    <p>
+                        {servers.length
+                            ? "Измените поисковый запрос."
+                            : "После оформления заказа серверы появятся здесь."}
+                    </p>
+                    {!servers.length && (
+                        <Link to="/tariffs" className="account-action">
+                            Выбрать тариф
+                        </Link>
+                    )}
+                </section>
+            )}
 
-                        <button
-                            type="button"
-                            disabled={page >= totalPages}
-                            onClick={() =>
-                                setPage((current) => current + 1)
-                            }
-                        >
-                            Далее
-                        </button>
-                    </div>
-                )}
-            </section>
-        </div>
+            {filtered.length > PAGE_SIZE && (
+                <nav
+                    className="account-pagination"
+                    aria-label="Страницы серверов"
+                >
+                    <button
+                        disabled={currentPage <= 1}
+                        onClick={() => setPage(p => p - 1)}
+                    >
+                        Назад
+                    </button>
+                    <span>
+                        Страница {currentPage} из {pages}
+                    </span>
+                    <button
+                        disabled={currentPage >= pages}
+                        onClick={() => setPage(p => p + 1)}
+                    >
+                        Далее
+                    </button>
+                </nav>
+            )}
+        </>
     );
 }
 
