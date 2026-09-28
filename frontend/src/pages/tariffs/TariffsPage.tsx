@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import "./TariffsPage.css";
+import { Link } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
 import { getTariffs } from "@/api/tariffs";
 import type { Tariff } from "@/types/tariff";
 import TariffCard from "@/components/tariff/TariffCard";
@@ -11,6 +13,8 @@ function TariffsPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const { user } = useAuth();
+  const isAdmin = user?.role === "admin";
 
 useEffect(() => {
     document.title = "Тарифы | Турбосервер";
@@ -35,7 +39,11 @@ useEffect(() => {
     <main className="pricing-page">
       <div className="container">
         <h1 className="page-title">Тарифы</h1>
-
+        {isAdmin && (
+          <Link to="/tariffs/create" className="admin-tariff-button">
+            Создать тариф
+          </Link>
+        )}
         {error && <p>{error}</p>}
 
         <div className="pricing-grid">

@@ -1,3 +1,4 @@
+
 import type { TariffFeature } from "./feature";
 
 export interface Tariff {
@@ -16,4 +17,6 @@ export interface Tariff {
   image_urls: string[];
   created_at: string;
   updated_at: string;
+  created_by?: number | null;
+  updated_by?: number | null;
 }

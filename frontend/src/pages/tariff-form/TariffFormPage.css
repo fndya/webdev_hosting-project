@@ -1,0 +1,73 @@
+
+.tariff-form-page {
+  padding-top: 36px;
+  padding-bottom: 60px;
+}
+
+.tariff-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 720px;
+  margin-top: 24px;
+}
+
+.tariff-form > label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-weight: 700;
+}
+
+.tariff-form input:not([type="checkbox"]),
+.tariff-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px 12px;
+  border: 1px solid #cbd0da;
+  border-radius: 6px;
+  font: inherit;
+}
+
+.tariff-form textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.tariff-form fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+  border: 1px solid #cbd0da;
+  border-radius: 6px;
+}
+
+.feature-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tariff-form button {
+  align-self: flex-start;
+  min-width: 170px;
+  padding: 12px 20px;
+  border: 0;
+  border-radius: 6px;
+  background: #042CC6;
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tariff-form button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.form-error {
+  color: #b42318;
+  white-space: pre-line;
+}

@@ -9,6 +9,8 @@ import FeatureCard from "@/components/feature/FeatureCard";
 
 import type { Tariff } from "@/types/tariff";
 
+import { useAuth } from "@/context/AuthContext";
+
 import region from "@/assets/icons/region.svg";
 import cpu from "@/assets/icons/cpu.svg";
 import ram from "@/assets/icons/ram.svg";
@@ -37,6 +39,9 @@ function getCoreWord(count: number) {
 function TariffDetailPage() {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
+
+    const { user } = useAuth();
+    const isAdmin = user?.role === "admin";
 
     const [tariff, setTariff] = useState<Tariff | null>(null);
     const [error, setError] = useState("");
@@ -216,7 +221,14 @@ function TariffDetailPage() {
                     )}
 
                     <div className="tariff-detail-actions">
-
+                        {isAdmin && (
+                            <Link
+                                to={`/tariffs/${tariff.id}/edit`}
+                                className="card-details-btn"
+                            >
+                                Редактировать тариф
+                            </Link>
+                        )}
                         <button
                             type="button"
                             className="card-buy-btn"

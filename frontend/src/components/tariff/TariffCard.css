@@ -268,6 +268,24 @@
     margin-top: 10px;
 }
 
+.tariff-admin-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+.tariff-edit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 0 16px;
+  border: 1px solid rgba(35, 47, 72, 0.2);
+  border-radius: 7px;
+  color: #232F48;
+  font-weight: 700;
+}
+
 /* =========================
    MOBILE
    ========================= */

@@ -1,3 +1,5 @@
+import { useAuth } from "@/context/AuthContext";
+
 import type { Tariff } from "@/types/tariff";
 import "./TariffCard.css";
 import region from "@/assets/icons/region.svg";
@@ -32,9 +34,10 @@ function getCoreWord(count: number) {
 }
 
 function TariffCard({ tariff }: TariffCardProps) {
-   const navigate = useNavigate();
-
-    const [isAddingToCart, setIsAddingToCart] = useState(false);
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  const isAdmin = user?.role === "admin";
+  const [isAddingToCart, setIsAddingToCart] = useState(false);
 
     const handleBuy = async () => {
         setIsAddingToCart(true);
@@ -96,6 +99,16 @@ function TariffCard({ tariff }: TariffCardProps) {
       >
           {isAddingToCart ? "Добавление..." : "Купить"}
       </button>
+      {isAdmin && (
+        <div className="tariff-admin-actions">
+          <Link
+            to={`/tariffs/${tariff.id}/edit`}
+            className="tariff-edit-btn"
+          >
+            Редактировать
+          </Link>
+        </div>
+      )}
 
       {tariff.is_recommended && (
         <span className="pricing-badge">Рекомендуем</span>

@@ -16,6 +16,7 @@ import TariffDetailPage from "./pages/tariff-detail/TariffDetailPage";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import CartPage from "./pages/cart/CartPage";
+import TariffFormPage from "./pages/tariff-form/TariffFormPage";
 
 
 function App() {
@@ -29,6 +30,14 @@ function App() {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/tariffs" element={<TariffsPage />} />
+                <Route
+                  path="/tariffs/create"
+                  element={<TariffFormPage />}
+                />
+                <Route
+                  path="/tariffs/:id/edit"
+                  element={<TariffFormPage />}
+                />
                 <Route
                     path="/tariffs/:id"
                     element={<TariffDetailPage />}
