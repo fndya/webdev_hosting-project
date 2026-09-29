@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{base_url}}/api/tariffs/?is_recommended=true"
+method: GET
+queryParams:
+  is_recommended: "true"
+order: 4500822305077578

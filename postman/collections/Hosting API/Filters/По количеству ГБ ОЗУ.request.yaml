@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{base_url}}/api/tariffs/?ram_gb=8"
+method: GET
+queryParams:
+  ram_gb: "8"
+order: 4492155272960390
