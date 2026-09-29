@@ -12,25 +12,10 @@ import { Link, useNavigate } from "react-router-dom";
 import TariffParameter from "./TariffParameter";
 import { useState } from "react";
 import { addToCart } from "@/api/cart";
+import { getCoreWord } from "@/utils/formatTariff";
 
 interface TariffCardProps {
   tariff: Tariff;
-}
-
-function getCoreWord(count: number) {
-  if (count % 10 === 1 && count % 100 !== 11) {
-    return "ядро";
-  }
-
-  if (
-    count % 10 >= 2 &&
-    count % 10 <= 4 &&
-    (count % 100 < 10 || count % 100 >= 20)
-  ) {
-    return "ядра";
-  }
-
-  return "ядер";
 }
 
 function TariffCard({ tariff }: TariffCardProps) {

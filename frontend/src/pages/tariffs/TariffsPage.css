@@ -142,27 +142,6 @@
         gap: 18px;
     }
 
-    .pricing-card {
-        padding: 22px 20px;
-    }
-
-    .pricing-card h2 {
-        font-size: 17px;
-    }
-
-    .tariff-row {
-        grid-template-columns: 24px 1fr auto;
-
-        gap: 8px;
-
-        margin-bottom: 13px;
-    }
-
-    .tariff-row strong,
-    .tariff-row span:last-child {
-        font-size: 14px;
-    }
-
     .pagination {
         flex-wrap: wrap;
 
@@ -171,27 +150,3 @@
         margin-top: 28px;
     }
 }
-
-
-@media (max-width: 480px) {
-
-    .pricing-card {
-        padding: 20px 16px;
-    }
-
-    .tariff-row {
-        grid-template-columns: 24px 1fr;
-    }
-
-    .tariff-row span:last-child {
-        grid-column: 2;
-
-        white-space: normal;
-    }
-
-    .pricing-card .card-buy-btn,
-    .card-details-btn {
-        height: 42px;
-    }
-}
-

@@ -61,7 +61,6 @@
 
 .form-fields {
     display: grid;
-    flex-direction: column;
     gap: 20px;
 }
 
@@ -72,7 +71,6 @@
 
 .tariff-form-field {
     display: grid;
-    flex-direction: column;
     gap: 8px;
 }
 

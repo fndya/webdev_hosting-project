@@ -334,9 +334,9 @@ function TariffFormPage() {
                             <button
                                 type="submit"
                                 className="form-save-btn"
-                                disabled={isLoading}
+                                disabled={isSaving}
                             >
-                                {isLoading ? "Сохранение..." : "Сохранить тариф"}
+                                {isSaving ? "Сохранение..." : "Сохранить тариф"}
                             </button>
                         </div>
                     </form>
