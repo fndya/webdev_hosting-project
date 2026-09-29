@@ -55,6 +55,10 @@ class TariffSerializer(serializers.ModelSerializer):
         read_only=True,
     )
 
+    orders_count = serializers.IntegerField(
+        read_only=True,
+    )
+
     class Meta:
         model = Tariff
         fields = (
@@ -77,6 +81,7 @@ class TariffSerializer(serializers.ModelSerializer):
             "updated_by",
             "created_at",
             "updated_at",
+            "orders_count",
         )
         read_only_fields = (
             "id",
