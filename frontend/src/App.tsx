@@ -17,6 +17,7 @@ import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import CartPage from "./pages/cart/CartPage";
 import TariffFormPage from "./pages/tariff-form/TariffFormPage";
+import SupportPage from "./pages/support/SupportPage";
 
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
                     path="/cart"
                     element={<CartPage />}
                 />
+                <Route path="/support" element={<SupportPage />} />
                 <Route path="/account" element={<AccountLayout />}>
                     <Route index element={<AccountPage />} />
                     <Route path="orders" element={<OrdersPage />} />

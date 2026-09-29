@@ -21,6 +21,7 @@ import type { TariffFeature } from "@/types/feature";
 import type { Tariff } from "@/types/tariff";
 
 import "./HomePage.css";
+import SupportForm from "@/components/support/SupportForm";
 
 
 function HomePage() {    
@@ -187,7 +188,11 @@ function HomePage() {
         </section>
         <section className="contact-section">
             <div className="container">
-                
+                <h2>Связаться с поддержкой</h2>
+                <SupportForm compact />
+                <p className="support-page-link">
+                    Нужна помощь? <Link to="/support">Страница поддержки</Link>
+                </p>
             </div>
         </section>
         </>
