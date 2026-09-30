@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{base_url}}/api/tariffs/?cpu_cores=4"
+method: GET
+queryParams:
+  cpu_cores: "4"
+order: 4445905524394934

@@ -1,0 +1,7 @@
+$kind: http-request
+url: "{{base_url}}/api/tariffs/?min_price=1600&cpu_cores=2"
+method: GET
+queryParams:
+  min_price: "1600"
+  cpu_cores: "2"
+order: 4501477847491525

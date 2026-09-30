@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{base_url}}/api/tariffs/?title=Вместительный"
+method: GET
+queryParams:
+  title: Вместительный
+order: 3622706975680236

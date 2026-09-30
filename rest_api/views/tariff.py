@@ -1,5 +1,7 @@
 from django.core.cache import cache
 
+from django.db.models import Count
+
 from django_filters.rest_framework import (
     DjangoFilterBackend,
 )
@@ -91,6 +93,7 @@ class TariffListCreateView(ListCreateAPIView):
 
         queryset = (
             Tariff.objects
+            .annotate(orders_count=Count("orders"))
             .prefetch_related(
                 "features",
                 "images",
@@ -172,6 +175,7 @@ class TariffDetailView(
 
         queryset = (
             Tariff.objects
+            .annotate(orders_count=Count("orders"))
             .prefetch_related(
                 "features",
                 "images",
