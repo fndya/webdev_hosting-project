@@ -1,0 +1,98 @@
+
+.orders-page {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.orders-header h2 {
+    margin: 0 0 8px;
+}
+
+.orders-header p {
+    margin: 0;
+}
+
+.orders-panel {
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+}
+
+.orders-toolbar {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.orders-toolbar label {
+    font-weight: 600;
+}
+
+.orders-search {
+    display: flex;
+    gap: 10px;
+}
+
+.orders-search input {
+    flex: 1;
+    min-width: 0;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font: inherit;
+}
+
+.orders-search button {
+    padding: 10px 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+}
+
+.orders-search button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.orders-count {
+    font-size: 14px;
+}
+
+.orders-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.orders-table th,
+.orders-table td {
+    padding: 12px;
+    border-bottom: 1px solid #e5e5e5;
+    white-space: nowrap;
+}
+
+.orders-table th {
+    font-weight: 600;
+}
+
+@media (max-width: 600px) {
+    .orders-panel {
+        padding: 12px;
+    }
+
+    .orders-search {
+        flex-direction: column;
+    }
+
+    .orders-search button {
+        align-self: flex-start;
+    }
+}

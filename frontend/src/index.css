@@ -1,0 +1,196 @@
+html,
+body,
+#root {
+    min-height: 100%;
+}
+
+
+* {    
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+
+    font-family: Inter, Arial, sans-serif;
+    background: #F4F6FB;
+    color: #232F48;
+
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+#root {
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+.app-content {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    min-height: 0;
+}
+
+.app-content > main {
+    flex: 1;
+}
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.container {
+    width: min(1120px, calc(100% - 32px));
+    margin: 0 auto;
+}
+
+/* =========================
+   COMMON SECTION TITLES
+   ========================= */
+
+.section-title {
+    margin-bottom: 26px;
+}
+
+.section-title h2 {
+    margin: 0 0 8px;
+    font-size: 30px;
+}
+
+.section-title p {
+    margin: 0;
+    color: #4A5163;
+}
+
+.row-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 24px;
+}
+
+.row-title a {
+    color: #042CC6;
+    font-weight: 800;
+}
+
+
+/* =========================
+   COMMON STATUS
+   ========================= */
+
+.status {
+    display: inline-block;
+
+    background: #E1E5EE;
+
+    border-radius: 999px;
+    padding: 6px 10px;
+
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.status-active {
+    background: #d8f5e5;
+    color: #0b7a42;
+}
+
+.status-stopped {
+    background: #ffe0e0;
+    color: #9b1c1c;
+}
+
+.status-creating,
+.status-rebooting {
+    background: #fff2c2;
+    color: #866100;
+}
+
+.support-messages {
+    margin-bottom: 20px;
+}
+
+.support-message {
+    padding: 14px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.support-message.success {
+    color: #166534;
+    background: #dcfce7;
+    border: 1px solid #bbf7d0;
+}
+
+/* =========================
+   FOCUS STYLES
+   ========================= */
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline: 3px solid rgba(4, 44, 198, 0.35);
+    outline-offset: 3px;
+}
+
+/* =========================
+   ACCESSIBILITY
+   ========================= */
+
+.skip-link {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+
+    z-index: 9999;
+
+    padding: 10px 16px;
+
+    background: #ffffff;
+    color: #232F48;
+
+    border: 2px solid #042CC6;
+    border-radius: 6px;
+
+    font-size: 14px;
+    font-weight: 800;
+
+    transform: translateY(-150%);
+    transition: transform 0.2s ease;
+}
+
+.skip-link:focus {
+    transform: translateY(0);
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 950px) {
+
+    .container {
+        width: 100%;
+        max-width: none;
+        padding: 0 14px;
+    }
+}
+

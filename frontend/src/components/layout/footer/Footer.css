@@ -1,0 +1,42 @@
+/* =========================
+   FOOTER
+   ========================= */
+
+.footer {
+    background: #232F48;
+    color: #ffffff;
+
+    min-height: 110px;
+
+    display: flex;
+    align-items: center;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.footer strong {
+    font-size: 15px;
+    letter-spacing: 0.03em;
+}
+
+@media (max-width: 950px) {
+    .footer {
+        min-height: 92px;
+    }
+
+    .footer .container {
+        display: flex;
+        flex-direction: column;
+
+        align-items: center;
+        justify-content: center;
+
+        gap: 4px;
+
+        text-align: center;
+    }
+
+    .footer strong {
+        font-size: 18px;
+    }
+}

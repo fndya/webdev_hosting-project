@@ -1,0 +1,494 @@
+/* =========================
+   HERO
+   ========================= */
+
+.hero {
+    padding: 44px 0 30px;
+}
+
+.hero-card {
+    position: relative;
+
+    height: 700px;
+
+    overflow: hidden;
+
+    border-radius: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(18, 27, 51, 0.8),
+            rgba(18, 27, 51, 0.08)),
+            url("../../assets/images/hero-image.jpg");
+
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+
+    padding: 72px 48px;
+}
+
+.hero h1 {
+    max-width: 430px;
+
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 38px;
+    line-height: 1.1;
+}
+
+.hero-button {
+    position: absolute;
+    right: 48px;
+    bottom: 48px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 54px;
+    padding: 0 28px;
+
+    border-radius: 8px;
+
+    background: #042CC6;
+    color: #ffffff;
+
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.hero-button:hover {
+    background: #06239a;
+    transform: translateY(-2px);
+}
+
+
+
+/* =========================
+   RECOMMENDED TARIFFS
+   ========================= */
+
+.tariffs-section {
+    padding: 64px 0;
+}
+
+.tariff-section-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+}
+/* =========================
+   FEATURES
+   ========================= */
+
+.feature-section {
+    padding: 64px 0;
+}
+
+.feature-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 20px;
+}
+
+
+
+/* =========================
+   STATISTICS
+   ========================= */
+
+.stats-section {
+    padding: 64px 0;
+
+    background: rgba(255, 255, 255, 0.35);
+}
+
+.stats-grid {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 18px;
+}
+
+.stat-card {
+    padding: 24px;
+
+    background: #ffffff;
+    border-radius: 8px;
+}
+
+.stat-card strong {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #042CC6;
+
+    font-size: 34px;
+}
+
+.stat-card span {
+    color: #4A5163;
+}
+
+
+/* =========================
+   CONTACT
+   ========================= */
+
+.contact-section {
+    padding: 64px 0 80px;
+}
+
+.contact-section h2 {
+    margin-bottom: 34px;
+
+    text-align: center;
+
+    font-size: 28px;
+}
+
+.contact-section .container {
+    max-width: 900px;
+}
+
+.
+.support-page-link {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.support-page-link a {
+    color: #042CC6;
+    font-weight: 700;
+}
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 950px) {
+
+    /* HERO */
+
+    .hero {
+        padding: 14px 0 28px;
+    }
+
+    .hero-card {
+        min-height: 520px;
+        height: auto;
+
+        border-radius: 10px;
+
+        background-position: 58% center;
+    }
+
+    .hero-overlay {
+        min-height: 520px;
+
+        display: flex;
+        flex-direction: column;
+
+        padding: 28px 20px;
+    }
+
+    .hero h1 {
+        max-width: 420px;
+
+        margin: 0;
+
+        font-size: clamp(30px, 8vw, 42px);
+        line-height: 1.02;
+        font-weight: 900;
+    }
+
+    .hero-button {
+        position: static;
+
+        width: 100%;
+
+        min-height: 54px;
+
+        margin-top: auto;
+
+        padding: 0 18px;
+
+        border-radius: 9px;
+
+        font-size: 16px;
+    }
+
+
+    /* SECTIONS */
+
+    .tariffs-section,
+    .feature-section,
+    .stats-section {
+        padding: 42px 0;
+    }
+
+    .section-title {
+        margin-bottom: 20px;
+
+        text-align: left;
+    }
+
+    .section-title h2 {
+        margin-bottom: 6px;
+
+        font-size: 24px;
+        line-height: 1.15;
+    }
+
+    .section-title p {
+        font-size: 14px;
+        line-height: 1.45;
+    }
+
+
+    /* TARIFFS */
+
+    .tariff-section-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        gap: 14px;
+    }
+
+    .tariff-card {
+        min-width: 0;
+
+        padding: 18px;
+
+        border-radius: 10px;
+    }
+
+    .tariff-card h3 {
+        font-size: 19px;
+        line-height: 1.2;
+    }
+
+    .tariff-card p {
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+    .tariff-card li {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    .price {
+        margin: 14px 0;
+
+        font-size: 21px;
+    }
+
+    .tariff-card .primary-btn {
+        width: 100%;
+
+        min-height: 44px;
+
+        padding: 0 12px;
+
+        font-size: 14px;
+    }
+
+
+    /* STATISTICS */
+
+    .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        gap: 12px;
+    }
+
+    .stat-card {
+        min-width: 0;
+
+        padding: 18px;
+
+        border-radius: 10px;
+    }
+
+    .stat-card strong {
+        margin-bottom: 6px;
+
+        font-size: 28px;
+    }
+
+    .stat-card span {
+        font-size: 13px;
+        line-height: 1.3;
+    }
+
+
+    /* FEATURES */
+
+    .feature-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        gap: 12px;
+    }
+
+    .feature-card {
+        min-width: 0;
+
+        padding: 16px;
+
+        border-radius: 10px;
+    }
+
+    .feature-card h3 {
+        margin-bottom: 8px;
+
+        font-size: 15px;
+        line-height: 1.2;
+    }
+
+    .feature-card p {
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+
+    /* CONTACT */
+
+    .contact-section {
+        padding: 34px 0 50px;
+    }
+
+    .contact-section h2 {
+        margin-bottom: 18px;
+
+        font-size: 24px;
+        line-height: 1.2;
+    }
+
+    .contact-form {
+        padding: 20px 16px;
+
+        border-radius: 12px;
+    }
+
+    .contact-form > p {
+        margin-top: 0;
+
+        font-size: 14px;
+        line-height: 1.45;
+    }
+
+    .form-row {
+        display: grid;
+
+        grid-template-columns: 1fr;
+
+        gap: 0;
+
+        margin-bottom: 0;
+    }
+
+    .form-field {
+        margin-bottom: 14px;
+    }
+
+    .form-field input {
+        min-height: 48px;
+    }
+
+    .form-field textarea {
+        min-height: 140px;
+    }
+
+    .form-button {
+        margin-top: 8px;
+    }
+
+    .form-button button {
+        width: 100%;
+
+        min-height: 52px;
+
+        font-size: 15px;
+    }
+}
+
+
+/* =========================
+   SMALL PHONES
+   ========================= */
+
+@media (max-width: 600px) {
+
+    .hero-card {
+        min-height: 470px;
+    }
+
+    .hero-overlay {
+        min-height: 470px;
+
+        padding: 24px 16px;
+    }
+
+    .hero h1 {
+        max-width: 340px;
+
+        font-size: clamp(28px, 9vw, 36px);
+    }
+
+    .tariff-section-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+
+/* =========================
+   VERY SMALL PHONES
+   ========================= */
+
+@media (max-width: 380px) {
+
+    .hero-card {
+        min-height: 440px;
+    }
+
+    .hero-overlay {
+        min-height: 440px;
+    }
+
+    .hero h1 {
+        font-size: 27px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-card {
+        padding: 16px;
+    }
+}
