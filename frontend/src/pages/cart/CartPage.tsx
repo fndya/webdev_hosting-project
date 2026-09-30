@@ -36,6 +36,7 @@ function CartPage() {
     const [items, setItems] = useState<CartItemWithTariff[]>([]);
 
     const [isLoading, setIsLoading] = useState(true);
+    const [isUpdating, setIsUpdating] = useState(false);
     const [error, setError] = useState("");
 
     const [isCheckingOut, setIsCheckingOut] = useState(false);
@@ -84,61 +85,66 @@ function CartPage() {
         loadCart(true);
     }, []);
 
-    const handleDecrease = async (
-        item: CartItemWithTariff
-    ) => {
-        if (item.quantity <= 1) {
-            return;
-        }
+    const handleDecrease = async (item: CartItemWithTariff) => {
+        if (item.quantity <= 1 || isUpdating) return;
+
+        setIsUpdating(true);
+        setError("");
 
         try {
-            await updateCartItem(
-                item.tariff_id,
-                item.quantity - 1
-            );
-
+            await updateCartItem(item.tariff_id, item.quantity - 1);
             await loadCart();
         } catch (error) {
             console.error(error);
-
-            if (error instanceof Error) {
-                setError(error.message);
-            }
+            setError(
+                error instanceof Error
+                    ? error.message
+                    : "Не удалось изменить количество."
+            );
+        } finally {
+            setIsUpdating(false);
         }
     };
 
-    const handleIncrease = async (
-        item: CartItemWithTariff
-    ) => {
-        try {
-            await updateCartItem(
-                item.tariff_id,
-                item.quantity + 1
-            );
+    const handleIncrease = async (item: CartItemWithTariff) => {
+        if (isUpdating) return;
 
+        setIsUpdating(true);
+        setError("");
+
+        try {
+            await updateCartItem(item.tariff_id, item.quantity + 1);
             await loadCart();
         } catch (error) {
             console.error(error);
-
-            if (error instanceof Error) {
-                setError(error.message);
-            }
+            setError(
+                error instanceof Error
+                    ? error.message
+                    : "Не удалось изменить количество."
+            );
+        } finally {
+            setIsUpdating(false);
         }
     };
 
-    const handleRemove = async (
-        tariffId: number
-    ) => {
+    const handleRemove = async (tariffId: number) => {
+        if (isUpdating) return;
+
+        setIsUpdating(true);
+        setError("");
+
         try {
             await removeFromCart(tariffId);
-
             await loadCart();
         } catch (error) {
             console.error(error);
-
-            if (error instanceof Error) {
-                setError(error.message);
-            }
+            setError(
+                error instanceof Error
+                    ? error.message
+                    : "Не удалось удалить тариф."
+            );
+        } finally {
+            setIsUpdating(false);
         }
     };
 
@@ -393,7 +399,7 @@ function CartPage() {
                                                 onClick={() =>
                                                     handleDecrease(item)
                                                 }
-                                                disabled={item.quantity <= 1}
+                                                disabled={item.quantity <= 1 || isUpdating}
                                                 aria-label="Уменьшить количество"
                                             >
                                                 −
@@ -409,6 +415,7 @@ function CartPage() {
                                                 onClick={() =>
                                                     handleIncrease(item)
                                                 }
+                                                disabled={isUpdating}
                                                 aria-label="Увеличить количество"
                                             >
                                                 +
@@ -432,6 +439,7 @@ function CartPage() {
                                                         item.tariff_id
                                                     )
                                                 }
+                                                disabled={isUpdating}
                                             >
                                                 Удалить
                                             </button>
@@ -469,7 +477,7 @@ function CartPage() {
                                 type="button"
                                 className="cart-pay-btn"
                                 onClick={handleCheckout}
-                                disabled={isCheckingOut}
+                                disabled={isCheckingOut || isUpdating}
                             >
                                 {isCheckingOut
                                     ? "Оформление..."
