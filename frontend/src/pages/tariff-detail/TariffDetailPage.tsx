@@ -34,11 +34,14 @@ function TariffDetailPage() {
     const [isAddingToCart, setIsAddingToCart] = useState(false);
 
     useEffect(() => {
-        if (!id) {
+        const tariffId = Number(id);
+
+        if (!id || !Number.isInteger(tariffId) || tariffId <= 0) {
+            setError("Некорректный идентификатор тарифа.");
             return;
         }
 
-        getTariff(Number(id))
+        getTariff(tariffId)
             .then(setTariff)
             .catch((error: Error) => {
                 console.error(error);
@@ -55,10 +58,6 @@ function TariffDetailPage() {
     }, [tariff]);
 
     const handleAddToCart = async () => {
-        if (!tariff) {
-            return <TariffDetailSkeleton />;
-        }
-
         setIsAddingToCart(true);
         setError("");
 
@@ -79,7 +78,16 @@ function TariffDetailPage() {
     };
 
     if (error && !tariff) {
-        return <TariffDetailSkeleton />;
+        return (
+            <main className="tariff-detail-page">
+                <div className="container">
+                    <p role="alert">{error}</p>
+                    <Link to="/tariffs">
+                        Вернуться к тарифам
+                    </Link>
+                </div>
+            </main>
+        );
     }
 
     if (!tariff) {
@@ -208,13 +216,12 @@ function TariffDetailPage() {
 
                     <div className="tariff-detail-actions">
                         {isAdmin && (
-                            <button className="card-buy-btn tariff-edit-button">
-                                <Link
-                                    to={`/tariffs/${tariff.id}/edit`}
-                                >
-                                    Редактировать тариф
-                                </Link>
-                            </button>
+                            <Link
+                                to={`/tariffs/${tariff.id}/edit`}
+                                className="card-buy-btn tariff-edit-button"
+                            >
+                                Редактировать тариф
+                            </Link>
                         )}
                         <button
                             type="button"
