@@ -109,7 +109,10 @@ function OrdersPage() {
                                         <td>{order.quantity}</td>
                                         <td>{order.total_price} ₽</td>
                                         <td>
-                                            <span className="account-status">
+                                            <span 
+                                                className="account-status"
+                                                aria-label={`Статус заказа: ${order.status}`}
+                                            >
                                                 {order.status}
                                             </span>
                                         </td>
@@ -122,6 +125,11 @@ function OrdersPage() {
                                 ))}
                             </tbody>
                         </table>
+                    </div>
+                ) : error ? (
+                    <div className="account-empty">
+                        <h2>Не удалось загрузить заказы</h2>
+                        <p>{error}</p>
                     </div>
                 ) : (
                     <div className="account-empty">

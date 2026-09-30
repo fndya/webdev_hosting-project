@@ -19,13 +19,26 @@ function AccountPage() {
     const [error, setError] = useState("");
 
     useEffect(() => {
-        Promise.all([getOrders(), getServers()])
-            .then(([ordersData, serversData]) => {
-                setOrders(ordersData);
-                setServers(serversData);
-            })
-            .catch((err: Error) => {
-                setError(err.message);
+        Promise.allSettled([
+            getOrders(),
+            getServers(),
+        ])
+            .then(([ordersResult, serversResult]) => {
+                const errors: string[] = [];
+
+                if (ordersResult.status === "fulfilled") {
+                    setOrders(ordersResult.value);
+                } else {
+                    errors.push("Не удалось загрузить заказы.");
+                }
+
+                if (serversResult.status === "fulfilled") {
+                    setServers(serversResult.value);
+                } else {
+                    errors.push("Не удалось загрузить серверы.");
+                }
+
+                setError(errors.join(" "));
             })
             .finally(() => {
                 setIsLoading(false);

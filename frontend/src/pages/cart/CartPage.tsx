@@ -149,6 +149,7 @@ function CartPage() {
     };
 
     const handleCheckout = async () => {
+        if (isCheckingOut || isUpdating) return;
         if (!user) {
             navigate("/login");
             return;
